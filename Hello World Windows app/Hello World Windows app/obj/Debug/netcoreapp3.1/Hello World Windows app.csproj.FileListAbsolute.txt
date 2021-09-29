@@ -1,0 +1,32 @@
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.AssemblyReference.cache
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello_World_Windows_app.Form1.resources
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.GenerateResource.cache
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.AssemblyInfoInputs.cache
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.AssemblyInfo.cs
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.CoreCompileInputs.cache
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.exe
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.deps.json
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.runtimeconfig.json
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.runtimeconfig.dev.json
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.dll
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.pdb
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.dll
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.pdb
+C:\Users\joaop\source\repos\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.genruntimeconfig.cache
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.exe
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.deps.json
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.runtimeconfig.json
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.runtimeconfig.dev.json
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.dll
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\bin\Debug\netcoreapp3.1\Hello World Windows app.pdb
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.AssemblyReference.cache
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello_World_Windows_app.Form1.resources
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.GenerateResource.cache
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.AssemblyInfoInputs.cache
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.AssemblyInfo.cs
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.csproj.CoreCompileInputs.cache
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.dll
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.pdb
+C:\Users\joaop\Documents\DAD\Hello World Windows app\Hello World Windows app\obj\Debug\netcoreapp3.1\Hello World Windows app.genruntimeconfig.cache
