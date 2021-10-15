@@ -1,0 +1,105 @@
+DIDA-2021
+
+INTRODUCTION
+	1) assign a worker to each operator
+	2) instructs the worker to run the first operator
+	3) the application operators call each other in a DAYISY CHAIN SEQUENCE
+	
+
+DATA
+	stored in a system maintained by storage nodes
+	
+
+DISTRIBUTED SYSTEMS
+	- how to access and replicate data records
+	- where to execute each operator
+	- how to maintain data consistency between nodes
+	
+
+ARCHITECTURE
+	- nodes where applications are run (workers???)
+	- nodes where data is stored
+	- scheduler used to deploy and start applications
+	
+
+STORAGE
+	- the system supports partial replication
+	- data stored on a predifined set of servers(subset of the full set of servers)
+	- intially all data items replication have the same factor
+	- GOSSIP PROTOCOL (one executes and update the others in background)
+
+
+APPLICATIONS
+
+	- sequence of commands in a text file.
+	- operator (classname, seq_no)
+
+		- add instance of classname (class) as operator
+		- position in chain of operators = seq_no
+		- first position = 0
+
+
+CLIENT REQUESTS
+
+	- tuple (string input, string application_file)
+	- received by scheduler
+		
+		- set up operators on worker nodes
+		- send DIDARequest to the first operator
+
+
+SCHEDULER
+
+	- each execution of given application started by scheduler -> new id
+	- info passed from worker node to  worker node (Daisy Chain?)
+	- DIDAMetaRecord needs more attributes?
+	- assigns worker to operator with DIDAAssignment
+	- scheduler creates DIDARequest that will be passed from worker to worker
+
+
+WORKERS
+
+	- receive DIDARequest
+		
+		1. read and update meta field (attributes)
+		2. read original input field and output field of previous operator (if any)?
+		3. update own output field
+
+	- operators can read/write to the data storage
+
+
+DATA CONSISTENCY
+
+	- if upstream operator writes on item that is read by downstream operator -> also read version
+	- if 2 operators read same item -> read same version
+	
+	- repeating requests to the same replica or contacting different replicas until the desired version is read
+	- if app tries to read a version that has been garbage-collected -> terminate
+
+
+FAULT TOLERANCE
+
+	- writes are applied to a single replica and propagated in background
+	- update can still be lost if replica fails before propagating the update
+	- assumed that scheduler and nodes don't fail
+
+	- assumptions
+
+		- replicas only fail by crashing
+		- when replica fails -> detected reliably by other nodes -> update the view of active servers accordingly
+		- a node that crashes never recovers
+		- no new nodes join the execution
+		- network is not subject to partitions
+
+	- at most "f" faults occur -> f < maxVersions -> there is at least 1 replica where writes and reads can be executed
+
+
+PUPPET MASTER
+
+	- centralised process that all nodes connect to
+	- provide a single console from where it is possible to control experiments
+	- machines run Process Creation Service -> contacted by PuppetMaster -> launch worker and storage servers -> contact PuppetMaster directly
+	- console should have GUI
+	- commands = async, except for "wait"
+
+	
