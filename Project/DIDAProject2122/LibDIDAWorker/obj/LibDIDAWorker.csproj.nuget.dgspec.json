@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj": {}
+    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj": {
+    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj",
+        "projectUniqueName": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj",
         "projectName": "LibDIDAWorker",
-        "projectPath": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj",
+        "projectPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\LibDIDAWorker.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\obj\\",
+        "outputPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAWorker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",

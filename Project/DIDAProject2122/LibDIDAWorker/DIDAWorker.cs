@@ -35,6 +35,7 @@ namespace DIDAWorker {
 
 	public class DIDAMetaRecord {
 		public int id;
+		//other metadata to be specified by the students
 	}
 
 	public struct DIDAStorageNode {

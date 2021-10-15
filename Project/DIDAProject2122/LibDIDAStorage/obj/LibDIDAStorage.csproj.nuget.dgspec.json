@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj": {}
+    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj": {
+    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj",
+        "projectUniqueName": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj",
         "projectName": "LibDIDAStorage",
-        "projectPath": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj",
+        "projectPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joaop\\OneDrive - Universidade de Lisboa\\IST\\Mestrado\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\obj\\",
+        "outputPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
