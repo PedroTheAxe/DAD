@@ -35,7 +35,7 @@ namespace LibDIDAStorage
 
         DIDAVersion IDIDAStorage.write(string id, string val)
         {
-            int latestVersionNumber = 0;
+            int latestVersionNumber = -1;
             int replicaId = 0; //tenho de saber em q replica quero meter -- should be a list or a dict
 
             foreach (DIDARecord r in recordsList)
