@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O85sJ0RaMr+17J6LM9ES960S2o/tSL+UFZ+Y2DIadO3QYsmfNiTCEFGB2ZKGkG8HU/QtsZ+N+0+hmYL7Oi1w+w==",
+  "dgSpecHash": "dz+ycIGEWPeIn34U2sBLf865cMEOs2mhl5FGCLxlx9E2htNZSZW8vVKGV0SN04d5Oidko+j1GAIi3fQauGjWyQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject2122\\LibDIDAStorage\\LibDIDAStorage.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\joaop\\.nuget\\packages\\google.protobuf\\3.18.1\\google.protobuf.3.18.1.nupkg.sha512",
-    "C:\\Users\\joaop\\.nuget\\packages\\grpc.core\\2.41.0\\grpc.core.2.41.0.nupkg.sha512",
-    "C:\\Users\\joaop\\.nuget\\packages\\grpc.core.api\\2.41.0\\grpc.core.api.2.41.0.nupkg.sha512",
-    "C:\\Users\\joaop\\.nuget\\packages\\grpc.tools\\2.41.0\\grpc.tools.2.41.0.nupkg.sha512",
-    "C:\\Users\\joaop\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
-    "C:\\Users\\joaop\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
