@@ -38,7 +38,7 @@ namespace DIDAStorageUI {
                 {
                     Id = recordVersionNull.id,
                     Version = { ReplicaId = recordVersionNull.version.replicaId, VersionNumber = recordVersionNull.version.versionNumber },
-                    Val = null
+                    Val = recordVersionNull.val
                 };
             }
 
