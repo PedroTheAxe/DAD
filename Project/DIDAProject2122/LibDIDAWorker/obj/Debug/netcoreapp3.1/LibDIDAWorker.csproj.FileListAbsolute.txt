@@ -18,3 +18,13 @@ C:\Users\joaop\OneDrive - Universidade de Lisboa\IST\Mestrado\DAD\Project\DIDAPr
 C:\Users\joaop\OneDrive - Universidade de Lisboa\IST\Mestrado\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.csproj.CoreCompileInputs.cache
 C:\Users\joaop\OneDrive - Universidade de Lisboa\IST\Mestrado\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.dll
 C:\Users\joaop\OneDrive - Universidade de Lisboa\IST\Mestrado\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.pdb
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\bin\Debug\netcoreapp3.1\LibDIDAWorker.deps.json
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\bin\Debug\netcoreapp3.1\LibDIDAWorker.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\bin\Debug\netcoreapp3.1\LibDIDAWorker.pdb
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.csproj.AssemblyReference.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.AssemblyInfoInputs.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.AssemblyInfo.cs
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.csproj.CoreCompileInputs.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject2122\LibDIDAWorker\obj\Debug\netcoreapp3.1\LibDIDAWorker.pdb
