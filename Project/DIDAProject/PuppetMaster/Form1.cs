@@ -106,22 +106,14 @@ namespace PuppetMaster
                 string applicationPath = Path.GetFullPath(Path.Combine(directory, @"..\..\", fileName, @"bin\Debug\netcoreapp3.1\", execName));
                 Console.WriteLine(applicationPath);
 
-                /*using (Process process = new Process())
+                using (Process process = new Process())
                 {
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.FileName = applicationPath;
                     process.StartInfo.CreateNoWindow = false;
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     process.Start();
-                }*/
-
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.UseShellExecute = true;
-                startInfo.CreateNoWindow = false;
-                startInfo.WindowStyle = ProcessWindowStyle.Normal;
-                startInfo.FileName = applicationPath;
-                //startInfo.Arguments = "www.northwindtraders.com";
-
-                Process.Start(startInfo);
+                }
             }
             catch (Exception e)
             {

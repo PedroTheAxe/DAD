@@ -1,12 +1,15 @@
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.exe
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.deps.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.dev.json
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Core.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Core.Api.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Net.Client.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Net.Common.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\runtimes\linux-arm64\native\libgrpc_csharp_ext.arm64.so
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
@@ -14,7 +17,6 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcorea
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\LibDIDAStorage.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\LibDIDAWorker.dll
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfoInputs.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfo.cs
@@ -23,6 +25,3 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcorea
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.genruntimeconfig.cache
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Net.Client.dll
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Net.Common.dll
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll

@@ -113,8 +113,8 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("yau");
-            /*int Port = 2001;
+            //Console.WriteLine("yau");
+            int Port = 2001;
             Server server = new Server
             {
                 Services = { DIDAStorageService.BindService(new StorageService()) },
@@ -122,7 +122,7 @@ namespace DIDAStorageUI {
             };
             server.Start();
             Console.ReadKey();
-            server.ShutdownAsync().Wait();*/
+            server.ShutdownAsync().Wait();
             Console.ReadLine();
         }
     }
