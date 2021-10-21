@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -49,33 +50,82 @@ namespace PuppetMaster
         private void button2_Click(object sender, EventArgs e)
         {
             commandParser(textBox1.Text);
-            MessageBox.Show(textBox1.Text + "\r\n" + "Command executed.");
+            //MessageBox.Show(textBox1.Text + "\r\n" + "Command executed.");
         }
 
         private void commandParser(string command)
         {
             string[] instance = command.Split(' ');
+            string arguments;
+            string fileName;
             switch (instance[0])
             {
                 case "scheduler":
                     Console.WriteLine("entered scheduler\r\n");
+                    arguments = instance[1];
+                    fileName = "";
+                    //processCreationService(fileName, arguments);
                     break;
 
                 case "storage":
                     Console.WriteLine("entered storage\r\n");
+                    arguments = instance[1] + instance[2];
+                    fileName = "DIDAStorageUI";
+                    processCreationService(fileName, arguments);
                     break;
 
                 case "worker":
                     Console.WriteLine("entered worker\r\n");
+                    arguments = instance[1] + instance[2];
+                    fileName = "DIDAWorkerUI";
+                    processCreationService(fileName, arguments);
                     break;
 
                 case "populate":
                     Console.WriteLine("entered populate\r\n");
+                    //arguments = instance[1];
+                    //fileName = "";
+                    //processCreationService(fileName, arguments);
                     break;
 
                 case "client":
                     Console.WriteLine("entered client\r\n");
+                    //arguments = instance[1];
+                    //fileName = "";
+                    //processCreationService(fileName, arguments);
                     break;
+            }
+        }
+
+        private static void processCreationService(string fileName, string args)
+        {
+            try
+            {
+                string execName = fileName + ".exe";
+                string directory = System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString();
+                string applicationPath = Path.GetFullPath(Path.Combine(directory, @"..\..\", fileName, @"bin\Debug\netcoreapp3.1\", execName));
+                Console.WriteLine(applicationPath);
+
+                /*using (Process process = new Process())
+                {
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.FileName = applicationPath;
+                    process.StartInfo.CreateNoWindow = false;
+                    process.Start();
+                }*/
+
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.UseShellExecute = true;
+                startInfo.CreateNoWindow = false;
+                startInfo.WindowStyle = ProcessWindowStyle.Normal;
+                startInfo.FileName = applicationPath;
+                //startInfo.Arguments = "www.northwindtraders.com";
+
+                Process.Start(startInfo);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }

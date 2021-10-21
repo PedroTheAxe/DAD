@@ -5,7 +5,7 @@ using DIDAStorage;
 using Grpc.Core;
 
 namespace DIDAStorageUI {
-    // dummy storage
+    
     class StorageService : DIDAStorageService.DIDAStorageServiceBase {
         
         public List<DIDARecord> recordsList = new List<DIDARecord>();
@@ -113,7 +113,8 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
-            int Port = 2001;
+            Console.WriteLine("yau");
+            /*int Port = 2001;
             Server server = new Server
             {
                 Services = { DIDAStorageService.BindService(new StorageService()) },
@@ -121,7 +122,8 @@ namespace DIDAStorageUI {
             };
             server.Start();
             Console.ReadKey();
-            server.ShutdownAsync().Wait();
+            server.ShutdownAsync().Wait();*/
+            Console.ReadLine();
         }
     }
 }
