@@ -40,7 +40,7 @@ namespace DIDAOperator
             string storedString = val.VersionNumber.ToString();
             Console.WriteLine(storedString);
 
-            return storedString; //supposed to return versionNumber? 
+            return storedString; //supposed to return versionNumber? --- deve ser o resultado para ser o prox prevOpOutput
         }
     }
 }
