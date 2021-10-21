@@ -1,8 +1,8 @@
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.exe
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.deps.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.dev.json
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\Grpc.Core.dll

@@ -1,0 +1,13 @@
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.exe
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.deps.json
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.runtimeconfig.json
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.runtimeconfig.dev.json
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.pdb
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.AssemblyInfoInputs.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.AssemblyInfo.cs
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.csproj.CoreCompileInputs.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.pdb
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.genruntimeconfig.cache

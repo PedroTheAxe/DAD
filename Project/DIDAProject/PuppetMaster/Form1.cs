@@ -63,8 +63,8 @@ namespace PuppetMaster
                 case "scheduler":
                     Console.WriteLine("entered scheduler\r\n");
                     arguments = instance[1];
-                    fileName = "";
-                    //processCreationService(fileName, arguments);
+                    fileName = "DIDASchedulerUI";
+                    processCreationService(fileName, arguments);
                     break;
 
                 case "storage":
@@ -112,6 +112,7 @@ namespace PuppetMaster
                     process.StartInfo.FileName = applicationPath;
                     process.StartInfo.CreateNoWindow = false;
                     process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    process.StartInfo.Arguments = args;
                     process.Start();
                 }
             }
