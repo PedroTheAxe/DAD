@@ -8,8 +8,6 @@ namespace DIDASchedulerUI {
 
     public class PuppetMasterService : DIDAPuppetMasterService.DIDAPuppetMasterServiceBase
     {
-        private GrpcChannel channel;
-
         public PuppetMasterService()
         {
 

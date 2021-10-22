@@ -22,15 +22,15 @@ public static partial class DIDAPuppetMasterReflection {
   static DIDAPuppetMasterReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch1wcm90b3MvRElEQVB1cHBldE1hc3Rlci5wcm90byI6ChNESURBRmlsZVNl",
-          "bmRSZXF1ZXN0Eg8KB3dvcmtlcnMYASABKAkSEgoKb3BlcmF0aW9ucxgCIAEo",
-          "CSIgChFESURBRmlsZVNlbmRSZXBseRILCgNhY2sYASABKAkyTwoXRElEQVB1",
-          "cHBldE1hc3RlclNlcnZpY2USNAoIc2VuZEZpbGUSFC5ESURBRmlsZVNlbmRS",
-          "ZXF1ZXN0GhIuRElEQUZpbGVTZW5kUmVwbHliBnByb3RvMw=="));
+          "Ch1wcm90b3MvRElEQVB1cHBldE1hc3Rlci5wcm90byI5ChNESURBRmlsZVNl",
+          "bmRSZXF1ZXN0Eg8KB3dvcmtlcnMYASABKAkSEQoJb3BlcmF0b3JzGAIgASgJ",
+          "IiAKEURJREFGaWxlU2VuZFJlcGx5EgsKA2FjaxgBIAEoCTJPChdESURBUHVw",
+          "cGV0TWFzdGVyU2VydmljZRI0CghzZW5kRmlsZRIULkRJREFGaWxlU2VuZFJl",
+          "cXVlc3QaEi5ESURBRmlsZVNlbmRSZXBseWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendRequest), global::DIDAFileSendRequest.Parser, new[]{ "Workers", "Operations" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendRequest), global::DIDAFileSendRequest.Parser, new[]{ "Workers", "Operators" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendReply), global::DIDAFileSendReply.Parser, new[]{ "Ack" }, null, null, null, null)
         }));
   }
@@ -73,7 +73,7 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public DIDAFileSendRequest(DIDAFileSendRequest other) : this() {
     workers_ = other.workers_;
-    operations_ = other.operations_;
+    operators_ = other.operators_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -95,15 +95,15 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     }
   }
 
-  /// <summary>Field number for the "operations" field.</summary>
-  public const int OperationsFieldNumber = 2;
-  private string operations_ = "";
+  /// <summary>Field number for the "operators" field.</summary>
+  public const int OperatorsFieldNumber = 2;
+  private string operators_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Operations {
-    get { return operations_; }
+  public string Operators {
+    get { return operators_; }
     set {
-      operations_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      operators_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -123,7 +123,7 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
       return true;
     }
     if (Workers != other.Workers) return false;
-    if (Operations != other.Operations) return false;
+    if (Operators != other.Operators) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -132,7 +132,7 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
   public override int GetHashCode() {
     int hash = 1;
     if (Workers.Length != 0) hash ^= Workers.GetHashCode();
-    if (Operations.Length != 0) hash ^= Operations.GetHashCode();
+    if (Operators.Length != 0) hash ^= Operators.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -155,9 +155,9 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
       output.WriteRawTag(10);
       output.WriteString(Workers);
     }
-    if (Operations.Length != 0) {
+    if (Operators.Length != 0) {
       output.WriteRawTag(18);
-      output.WriteString(Operations);
+      output.WriteString(Operators);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -173,9 +173,9 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
       output.WriteRawTag(10);
       output.WriteString(Workers);
     }
-    if (Operations.Length != 0) {
+    if (Operators.Length != 0) {
       output.WriteRawTag(18);
-      output.WriteString(Operations);
+      output.WriteString(Operators);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -190,8 +190,8 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     if (Workers.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Workers);
     }
-    if (Operations.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Operations);
+    if (Operators.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Operators);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -208,8 +208,8 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     if (other.Workers.Length != 0) {
       Workers = other.Workers;
     }
-    if (other.Operations.Length != 0) {
-      Operations = other.Operations;
+    if (other.Operators.Length != 0) {
+      Operators = other.Operators;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -231,7 +231,7 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
           break;
         }
         case 18: {
-          Operations = input.ReadString();
+          Operators = input.ReadString();
           break;
         }
       }
@@ -254,7 +254,7 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
           break;
         }
         case 18: {
-          Operations = input.ReadString();
+          Operators = input.ReadString();
           break;
         }
       }

@@ -113,13 +113,19 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
-            int Port = 2001;
+            Console.WriteLine(args[0]);
+            string[] decomposedArgs = args[0].Split(":");
+
+            int port = Int32.Parse(decomposedArgs[2]);
+            Console.WriteLine(port);
+
             Server server = new Server
             {
                 Services = { DIDAStorageService.BindService(new StorageService()) },
-                Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
             };
             server.Start();
+            Console.WriteLine(server);
             Console.ReadKey();
             server.ShutdownAsync().Wait();
             Console.ReadLine();

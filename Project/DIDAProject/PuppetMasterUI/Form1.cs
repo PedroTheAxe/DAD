@@ -74,15 +74,15 @@ namespace PuppetMasterUI
 
                 case "storage":
                     Console.WriteLine("entered storage\r\n");
-                    arguments = instance[1] + instance[2];
+                    arguments = instance[1] + " " + instance[2];
                     fileName = "DIDAStorageUI";
                     processCreationService(fileName, arguments);
                     break;
 
                 case "worker":
                     Console.WriteLine("entered worker\r\n");
-                    arguments = instance[1] + instance[2];
-                    _workers += arguments + "\r\n";
+                    arguments = instance[1] + " " + instance[2];
+                    _workers += arguments + " ";
                     fileName = "DIDAWorkerUI";
                     processCreationService(fileName, arguments);
                     break;
@@ -93,8 +93,31 @@ namespace PuppetMasterUI
 
                 case "client":
                     Console.WriteLine("entered client\r\n");
-                    clientOpenFile(instance[2]);
-                    _operators = instance[1] + "\r\n";
+                    _operators = clientOpenFile(instance[2]);
+                    break;
+
+                case "status":
+                    Console.WriteLine("entered status\r\n");
+                    break;
+                
+                case "listServer":
+                    Console.WriteLine("entered list server\r\n");
+                    break;
+
+                case "listGlobal":
+                    Console.WriteLine("entered list global\r\n");
+                    break;
+
+                case "debug":
+                    Console.WriteLine("entered debug\r\n");
+                    break;
+
+                case "crash":
+                    Console.WriteLine("entered crash\r\n");
+                    break;
+
+                case "wait":
+                    Console.WriteLine("entered wait\r\n");
                     break;
             }
         }
@@ -136,7 +159,7 @@ namespace PuppetMasterUI
             GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
             DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
 
-            var reply = client.sendFile(new DIDAFileSendRequest { Workers = _workers, Operations = "operations" });
+            var reply = client.sendFile(new DIDAFileSendRequest { Workers = _workers, Operators = _operators} );
 
             if (reply.Ack.Equals("ack"))
                 MessageBox.Show("Scheduler received all necessary infomation.");
@@ -144,23 +167,27 @@ namespace PuppetMasterUI
             Console.ReadLine();
         }
 
-        public List<string> clientOpenFile(string fileName)
+        public string clientOpenFile(string fileName)
         {
-            List<string> ops = new List<string>();
+            string ops = "";
             string currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
             string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName));
 
-            using (FileStream fs = File.Open(path, FileMode.Open))
+            /*using (FileStream fs = File.Open(path, FileMode.Open))
             {
                 byte[] b = new byte[1024];
                 UTF8Encoding temp = new UTF8Encoding(true);
-                Console.WriteLine("vou imprimir");
+                
                 while (fs.Read(b, 0, b.Length) > 0)
                 {
-                    Console.WriteLine(temp.GetString(b));
+                    Console.WriteLine(temp.GetString(b) + "caca");
                     string[] handleOps = temp.GetString(b).Split(" ");
-                    ops.Add(handleOps[1]);
+                    ops += handleOps[1] + " ";
                 }
+            }*/
+            foreach (string line in System.IO.File.ReadLines(path))
+            {
+                ops += line + " ";
             }
 
             return ops;
