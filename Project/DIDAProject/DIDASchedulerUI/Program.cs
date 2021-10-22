@@ -1,8 +1,36 @@
 ﻿using DIDAPuppetClient;
 using Grpc.Core;
+using Grpc.Net.Client;
 using System;
+using System.Threading.Tasks;
 
-namespace DIDASchedulerUI { 
+namespace DIDASchedulerUI {
+
+    public class PuppetMasterService : DIDAPuppetMasterService.DIDAPuppetMasterServiceBase
+    {
+        private GrpcChannel channel;
+
+        public PuppetMasterService()
+        {
+
+        }
+
+        public override Task<DIDAFileSendReply> sendFile(DIDAFileSendRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(sendFileImpl(request));
+        }
+
+        public DIDAFileSendReply sendFileImpl(DIDAFileSendRequest request)
+        {
+            Console.WriteLine(request);
+            DIDAFileSendReply fileSendReply = new DIDAFileSendReply
+            {
+                Ack = "ack"
+            };
+
+            return fileSendReply;
+        }
+    }
 
     class Program
     {
@@ -15,15 +43,14 @@ namespace DIDASchedulerUI {
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
 
-            /*Server server = new Server
+            Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new Program()) },
+                Services = { DIDAPuppetMasterService.BindService(new PuppetMasterService()) },
                 Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
             };
             server.Start();
             Console.ReadKey();
-            server.ShutdownAsync().Wait();*/
-            Console.ReadLine();
+            server.ShutdownAsync().Wait();
 
             //TODO
 

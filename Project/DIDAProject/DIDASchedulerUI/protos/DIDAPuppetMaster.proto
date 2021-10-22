@@ -12,5 +12,5 @@ message DIDAFileSendRequest {
 }  
 
 message DIDAFileSendReply {     
-	string ack = 1; 
+	string ack = 1;
 }

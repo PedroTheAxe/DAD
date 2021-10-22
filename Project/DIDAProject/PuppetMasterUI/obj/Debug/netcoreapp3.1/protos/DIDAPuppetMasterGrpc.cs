@@ -63,35 +63,59 @@ public static partial class DIDAPuppetMasterService
     get { return global::DIDAPuppetMasterReflection.Descriptor.Services[0]; }
   }
 
-  /// <summary>Base class for server-side implementations of DIDAPuppetMasterService</summary>
-  [grpc::BindServiceMethod(typeof(DIDAPuppetMasterService), "BindService")]
-  public abstract partial class DIDAPuppetMasterServiceBase
+  /// <summary>Client for DIDAPuppetMasterService</summary>
+  public partial class DIDAPuppetMasterServiceClient : grpc::ClientBase<DIDAPuppetMasterServiceClient>
   {
+    /// <summary>Creates a new client for DIDAPuppetMasterService</summary>
+    /// <param name="channel">The channel to use to make remote calls.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::System.Threading.Tasks.Task<global::DIDAFileSendReply> sendFile(global::DIDAFileSendRequest request, grpc::ServerCallContext context)
+    public DIDAPuppetMasterServiceClient(grpc::ChannelBase channel) : base(channel)
     {
-      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+    /// <summary>Creates a new client for DIDAPuppetMasterService that uses a custom <c>CallInvoker</c>.</summary>
+    /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public DIDAPuppetMasterServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+    {
+    }
+    /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected DIDAPuppetMasterServiceClient() : base()
+    {
+    }
+    /// <summary>Protected constructor to allow creation of configured clients.</summary>
+    /// <param name="configuration">The client configuration.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected DIDAPuppetMasterServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+    {
     }
 
-  }
-
-  /// <summary>Creates service definition that can be registered with a server</summary>
-  /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  public static grpc::ServerServiceDefinition BindService(DIDAPuppetMasterServiceBase serviceImpl)
-  {
-    return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_sendFile, serviceImpl.sendFile).Build();
-  }
-
-  /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
-  /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-  /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-  /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-  public static void BindService(grpc::ServiceBinderBase serviceBinder, DIDAPuppetMasterServiceBase serviceImpl)
-  {
-    serviceBinder.AddMethod(__Method_sendFile, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAFileSendRequest, global::DIDAFileSendReply>(serviceImpl.sendFile));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAFileSendReply sendFile(global::DIDAFileSendRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendFile(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAFileSendReply sendFile(global::DIDAFileSendRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_sendFile, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAFileSendReply> sendFileAsync(global::DIDAFileSendRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendFileAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAFileSendReply> sendFileAsync(global::DIDAFileSendRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_sendFile, null, options, request);
+    }
+    /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected override DIDAPuppetMasterServiceClient NewInstance(ClientBaseConfiguration configuration)
+    {
+      return new DIDAPuppetMasterServiceClient(configuration);
+    }
   }
 
 }

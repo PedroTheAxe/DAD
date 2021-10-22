@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Client" />
+		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Server" />
 	</ItemGroup>
 	
 	<ItemGroup>

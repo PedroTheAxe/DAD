@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon />
@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Server" />
+		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 </Project>

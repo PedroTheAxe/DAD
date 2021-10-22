@@ -5,10 +5,10 @@ service DIDAPuppetMasterService {
 } 
 
 message DIDAFileSendRequest {     
-	string ack = 1;
+	string workers = 1;
+	string operations = 2;
 }  
 
 message DIDAFileSendReply {     
-	string workers = 1;
-	string operations = 2;; 
+	string ack = 1;
 }

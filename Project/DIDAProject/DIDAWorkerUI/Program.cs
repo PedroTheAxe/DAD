@@ -11,13 +11,14 @@ namespace DIDAWorkerUI
             Console.WriteLine(args[0]);
             //TODO: check and maybe refactor
             string className = args[0];
-            //string _dllNameTermination = ".dll";
+            string _dllNameTermination = ".dll";
             string _currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
-            //DIDAWorker.IDIDAOperator _objLoadedByReflection;
+            string savingPath = Path.GetFullPath(Path.Combine(_currWorkingDir, @"..\..\..\..\"));
+            DIDAWorker.IDIDAOperator _objLoadedByReflection;
+            
+            Console.WriteLine("directory: " + savingPath);
 
-            //Console.WriteLine("current directory: " + _currWorkingDir);
-            //change durectory to a more simple one
-            /*foreach (string filename in Directory.EnumerateFiles(_currWorkingDir))
+            foreach (string filename in Directory.EnumerateFiles(savingPath))
             {
                 Console.WriteLine("file in cwd: " + filename);
                 if (filename.EndsWith(_dllNameTermination))
@@ -40,7 +41,7 @@ namespace DIDAWorkerUI
                         }
                     }
                 }
-            }*/
+            }
 
             Console.ReadKey();
         }
