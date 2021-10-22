@@ -113,6 +113,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="protos\DIDAPuppetMaster.proto" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

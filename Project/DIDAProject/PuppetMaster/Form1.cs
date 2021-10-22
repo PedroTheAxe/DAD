@@ -21,7 +21,6 @@ namespace PuppetMaster
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int size = -1;
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -30,10 +29,9 @@ namespace PuppetMaster
                 try
                 {
                     string text = File.ReadAllText(file);
-                    size = text.Length;
                     Console.WriteLine(text); // only to debug
+
                     string[] commands = text.Split('\n');
-                    
                     foreach(string s in commands) {
                         commandParser(s);
                     }
@@ -42,9 +40,6 @@ namespace PuppetMaster
                 {
                 }
             }
-            // for debugging use.
-            Console.WriteLine(size);
-            Console.WriteLine(result); 
         }
 
         private void button2_Click(object sender, EventArgs e)

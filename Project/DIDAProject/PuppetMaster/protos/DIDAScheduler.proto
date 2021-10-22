@@ -1,0 +1,14 @@
+﻿syntax = "proto3";
+
+/* this service specifies how to access the storage */
+service DIDASchedulerService {
+  rpc send(DIDASendRequest) returns (DIDASendReply);
+}
+
+message DIDASendRequest {
+	DIDARequest request = 1;  // the id of the object being read
+}
+
+message DIDASendReply {
+	string ack = 1;
+}

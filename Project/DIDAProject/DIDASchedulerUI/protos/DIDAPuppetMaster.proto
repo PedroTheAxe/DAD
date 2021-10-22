@@ -1,0 +1,16 @@
+﻿syntax = "proto3";  
+
+option csharp_namespace = "DIDAPuppetClient";
+
+service DIDAPuppetMasterService {   
+	rpc sendFile(DIDAFileSendRequest) returns (DIDAFileSendReply); 
+} 
+
+message DIDAFileSendRequest {     
+	string workers = 1;
+	string operations = 2;
+}  
+
+message DIDAFileSendReply {     
+	string ack = 1; 
+}

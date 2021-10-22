@@ -113,7 +113,6 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
-            //Console.WriteLine("yau");
             int Port = 2001;
             Server server = new Server
             {
