@@ -187,7 +187,8 @@ namespace PuppetMasterUI
             }*/
             foreach (string line in System.IO.File.ReadLines(path))
             {
-                ops += line + " ";
+                string[] handleOps = line.Split(" ");
+                ops += handleOps[1] + " ";
             }
 
             return ops;

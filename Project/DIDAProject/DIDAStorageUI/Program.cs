@@ -113,8 +113,16 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine(args[0]);
-            string[] decomposedArgs = args[0].Split(":");
+            string[] decomposedArgs = args[1].Split(":");
+            
+            if (decomposedArgs[2].ToString().Length > 5)
+            {
+                decomposedArgs[2] = decomposedArgs[2].Substring(0, 5);
+            }
+            else
+            {
+                decomposedArgs[2] = decomposedArgs[2].Substring(0, 4);
+            }
 
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
