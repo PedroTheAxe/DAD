@@ -1,8 +1,9 @@
-﻿using Grpc.Core;
+﻿using DIDAPuppetClient;
+using Grpc.Core;
 using System;
 
-namespace DIDASchedulerUI
-{
+namespace DIDASchedulerUI { 
+
     class Program
     {
         static void Main(string[] args)

@@ -12,10 +12,10 @@ namespace DIDAWorkerUI
             //TODO: check and maybe refactor
             string className = args[0];
             //string _dllNameTermination = ".dll";
-            string _currWorkingDir = Directory.GetCurrentDirectory();
+            string _currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
             //DIDAWorker.IDIDAOperator _objLoadedByReflection;
 
-            Console.WriteLine("current directory: " + _currWorkingDir);
+            //Console.WriteLine("current directory: " + _currWorkingDir);
             //change durectory to a more simple one
             /*foreach (string filename in Directory.EnumerateFiles(_currWorkingDir))
             {

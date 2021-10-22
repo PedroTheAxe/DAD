@@ -1,0 +1,2 @@
+obj\Debug\netcoreapp3.1\protos/DIDAPuppetMaster.cs \
+obj\Debug\netcoreapp3.1\protos/DIDAPuppetMasterGrpc.cs: protos/DIDAPuppetMaster.proto

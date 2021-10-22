@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDAWorkerUI", "DIDAWorkerU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDAOperator", "DIDAReader\DIDAOperator.csproj", "{2FFB8E5A-8285-4179-A704-38131E278D93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppetMaster", "PuppetMaster\PuppetMaster.csproj", "{EA952997-B50F-4986-B56B-430104FA2C4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDASchedulerUI", "DIDASchedulerUI\DIDASchedulerUI.csproj", "{70A61F76-9D08-49A0-8AB9-FED9D4923B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIDASchedulerUI", "DIDASchedulerUI\DIDASchedulerUI.csproj", "{70A61F76-9D08-49A0-8AB9-FED9D4923B38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppetMasterUI", "PuppetMasterUI\PuppetMasterUI.csproj", "{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,14 @@ Global
 		{2FFB8E5A-8285-4179-A704-38131E278D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FFB8E5A-8285-4179-A704-38131E278D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FFB8E5A-8285-4179-A704-38131E278D93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA952997-B50F-4986-B56B-430104FA2C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA952997-B50F-4986-B56B-430104FA2C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA952997-B50F-4986-B56B-430104FA2C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA952997-B50F-4986-B56B-430104FA2C4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

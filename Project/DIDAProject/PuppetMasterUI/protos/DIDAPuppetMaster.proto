@@ -1,0 +1,14 @@
+﻿syntax = "proto3";  
+
+service DIDAPuppetMasterService {   
+	rpc sendFile(DIDAFileSendRequest) returns (DIDAFileSendReply); 
+} 
+
+message DIDAFileSendRequest {     
+	string ack = 1;
+}  
+
+message DIDAFileSendReply {     
+	string workers = 1;
+	string operations = 2;; 
+}
