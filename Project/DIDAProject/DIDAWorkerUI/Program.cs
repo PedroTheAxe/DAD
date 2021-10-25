@@ -1,13 +1,61 @@
-﻿using System;
+﻿using Grpc.Core;
+using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DIDAWorkerUI
 {
+    public class SchedulerService : DIDASchedulerService.DIDASchedulerServiceBase
+    {
+        public SchedulerService()
+        {
+
+        }
+
+        public override Task<DIDASendReply> send(DIDASendRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(sendImpl(request));
+        }
+
+        public DIDASendReply sendImpl(DIDASendRequest request)
+        {
+            DIDASendReply sendReply = new DIDASendReply
+            {
+                Ack = "ack"
+            };
+
+            return sendReply;
+        }
+
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+            // code to start grpc server for scheduler 
+            Console.WriteLine(args[1]);
+
+            string[] decomposedArgs = args[1].Split(":");
+
+            decomposedArgs[1] = decomposedArgs[1].Substring(2);
+            string host = decomposedArgs[1];
+            Console.WriteLine(host);
+
+            int port = Int32.Parse(decomposedArgs[2]);
+            Console.WriteLine(port);
+
+            Server server = new Server
+            {
+                Services = { DIDASchedulerService.BindService(new SchedulerService()) },
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
+            };
+            server.Start();
+            Console.ReadKey();
+            server.ShutdownAsync().Wait();
+
+
             Console.WriteLine(args[0]);
             //TODO: check and maybe refactor
             string className = args[0];

@@ -44,7 +44,6 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcorea
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\LibDIDAStorage.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\LibDIDAWorker.dll
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfoInputs.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfo.cs

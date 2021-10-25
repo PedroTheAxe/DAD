@@ -82,7 +82,7 @@ namespace PuppetMasterUI
                 case "worker":
                     Console.WriteLine("entered worker\r\n");
                     arguments = instance[1] + " " + instance[2];
-                    _workers += arguments + " ";
+                    _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
                     processCreationService(fileName, arguments);
                     break;
@@ -163,8 +163,6 @@ namespace PuppetMasterUI
 
             if (reply.Ack.Equals("ack"))
                 MessageBox.Show("Scheduler received all necessary infomation.");
-
-            Console.ReadLine();
         }
 
         public string clientOpenFile(string fileName)
@@ -173,22 +171,10 @@ namespace PuppetMasterUI
             string currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
             string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName));
 
-            /*using (FileStream fs = File.Open(path, FileMode.Open))
-            {
-                byte[] b = new byte[1024];
-                UTF8Encoding temp = new UTF8Encoding(true);
-                
-                while (fs.Read(b, 0, b.Length) > 0)
-                {
-                    Console.WriteLine(temp.GetString(b) + "caca");
-                    string[] handleOps = temp.GetString(b).Split(" ");
-                    ops += handleOps[1] + " ";
-                }
-            }*/
             foreach (string line in System.IO.File.ReadLines(path))
             {
                 string[] handleOps = line.Split(" ");
-                ops += handleOps[1] + " ";
+                ops += handleOps[1] + " " + handleOps[2] + ";";
             }
 
             return ops;

@@ -63,59 +63,35 @@ public static partial class DIDASchedulerService
     get { return global::DIDASchedulerReflection.Descriptor.Services[0]; }
   }
 
-  /// <summary>Client for DIDASchedulerService</summary>
-  public partial class DIDASchedulerServiceClient : grpc::ClientBase<DIDASchedulerServiceClient>
+  /// <summary>Base class for server-side implementations of DIDASchedulerService</summary>
+  [grpc::BindServiceMethod(typeof(DIDASchedulerService), "BindService")]
+  public abstract partial class DIDASchedulerServiceBase
   {
-    /// <summary>Creates a new client for DIDASchedulerService</summary>
-    /// <param name="channel">The channel to use to make remote calls.</param>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public DIDASchedulerServiceClient(grpc::ChannelBase channel) : base(channel)
+    public virtual global::System.Threading.Tasks.Task<global::DIDASendReply> send(global::DIDASendRequest request, grpc::ServerCallContext context)
     {
-    }
-    /// <summary>Creates a new client for DIDASchedulerService that uses a custom <c>CallInvoker</c>.</summary>
-    /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public DIDASchedulerServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
-    {
-    }
-    /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected DIDASchedulerServiceClient() : base()
-    {
-    }
-    /// <summary>Protected constructor to allow creation of configured clients.</summary>
-    /// <param name="configuration">The client configuration.</param>
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected DIDASchedulerServiceClient(ClientBaseConfiguration configuration) : base(configuration)
-    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::DIDASendReply send(global::DIDASendRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-    {
-      return send(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-    }
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual global::DIDASendReply send(global::DIDASendRequest request, grpc::CallOptions options)
-    {
-      return CallInvoker.BlockingUnaryCall(__Method_send, null, options, request);
-    }
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::DIDASendReply> sendAsync(global::DIDASendRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-    {
-      return sendAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-    }
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    public virtual grpc::AsyncUnaryCall<global::DIDASendReply> sendAsync(global::DIDASendRequest request, grpc::CallOptions options)
-    {
-      return CallInvoker.AsyncUnaryCall(__Method_send, null, options, request);
-    }
-    /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    protected override DIDASchedulerServiceClient NewInstance(ClientBaseConfiguration configuration)
-    {
-      return new DIDASchedulerServiceClient(configuration);
-    }
+  }
+
+  /// <summary>Creates service definition that can be registered with a server</summary>
+  /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  public static grpc::ServerServiceDefinition BindService(DIDASchedulerServiceBase serviceImpl)
+  {
+    return grpc::ServerServiceDefinition.CreateBuilder()
+        .AddMethod(__Method_send, serviceImpl.send).Build();
+  }
+
+  /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
+  /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+  /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+  /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  public static void BindService(grpc::ServiceBinderBase serviceBinder, DIDASchedulerServiceBase serviceImpl)
+  {
+    serviceBinder.AddMethod(__Method_send, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDASendRequest, global::DIDASendReply>(serviceImpl.send));
   }
 
 }

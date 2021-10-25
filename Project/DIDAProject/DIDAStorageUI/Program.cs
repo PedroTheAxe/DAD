@@ -113,16 +113,12 @@ namespace DIDAStorageUI {
 
     class Program {
         static void Main(string[] args) {
+            Console.WriteLine(args[1]);
             string[] decomposedArgs = args[1].Split(":");
-            
-            if (decomposedArgs[2].ToString().Length > 5)
-            {
-                decomposedArgs[2] = decomposedArgs[2].Substring(0, 5);
-            }
-            else
-            {
-                decomposedArgs[2] = decomposedArgs[2].Substring(0, 4);
-            }
+
+            decomposedArgs[1] = decomposedArgs[1].Substring(2);
+            string host = decomposedArgs[1];
+            Console.WriteLine(host);
 
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
@@ -130,10 +126,9 @@ namespace DIDAStorageUI {
             Server server = new Server
             {
                 Services = { DIDAStorageService.BindService(new StorageService()) },
-                Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
-            Console.WriteLine(server);
             Console.ReadKey();
             server.ShutdownAsync().Wait();
             Console.ReadLine();
