@@ -15,10 +15,10 @@ namespace PuppetMasterUI
 {
     public partial class Form1 : Form
     {
-        private string _schedulerHost;
+        private string _schedulerHost = "";
         private int _schedulerPort;
-        private string _workers;
-        private string _operators;
+        private string _workers = "";
+        private string _operators = "";
 
         public Form1()
         {

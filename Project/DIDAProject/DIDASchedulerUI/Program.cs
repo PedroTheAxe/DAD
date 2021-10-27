@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.Collections;
+using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -53,16 +54,29 @@ namespace DIDASchedulerUI {
                 }
             }
 
+            sendToWorker();
+
             return fileSendReply;
         }
 
         public void sendToWorker()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            //GrpcChannel channel = GrpcChannel.ForAddress(workersMap[0]);
-            //DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
-
-            //var reply = client.sendFile(new DIDAFileSendRequest { Workers = _workers, Operators = _operators });
+            
+            GrpcChannel channel = GrpcChannel.ForAddress(lowestWorkerPort());
+            DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
+            
+            List<DIDAOperatorID> operatorsIDs = buildOperatorsIDs();
+            DIDAAssignment[] assignments = buildAssignments(operatorsIDs);
+            DIDARequest request = buildRequest(assignments);
+            Console.WriteLine("request: " + request);
+            var reply = client.send(new DIDASendRequest { Request = request });
+            Console.WriteLine(reply);
+            //while (!reply.Ack.Equals("ack"))
+            //{
+            //    reply = client.send(new DIDASendRequest { Request = request });
+            //}
+            //var reply = client.send(new DIDASendRequest { Request = buildRequest(buildAssignments(buildOperatorsIDs())) });
         }
 
         public List<DIDAOperatorID> buildOperatorsIDs()
@@ -82,27 +96,48 @@ namespace DIDASchedulerUI {
 
         public DIDAAssignment[] buildAssignments(List<DIDAOperatorID> operatorsIDs)
         {
-            DIDAAssignment[] assignments = null;
-            int i = 0;
-            foreach (var item in workersMap)
+            DIDAAssignment[] assignments = new DIDAAssignment[operatorsIDs.Count];
+            var keys = new List<string>(workersMap.Keys);
+          
+            for (int i = 0; i < operatorsIDs.Count; i++) //circular vector
             {
-                string[] decomposedArgs = item.Value.Split(":");
-                
-                decomposedArgs[1] = decomposedArgs[1].Substring(2);
+                string key = keys[i % workersMap.Count];
+                string worker = workersMap[key];
+
+                string[] decomposedArgs = worker.Split(":");
+                decomposedArgs[1] = decomposedArgs[1][2..];
                 string host = decomposedArgs[1];
-
                 int port = Int32.Parse(decomposedArgs[2]);
-
+                
                 DIDAAssignment assignment = new DIDAAssignment
                 {
                     Op = operatorsIDs.Find(op => op.Order == i),
                     Host = host,
                     Port = port,
-                    Output = null
+                    Output = ""
                 };
                 assignments[i] = assignment;
-                i++;
             }
+            //foreach (var item in workersMap)
+            //{
+            //    Console.WriteLine(item);
+            //    string[] decomposedArgs = item.Value.Split(":");
+
+            //    decomposedArgs[1] = decomposedArgs[1][2..];
+            //    string host = decomposedArgs[1];
+
+            //    int port = Int32.Parse(decomposedArgs[2]);
+
+            //    DIDAAssignment assignment = new DIDAAssignment
+            //    {
+            //        Op = operatorsIDs.Find(op => op.Order == i),
+            //        Host = host,
+            //        Port = port,
+            //        Output = null
+            //    };
+            //    assignments[i] = assignment;
+            //    i++;
+            //}
             return assignments;
         }
 
@@ -114,14 +149,34 @@ namespace DIDASchedulerUI {
             };
             metaRecordId++;
 
-            return new DIDARequest
+            DIDARequest request = new DIDARequest();
+            request.Meta = metaRecord;
+            request.Input = "";
+            request.Next = 0;
+            request.ChainSize = assignments.Length;
+            request.Chain.Add(assignments);
+
+            return request;
+        }
+
+        public string lowestWorkerPort()
+        {
+            int minPort = Int32.MaxValue;
+            string worker = null;
+
+            foreach (var item in workersMap)
             {
-                Meta = metaRecord,
-                Input = null,
-                Next = 0,
-                ChainSize = assignments.Length,
-                //Chain
-            };
+                string[] decomposedArgs = item.Value.Split(":");
+
+                int port = Int32.Parse(decomposedArgs[2]);
+
+                minPort = Math.Min(minPort, port);
+
+                if (minPort == port)
+                    worker = item.Value;
+            }
+            
+            return worker;
         }
 
     }

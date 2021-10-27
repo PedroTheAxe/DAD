@@ -8,6 +8,7 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDARea
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.AssemblyInfoInputs.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.AssemblyInfo.cs
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.csproj.CoreCompileInputs.cache
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.csproj.CopyComplete
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\bin\Debug\netcoreapp3.1\DIDAOperator.deps.json
