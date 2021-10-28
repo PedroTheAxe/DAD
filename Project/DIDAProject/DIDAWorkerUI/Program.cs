@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using Grpc.Net.Client;
 using System;
 using System.IO;
 using System.Reflection;
@@ -33,8 +34,28 @@ namespace DIDAWorkerUI
             {
                 Ack = "ack"
             };
+            Console.WriteLine("yau");
+            if (request.Request.Next < request.Request.ChainSize)
+                sendToNextWorker(request);
 
             return sendReply;
+        }
+
+        public void sendToNextWorker(DIDASendRequest request)
+        {
+            request.Request.Next++;
+            string host = request.Request.Chain[request.Request.Next].Host;
+            string port = request.Request.Chain[request.Request.Next].Port.ToString();
+            string url = "http://" + host + ":" + port;
+            Console.WriteLine(url);
+
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            GrpcChannel channel = GrpcChannel.ForAddress(url);
+            DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
+            Console.WriteLine(request.Request);
+            var reply = client.send(new DIDASendRequest { Request = request.Request });
+
         }
 
         public void reflectionLoad(string className, DIDASendRequest request)
@@ -62,14 +83,13 @@ namespace DIDAWorkerUI
                         {
                             Console.WriteLine("Found type to load dynamically: " + className);
                             _objLoadedByReflection = (DIDAWorker.IDIDAOperator)Activator.CreateInstance(type);
-                            //foreach (MethodInfo method in type.GetMethods())
-                            //{
-                            //    Console.WriteLine("method from class " + className + ": " + method.Name);
-                            //}
-                            //_objLoadedByReflection.M("success!"); -- seria read, write or update...
-                            
-                            //DIDAWorker.DIDAMetaRecord meta = request.Request.Meta; //how to cast???
-                            //_objLoadedByReflection.ProcessRecord(meta, request.Request.Input, "");
+                            foreach (MethodInfo method in type.GetMethods())
+                            {
+                                Console.WriteLine("method from class " + className + ": " + method.Name);
+                            }
+
+                            //_objLoadedByReflection.ConfigureStorage();
+                            _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { id = request.Request.Meta.Id }, request.Request.Input, "");
                         }
                     }
                 }

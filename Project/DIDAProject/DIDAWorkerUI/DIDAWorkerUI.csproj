@@ -20,7 +20,8 @@
 	<ItemGroup>
 		<Protobuf Include="protos\DIDAStorage.proto" GrpcServices="Server" />
 		<Protobuf Include="protos\DIDAStorage.proto" GrpcServices="Client" />
-		<Protobuf Include="protos\DIDAScheduler.proto" GrpcServices="Server" />
+		<Protobuf Include="protos\DIDAScheduler.proto" GrpcServices="Both" />
+		
 	</ItemGroup>
 
 	<ItemGroup>

@@ -64,7 +64,8 @@ namespace PuppetMasterUI
             {
                 case "scheduler":
                     Console.WriteLine("entered scheduler\r\n");
-                    arguments = instance[1];
+                    //instance[1] -- é o server_id
+                    arguments = instance[2];
                     string[] handleConnection = arguments.Split(":");
                     _schedulerHost = handleConnection[1].Substring(2);
                     _schedulerPort = Int32.Parse(handleConnection[2]);
