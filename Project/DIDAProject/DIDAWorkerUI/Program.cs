@@ -34,9 +34,11 @@ namespace DIDAWorkerUI
             {
                 Ack = "ack"
             };
-            Console.WriteLine("yau");
             if (request.Request.Next < request.Request.ChainSize)
+            {
                 sendToNextWorker(request);
+            }
+
 
             return sendReply;
         }

@@ -172,7 +172,8 @@ namespace PuppetMasterUI
             string currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
             string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName));
 
-            foreach (string line in System.IO.File.ReadLines(path))
+            string[] paths = path.Split("\r");
+            foreach (string line in System.IO.File.ReadLines(paths[0]))
             {
                 string[] handleOps = line.Split(" ");
                 ops += handleOps[1] + " " + handleOps[2] + ";";
