@@ -48,3 +48,4 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcorea
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.genruntimeconfig.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache

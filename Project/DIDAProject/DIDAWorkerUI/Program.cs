@@ -9,8 +9,9 @@ namespace DIDAWorkerUI
 {
     public class SchedulerService : DIDASchedulerService.DIDASchedulerServiceBase
     {
+        private string _previousOutput = "";
+        //DIDASendRequest _request;
 
-        DIDASendRequest _request;
         public SchedulerService()
         {
 
@@ -25,15 +26,15 @@ namespace DIDAWorkerUI
         {
             Console.WriteLine(request);
             
-            _request = request;
+            //_request = request;
             string className = request.Request.Chain[request.Request.Next].Op.Classname;
-            reflectionLoad(className, request);
-            //dll Reflection comes here?
+            reflectionLoad(className, request); //.dll reflection
 
             DIDASendReply sendReply = new DIDASendReply
             {
                 Ack = "ack"
             };
+
             if (request.Request.Next < request.Request.ChainSize)
             {
                 Console.WriteLine("-------------------------------");
@@ -57,9 +58,9 @@ namespace DIDAWorkerUI
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
-            Console.WriteLine(request.Request);
+
             var reply = client.sendAsync(new DIDASendRequest { Request = request.Request });
-            Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
+            //Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
         }
 
         public void reflectionLoad(string className, DIDASendRequest request)
@@ -92,12 +93,19 @@ namespace DIDAWorkerUI
                                 Console.WriteLine("method from class " + className + ": " + method.Name);
                             }
 
-                            //_objLoadedByReflection.ConfigureStorage();
-                            _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { id = request.Request.Meta.Id }, request.Request.Input, "");
+                            _objLoadedByReflection.ConfigureStorage(new DIDAWorker.DIDAStorageNode[] { new DIDAWorker.DIDAStorageNode { host = "localhost", port = 3001, serverId = "s1" } }, locationFunction);
+                            _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
+                            return;
+                            //Console.WriteLine("previous: " + _previousOutput);
                         }
                     }
                 }
             }
+        }
+
+        private static DIDAWorker.DIDAStorageNode locationFunction(string id, DIDAWorker.OperationType type)
+        {
+            return new DIDAWorker.DIDAStorageNode { host = "localhost", port = 3001, serverId = "s1" };
         }
 
     }
@@ -124,7 +132,7 @@ namespace DIDAWorkerUI
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
-            Console.ReadKey();
+            Console.ReadLine();
             server.ShutdownAsync().Wait();
 
             //CODE OF SEND TO OTHER WORKER (TODO GRPC, CHANNEL...)

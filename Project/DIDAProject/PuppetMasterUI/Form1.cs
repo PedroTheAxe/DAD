@@ -160,17 +160,17 @@ namespace PuppetMasterUI
             GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
             DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
 
-            var reply = client.sendFile(new DIDAFileSendRequest { Workers = _workers, Operators = _operators} );
-
-            if (reply.Ack.Equals("ack"))
-                MessageBox.Show("Scheduler received all necessary infomation.");
+            var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, Operators = _operators} );
+            
+            //if (reply.Ack.Equals("ack"))
+            //    MessageBox.Show("Scheduler received all necessary infomation.");
         }
 
         public string clientOpenFile(string fileName)
         {
             string ops = "";
-            string currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
-            string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName));
+            string currWorkingDir = Directory.GetCurrentDirectory(); 
+            string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName)); //please laod the scripts to a specific folder
 
             string[] paths = path.Split("\r");
             foreach (string line in System.IO.File.ReadLines(paths[0]))

@@ -15,6 +15,7 @@ namespace DIDAStorageUI {
         }
 
         private DIDARecordReply ReadImpl(DIDAReadRequest request) {
+            Console.WriteLine("read");
             int latestVersionNumber = 0;
 
             foreach (DIDARecord r in recordsList)
@@ -57,6 +58,7 @@ namespace DIDAStorageUI {
         }
 
         private DIDAVersion UpdateImpl(DIDAUpdateIfRequest request) {
+            Console.WriteLine("update");
             //TODO: all previous conditional updates and writes must have been applied
             DIDARecord record = recordsList.Find(r => r.val.Equals(request.Oldvalue));
             if (!record.Equals(null)) //assumption from the internet
@@ -84,6 +86,7 @@ namespace DIDAStorageUI {
         }
 
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
+            Console.WriteLine("write");
             int latestVersionNumber = -1;
             int replicaId = 0; //tenho de saber em q replica quero meter -- should be a list or a dict
 
