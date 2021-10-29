@@ -11,7 +11,6 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASch
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libgrpc_csharp_ext.x64.so
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.csproj.AssemblyReference.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.AssemblyInfoInputs.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.AssemblyInfo.cs
@@ -45,3 +44,8 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netco
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.genruntimeconfig.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.csproj.AssemblyReference.cache
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.deps.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.runtimeconfig.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.runtimeconfig.dev.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\bin\Debug\netcoreapp3.1\DIDASchedulerUI.pdb
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASchedulerUI\obj\Debug\netcoreapp3.1\DIDASchedulerUI.genruntimeconfig.cache

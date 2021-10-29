@@ -7,6 +7,8 @@ service DIDAPuppetMasterService {
 message DIDAFileSendRequest {     
 	string workers = 1;
 	string operators = 2;
+	string storageNodes = 3;
+	string populateData = 4;
 }  
 
 message DIDAFileSendReply {     

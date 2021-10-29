@@ -32,7 +32,7 @@ namespace DIDAStorageUI {
                     Val = null
                 };
 
-            if (request.Version.Equals(null))
+            if (request.Version.VersionNumber == -1 && request.Version.ReplicaId == -1)
             {
                 DIDARecord recordVersionNull = recordsList.Find(r => r.version.versionNumber == latestVersionNumber);
                 return new DIDARecordReply

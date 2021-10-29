@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj": {}
+    "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj": {
+    "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj",
+        "projectUniqueName": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj",
         "projectName": "DIDAWorkerUI",
-        "projectPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj",
-        "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\obj\\",
+        "projectPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\DIDAWorkerUI.csproj",
+        "packagesPath": "C:\\Users\\francisco_rosa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDAWorkerUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\francisco_rosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -74,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

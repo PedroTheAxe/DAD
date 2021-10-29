@@ -7,6 +7,7 @@ service DIDASchedulerService {
 
 message DIDASendRequest {     
 	DIDARequest request = 1;
+	repeated DIDAStorageNode storageNodes = 2;
 }
 
 message DIDASendReply {     
@@ -35,4 +36,10 @@ message DIDAMetaRecord {
 message DIDAOperatorID {     
 	string classname = 1; 
 	int32 order = 2;
+}
+
+message DIDAStorageNode {
+	string serverId = 1;
+	string host = 2;
+	int32 port = 3;
 }

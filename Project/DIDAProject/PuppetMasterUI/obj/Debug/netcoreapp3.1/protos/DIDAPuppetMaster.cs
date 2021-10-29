@@ -22,15 +22,16 @@ public static partial class DIDAPuppetMasterReflection {
   static DIDAPuppetMasterReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Ch1wcm90b3MvRElEQVB1cHBldE1hc3Rlci5wcm90byI5ChNESURBRmlsZVNl",
+          "Ch1wcm90b3MvRElEQVB1cHBldE1hc3Rlci5wcm90byJlChNESURBRmlsZVNl",
           "bmRSZXF1ZXN0Eg8KB3dvcmtlcnMYASABKAkSEQoJb3BlcmF0b3JzGAIgASgJ",
-          "IiAKEURJREFGaWxlU2VuZFJlcGx5EgsKA2FjaxgBIAEoCTJPChdESURBUHVw",
-          "cGV0TWFzdGVyU2VydmljZRI0CghzZW5kRmlsZRIULkRJREFGaWxlU2VuZFJl",
-          "cXVlc3QaEi5ESURBRmlsZVNlbmRSZXBseWIGcHJvdG8z"));
+          "EhQKDHN0b3JhZ2VOb2RlcxgDIAEoCRIUCgxwb3B1bGF0ZURhdGEYBCABKAki",
+          "IAoRRElEQUZpbGVTZW5kUmVwbHkSCwoDYWNrGAEgASgJMk8KF0RJREFQdXBw",
+          "ZXRNYXN0ZXJTZXJ2aWNlEjQKCHNlbmRGaWxlEhQuRElEQUZpbGVTZW5kUmVx",
+          "dWVzdBoSLkRJREFGaWxlU2VuZFJlcGx5YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendRequest), global::DIDAFileSendRequest.Parser, new[]{ "Workers", "Operators" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendRequest), global::DIDAFileSendRequest.Parser, new[]{ "Workers", "Operators", "StorageNodes", "PopulateData" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAFileSendReply), global::DIDAFileSendReply.Parser, new[]{ "Ack" }, null, null, null, null)
         }));
   }
@@ -74,6 +75,8 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
   public DIDAFileSendRequest(DIDAFileSendRequest other) : this() {
     workers_ = other.workers_;
     operators_ = other.operators_;
+    storageNodes_ = other.storageNodes_;
+    populateData_ = other.populateData_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -107,6 +110,30 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     }
   }
 
+  /// <summary>Field number for the "storageNodes" field.</summary>
+  public const int StorageNodesFieldNumber = 3;
+  private string storageNodes_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string StorageNodes {
+    get { return storageNodes_; }
+    set {
+      storageNodes_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "populateData" field.</summary>
+  public const int PopulateDataFieldNumber = 4;
+  private string populateData_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string PopulateData {
+    get { return populateData_; }
+    set {
+      populateData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -124,6 +151,8 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     }
     if (Workers != other.Workers) return false;
     if (Operators != other.Operators) return false;
+    if (StorageNodes != other.StorageNodes) return false;
+    if (PopulateData != other.PopulateData) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -133,6 +162,8 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     int hash = 1;
     if (Workers.Length != 0) hash ^= Workers.GetHashCode();
     if (Operators.Length != 0) hash ^= Operators.GetHashCode();
+    if (StorageNodes.Length != 0) hash ^= StorageNodes.GetHashCode();
+    if (PopulateData.Length != 0) hash ^= PopulateData.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -159,6 +190,14 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
       output.WriteRawTag(18);
       output.WriteString(Operators);
     }
+    if (StorageNodes.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(StorageNodes);
+    }
+    if (PopulateData.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(PopulateData);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -177,6 +216,14 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
       output.WriteRawTag(18);
       output.WriteString(Operators);
     }
+    if (StorageNodes.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(StorageNodes);
+    }
+    if (PopulateData.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(PopulateData);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -192,6 +239,12 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     }
     if (Operators.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Operators);
+    }
+    if (StorageNodes.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(StorageNodes);
+    }
+    if (PopulateData.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(PopulateData);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -210,6 +263,12 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
     }
     if (other.Operators.Length != 0) {
       Operators = other.Operators;
+    }
+    if (other.StorageNodes.Length != 0) {
+      StorageNodes = other.StorageNodes;
+    }
+    if (other.PopulateData.Length != 0) {
+      PopulateData = other.PopulateData;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -234,6 +293,14 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
           Operators = input.ReadString();
           break;
         }
+        case 26: {
+          StorageNodes = input.ReadString();
+          break;
+        }
+        case 34: {
+          PopulateData = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -255,6 +322,14 @@ public sealed partial class DIDAFileSendRequest : pb::IMessage<DIDAFileSendReque
         }
         case 18: {
           Operators = input.ReadString();
+          break;
+        }
+        case 26: {
+          StorageNodes = input.ReadString();
+          break;
+        }
+        case 34: {
+          PopulateData = input.ReadString();
           break;
         }
       }

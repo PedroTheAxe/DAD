@@ -11,6 +11,8 @@ namespace DIDASchedulerUI {
     {
         private Dictionary<string, string> workersMap = new Dictionary<string, string>();
         private Dictionary<int, string> operatorsMap = new Dictionary<int, string>();
+        private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
+        private Dictionary<string, string> populateDataMap = new Dictionary<string, string>();
         private int metaRecordId = 0;
 
         public PuppetMasterService()
@@ -42,6 +44,17 @@ namespace DIDASchedulerUI {
                 }
             }
 
+            string[] storageNodes = request.StorageNodes.Split(';');
+            for (int i = 0; i < storageNodes.Length - 1; i++) //hardcoded pq comentario anterior -- pq como dividi por ; , o ulitmo vai estar vazio
+            {
+                Console.WriteLine(storageNodes[i]);
+                string[] parameters = storageNodes[i].Split(' ');
+                lock (this)
+                {
+                    storageNodesMap.Add(parameters[0], parameters[1]);
+                }
+            }
+
             string[] ops = request.Operators.Split(';');
             for (int i = 0; i < ops.Length-1; i++)
             {
@@ -51,6 +64,18 @@ namespace DIDASchedulerUI {
                 {
                     //we assume that the input is correct
                     operatorsMap.Add(Int32.Parse(parameters[1]), parameters[0]);
+                }
+            }
+
+            string[] pops = request.PopulateData.Split(';');
+            for (int i = 0; i < pops.Length-1; i++)
+            {
+                Console.WriteLine(pops[i]);
+                string[] parameters = pops[i].Split(' ');
+                lock (this)
+                {
+                    //we assume that the input is correct
+                    populateDataMap.Add(parameters[0], parameters[1]);
                 }
             }
 
@@ -70,7 +95,11 @@ namespace DIDASchedulerUI {
             DIDAAssignment[] assignments = buildAssignments(operatorsIDs);
             DIDARequest request = buildRequest(assignments);
             Console.WriteLine("request: " + request);
-            var reply = client.send(new DIDASendRequest { Request = request });
+            DIDAStorageNode[] nodes = buildStorageNodes();
+            DIDASendRequest sendRequest = new DIDASendRequest();
+            sendRequest.Request = request;
+            sendRequest.StorageNodes.Add(nodes);
+            var reply = client.send(sendRequest);
             Console.WriteLine(reply);
             //while (!reply.Ack.Equals("ack"))
             //{
@@ -78,6 +107,23 @@ namespace DIDASchedulerUI {
             //}
             //var reply = client.send(new DIDASendRequest { Request = buildRequest(buildAssignments(buildOperatorsIDs())) });
         }
+
+        public DIDAStorageNode[] buildStorageNodes()
+        {
+            DIDAStorageNode[] nodes = new DIDAStorageNode[storageNodesMap.Count];
+            var keys = new List<string>(storageNodesMap.Keys);
+            for (int i = 0; i < storageNodesMap.Count; i++)
+            {
+                string key = keys[i];
+                string[] decomposedArgs = storageNodesMap[key].Split(":");
+                string host = decomposedArgs[1][2..];
+                int port = Int32.Parse(decomposedArgs[2]);
+                nodes[i] = new DIDAStorageNode { ServerId = key, Host = host, Port = port };
+            }
+
+            return nodes;
+        }
+
 
         public List<DIDAOperatorID> buildOperatorsIDs()
         {
@@ -105,8 +151,7 @@ namespace DIDASchedulerUI {
                 string worker = workersMap[key];
 
                 string[] decomposedArgs = worker.Split(":");
-                decomposedArgs[1] = decomposedArgs[1][2..];
-                string host = decomposedArgs[1];
+                string host = decomposedArgs[1][2..];
                 int port = Int32.Parse(decomposedArgs[2]);
                 
                 DIDAAssignment assignment = new DIDAAssignment
@@ -151,7 +196,7 @@ namespace DIDASchedulerUI {
 
             DIDARequest request = new DIDARequest();
             request.Meta = metaRecord;
-            request.Input = "";
+            request.Input = "0";
             request.Next = 0;
             request.ChainSize = assignments.Length;
             request.Chain.Add(assignments);

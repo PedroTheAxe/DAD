@@ -19,6 +19,8 @@ namespace PuppetMasterUI
         private int _schedulerPort;
         private string _workers = "";
         private string _operators = "";
+        private string _populateData = "";
+        private string _storageNodes = "";
 
         public Form1()
         {
@@ -76,6 +78,7 @@ namespace PuppetMasterUI
                 case "storage":
                     Console.WriteLine("entered storage\r\n");
                     arguments = instance[1] + " " + instance[2];
+                    _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
                     processCreationService(fileName, arguments);
                     break;
@@ -90,11 +93,12 @@ namespace PuppetMasterUI
 
                 case "populate":
                     Console.WriteLine("entered populate\r\n");
+                    _populateData = openFile("populate", instance[1]);
                     break;
 
                 case "client":
                     Console.WriteLine("entered client\r\n");
-                    _operators = clientOpenFile(instance[2]);
+                    _operators = openFile("client", instance[2]);
                     break;
 
                 case "status":
@@ -160,23 +164,34 @@ namespace PuppetMasterUI
             GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
             DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
 
-            var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, Operators = _operators} );
+            var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, Operators = _operators, StorageNodes = _storageNodes, PopulateData = _populateData} );
             
             //if (reply.Ack.Equals("ack"))
             //    MessageBox.Show("Scheduler received all necessary infomation.");
         }
 
-        public string clientOpenFile(string fileName)
+        public string openFile(string type, string fileName)
         {
             string ops = "";
             string currWorkingDir = Directory.GetCurrentDirectory(); 
             string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName)); //please laod the scripts to a specific folder
 
             string[] paths = path.Split("\r");
+
             foreach (string line in System.IO.File.ReadLines(paths[0]))
             {
-                string[] handleOps = line.Split(" ");
-                ops += handleOps[1] + " " + handleOps[2] + ";";
+                if (type.Equals("client"))
+                {
+                    string[] handleOps = line.Split(" ");
+                    ops += handleOps[1] + " " + handleOps[2] + ";";
+                } 
+
+                if (type.Equals("populate"))
+                {
+                    string[] handleOps = line.Split(",");
+                    ops += handleOps[0] + " " + handleOps[1] + ";";
+                }
+                
             }
 
             return ops;
