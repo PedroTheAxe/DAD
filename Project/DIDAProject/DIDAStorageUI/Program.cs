@@ -37,21 +37,33 @@ namespace DIDAStorageUI {
                 Console.WriteLine("entrei");
                 Console.WriteLine(latestVersionNumber);
                 DIDARecord recordVersionNull = recordsList.Find(r => r.version.versionNumber == latestVersionNumber);
-                DIDARecordReply r = new DIDARecordReply
-                {
-                    Id = recordVersionNull.id,
-                    Version = { ReplicaId = recordVersionNull.version.replicaId, VersionNumber = recordVersionNull.version.versionNumber },
-                    Val = recordVersionNull.val
-                };
-                Console.WriteLine(r.Id);
-                Console.WriteLine(r.Version);
-                Console.WriteLine(r.Val);
-                return new DIDARecordReply
-                {
-                    Id = recordVersionNull.id,
-                    Version = { ReplicaId = recordVersionNull.version.replicaId, VersionNumber = recordVersionNull.version.versionNumber },
-                    Val = recordVersionNull.val
-                };
+                //Console.WriteLine(recordVersionNull.id);
+                //Console.WriteLine(recordVersionNull.version.replicaId);
+                //Console.WriteLine(recordVersionNull.version.versionNumber);
+                //Console.WriteLine(recordVersionNull.val);
+
+                DIDARecordReply r = new DIDARecordReply();
+                r.Id = recordVersionNull.id;
+                //Console.WriteLine(r.Id);
+                
+                DIDAVersion v = new DIDAVersion();
+                v.ReplicaId = recordVersionNull.version.replicaId;
+                v.VersionNumber = recordVersionNull.version.versionNumber;
+                r.Version = v;
+                //Console.WriteLine(v);
+                //Console.WriteLine(r.Version);
+                
+                r.Val = recordVersionNull.val;
+                //Console.WriteLine(r.Val);
+                Console.WriteLine("passei");
+
+                return r;
+                //return new DIDARecordReply
+                //{
+                //    Id = recordVersionNull.id,
+                //    Version = { ReplicaId = recordVersionNull.version.replicaId, VersionNumber = recordVersionNull.version.versionNumber },
+                //    Val = recordVersionNull.val
+                //};
             }
 
             DIDARecord record = recordsList.Find(r => r.version.Equals(request.Version));
@@ -98,7 +110,7 @@ namespace DIDAStorageUI {
 
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
             Console.WriteLine("write");
-            int latestVersionNumber = -1; //tera de ser variavel global 100%, senao cada vez q executa uma op acaba a 0
+            int latestVersionNumber = -1; //tera de ser variavel global 100%, senao cada vez q executa uma op acaba a 0????
             int replicaId = 0; //tenho de saber em q replica quero meter -- should be a list or a dict
 
             foreach (DIDARecord r in recordsList)
