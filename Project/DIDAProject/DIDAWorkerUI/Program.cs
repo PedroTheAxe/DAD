@@ -36,7 +36,9 @@ namespace DIDAWorkerUI
             };
             if (request.Request.Next < request.Request.ChainSize)
             {
+                Console.WriteLine("-------------------------------");
                 sendToNextWorker(request);
+                Console.WriteLine("-------------------------------");
             }
 
 
@@ -56,8 +58,8 @@ namespace DIDAWorkerUI
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
             Console.WriteLine(request.Request);
-            var reply = client.send(new DIDASendRequest { Request = request.Request });
-
+            var reply = client.sendAsync(new DIDASendRequest { Request = request.Request });
+            Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
         }
 
         public void reflectionLoad(string className, DIDASendRequest request)

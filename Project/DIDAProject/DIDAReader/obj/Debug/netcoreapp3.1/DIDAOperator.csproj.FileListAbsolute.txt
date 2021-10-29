@@ -23,3 +23,4 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.csproj.CopyComplete
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.pdb
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAReader\obj\Debug\netcoreapp3.1\DIDAOperator.csproj.AssemblyReference.cache
