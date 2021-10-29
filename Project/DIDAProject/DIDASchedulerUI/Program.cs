@@ -67,11 +67,11 @@ namespace DIDASchedulerUI {
                 }
             }
 
-            string[] pops = request.PopulateData.Split(';');
-            for (int i = 0; i < pops.Length-1; i++)
+            string[] populate = request.PopulateData.Split(';');
+            for (int i = 0; i < populate.Length-1; i++)
             {
-                Console.WriteLine(pops[i]);
-                string[] parameters = pops[i].Split(' ');
+                Console.WriteLine(populate[i]);
+                string[] parameters = populate[i].Split(' ');
                 lock (this)
                 {
                     //we assume that the input is correct
@@ -79,9 +79,33 @@ namespace DIDASchedulerUI {
                 }
             }
 
+            populateStorage();
             sendToWorker();
 
             return fileSendReply;
+        }
+
+        public void populateStorage()
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            foreach (var item in storageNodesMap)
+            {
+                Console.WriteLine("---------------");
+                string url = item.Value;
+                Console.WriteLine("url: " + url);
+
+                GrpcChannel channel = GrpcChannel.ForAddress(url);
+                DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
+                foreach (var identifier in populateDataMap)
+                {
+                    Console.WriteLine("id: " + identifier.Key);
+                    Console.WriteLine("val: " + identifier.Value);
+                    client.writeAsync(new DIDAWriteRequest { Id = identifier.Key, Val = identifier.Value });
+                }
+            }
+
+
         }
 
         public void sendToWorker()

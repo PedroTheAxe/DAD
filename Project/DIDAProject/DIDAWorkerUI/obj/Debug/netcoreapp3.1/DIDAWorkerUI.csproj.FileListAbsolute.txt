@@ -47,7 +47,6 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcorea
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.genruntimeconfig.cache
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.deps.json
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.json
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\bin\Debug\netcoreapp3.1\DIDAWorkerUI.runtimeconfig.dev.json

@@ -17,10 +17,8 @@
 
 	<ItemGroup>
 		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Server" />
-	</ItemGroup>
-	
-	<ItemGroup>
 		<Protobuf Include="protos\DIDAScheduler.proto" GrpcServices="Client" />
+		<Protobuf Include="protos\DIDAStorage.proto" GrpcServices="Client" />
 	</ItemGroup>
 
 </Project>

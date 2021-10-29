@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace DIDAWorkerUI
     {
         private string _previousOutput = "";
         //DIDASendRequest _request;
-        private DIDAStorageNode[] _storageNodes;
+        private List<DIDAStorageNode> _storageNodes;
 
         public SchedulerService()
         {
@@ -26,16 +27,6 @@ namespace DIDAWorkerUI
         public DIDASendReply sendImpl(DIDASendRequest request)
         {
             Console.WriteLine(request);
-
-            //_request = request;
-            int i = 0;
-            foreach (DIDAStorageNode n in request.StorageNodes)
-            {
-                Console.WriteLine(n);
-                _storageNodes[i] = n;
-                i++;
-            }
-            Console.WriteLine(_storageNodes);
 
             string className = request.Request.Chain[request.Request.Next].Op.Classname;
             reflectionLoad(className, request); //.dll reflection
@@ -68,10 +59,10 @@ namespace DIDAWorkerUI
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
-            DIDASendRequest sendRequest = new DIDASendRequest();
-            sendRequest.Request = request.Request;
-            sendRequest.StorageNodes.Add(_storageNodes);
-            var reply = client.sendAsync(sendRequest);
+            //DIDASendRequest sendRequest = new DIDASendRequest();
+            //sendRequest.Request = request.Request;
+            //sendRequest.StorageNodes.Add(_storageNodes);
+            var reply = client.sendAsync(new DIDASendRequest { Request = request.Request });
             //Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
         }
 

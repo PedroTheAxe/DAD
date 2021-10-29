@@ -51,6 +51,5 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcor
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.CopyComplete
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache

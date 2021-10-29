@@ -17,7 +17,7 @@ namespace DIDAStorageUI {
         private DIDARecordReply ReadImpl(DIDAReadRequest request) {
             Console.WriteLine("read");
             int latestVersionNumber = 0;
-
+            Console.WriteLine(request);
             foreach (DIDARecord r in recordsList)
             {
                 if (r.id == request.Id)
@@ -34,7 +34,18 @@ namespace DIDAStorageUI {
 
             if (request.Version.VersionNumber == -1 && request.Version.ReplicaId == -1)
             {
+                Console.WriteLine("entrei");
+                Console.WriteLine(latestVersionNumber);
                 DIDARecord recordVersionNull = recordsList.Find(r => r.version.versionNumber == latestVersionNumber);
+                DIDARecordReply r = new DIDARecordReply
+                {
+                    Id = recordVersionNull.id,
+                    Version = { ReplicaId = recordVersionNull.version.replicaId, VersionNumber = recordVersionNull.version.versionNumber },
+                    Val = recordVersionNull.val
+                };
+                Console.WriteLine(r.Id);
+                Console.WriteLine(r.Version);
+                Console.WriteLine(r.Val);
                 return new DIDARecordReply
                 {
                     Id = recordVersionNull.id,
@@ -87,7 +98,7 @@ namespace DIDAStorageUI {
 
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
             Console.WriteLine("write");
-            int latestVersionNumber = -1;
+            int latestVersionNumber = -1; //tera de ser variavel global 100%, senao cada vez q executa uma op acaba a 0
             int replicaId = 0; //tenho de saber em q replica quero meter -- should be a list or a dict
 
             foreach (DIDARecord r in recordsList)
