@@ -21,6 +21,7 @@ namespace PuppetMasterUI
         private string _operators = "";
         private string _populateData = "";
         private string _storageNodes = "";
+        private Dictionary<string, int> _storageProcessMap = new Dictionary<string, int>();
 
         public Form1()
         {
@@ -119,15 +120,21 @@ namespace PuppetMasterUI
 
                 case "crash":
                     Console.WriteLine("entered crash\r\n");
+                    string serverId = instance[1].Split("\r")[0];
+                    var p = Process.GetProcessById(_storageProcessMap[serverId]);
+                    p.Kill();
                     break;
 
                 case "wait":
                     Console.WriteLine("entered wait\r\n");
+                    int timeToSleep = Int32.Parse(instance[1].Split("\r")[0]);
+                    MessageBox.Show(timeToSleep.ToString());
+                    System.Threading.Thread.Sleep(timeToSleep);
                     break;
             }
         }
 
-        private static void processCreationService(string fileName, string args)
+        private void processCreationService(string fileName, string args)
         {
             try
             {
@@ -145,6 +152,13 @@ namespace PuppetMasterUI
                     process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     process.StartInfo.Arguments = args;
                     process.Start();
+
+                    if (fileName.Equals("DIDAStorageUI"))
+                    {
+                        string[] processArgs = args.Split(" ");
+                        string serverId = processArgs[0];
+                        _storageProcessMap.Add(serverId, process.Id);
+                    }
                 }
             }
             catch (Exception e)
@@ -191,8 +205,15 @@ namespace PuppetMasterUI
                     string[] handleOps = line.Split(",");
                     ops += handleOps[0] + " " + handleOps[1] + ";";
                 }
-                
             }
+            //if (type.Equals("client"))
+            //{
+            //    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            //    GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
+            //    DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
+
+            //    var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, Operators = _operators, StorageNodes = _storageNodes, PopulateData = _populateData });
+            //}
 
             return ops;
         }

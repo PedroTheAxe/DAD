@@ -101,7 +101,7 @@ namespace DIDASchedulerUI {
                 {
                     Console.WriteLine("id: " + identifier.Key);
                     Console.WriteLine("val: " + identifier.Value);
-                    client.writeAsync(new DIDAWriteRequest { Id = identifier.Key, Val = identifier.Value });
+                    client.write(new DIDAWriteRequest { Id = identifier.Key, Val = identifier.Value });
                 }
             }
 

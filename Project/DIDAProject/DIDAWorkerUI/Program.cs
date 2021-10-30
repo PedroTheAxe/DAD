@@ -12,7 +12,7 @@ namespace DIDAWorkerUI
     {
         private string _previousOutput = "";
         //DIDASendRequest _request;
-        private List<DIDAStorageNode> _storageNodes;
+        //private List<DIDAStorageNode> _storageNodes;
 
         public SchedulerService()
         {

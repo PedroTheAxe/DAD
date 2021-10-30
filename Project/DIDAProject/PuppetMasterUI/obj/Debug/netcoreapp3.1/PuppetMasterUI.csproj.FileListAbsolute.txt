@@ -24,6 +24,8 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetM
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.CopyComplete
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.exe
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.deps.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.runtimeconfig.json
@@ -51,6 +53,3 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcor
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.CopyComplete
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache

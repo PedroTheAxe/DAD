@@ -65,6 +65,11 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASto
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.csproj.CopyComplete
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.pdb
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.deps.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.runtimeconfig.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.runtimeconfig.dev.json
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.pdb
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.genruntimeconfig.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.exe
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.deps.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.runtimeconfig.json
@@ -91,8 +96,3 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcore
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.genruntimeconfig.cache
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.deps.json
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.runtimeconfig.json
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.runtimeconfig.dev.json
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\DIDAStorageUI.pdb
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.genruntimeconfig.cache
