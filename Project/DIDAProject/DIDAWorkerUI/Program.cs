@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using DIDAWorker;
+using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -59,10 +60,10 @@ namespace DIDAWorkerUI
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
-            //DIDASendRequest sendRequest = new DIDASendRequest();
-            //sendRequest.Request = request.Request;
-            //sendRequest.StorageNodes.Add(_storageNodes);
-            var reply = client.sendAsync(new DIDASendRequest { Request = request.Request });
+            DIDASendRequest sendRequest = new DIDASendRequest();
+            sendRequest.Request = request.Request;
+            sendRequest.StorageNodes.Add(request.StorageNodes);
+            var reply = client.sendAsync(sendRequest);
             //Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
         }
 
@@ -83,7 +84,10 @@ namespace DIDAWorkerUI
                 {
                     Console.WriteLine(".ddl found");
                     Assembly _dll = Assembly.LoadFrom(filename);
+                    Console.WriteLine("ola");
                     Type[] _typeList = _dll.GetTypes();
+                    Console.WriteLine("ola2");
+
                     foreach (Type type in _typeList)
                     {
                         Console.WriteLine("type contained in dll: " + type.Name);
@@ -95,9 +99,19 @@ namespace DIDAWorkerUI
                             {
                                 Console.WriteLine("method from class " + className + ": " + method.Name);
                             }
-
-                            _objLoadedByReflection.ConfigureStorage(new DIDAWorker.DIDAStorageNode[] { new DIDAWorker.DIDAStorageNode { host = "localhost", port = 3001, serverId = "s1" } }, locationFunction);
-                            _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
+                            DIDAStorageNode[] storageNodes = new DIDAStorageNode[request.StorageNodes.Count];
+                            int i = 0;
+                            Console.WriteLine("yau");
+                            foreach(DIDAStorageNode n in request.StorageNodes)
+                            {
+                                Console.WriteLine("yau2");
+                                storageNodes[i] = n;
+                                i++;
+                                Console.WriteLine(i);
+                            }
+                            StorageProxy storageProxy = new StorageProxy(storageNodes, request.Request.Meta);
+                            _objLoadedByReflection.ConfigureStorage(storageProxy);
+                            _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
                             return;
                             //Console.WriteLine("previous: " + _previousOutput);
                         }
@@ -106,13 +120,43 @@ namespace DIDAWorkerUI
             }
         }
 
-        private static DIDAWorker.DIDAStorageNode locationFunction(string id, DIDAWorker.OperationType type)
-        {
-            return new DIDAWorker.DIDAStorageNode { host = "localhost", port = 3001, serverId = "s1" };
-        }
-
     }
 
+    public class StorageProxy : IDIDAStorage
+    {
+        Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> _clients = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
+        Dictionary<string, Grpc.Net.Client.GrpcChannel> _channels = new Dictionary<string, Grpc.Net.Client.GrpcChannel>();
+        DIDAMetaRecord _meta;
+      
+        public StorageProxy(DIDAStorageNode[] storageNodes, DIDAMetaRecord metaRecord)
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            foreach (DIDAStorageNode n in storageNodes)
+            {
+                _channels[n.ServerId] = Grpc.Net.Client.GrpcChannel.ForAddress("http://" + n.Host + ":" + n.Port);
+                _clients[n.ServerId] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
+            }
+            _meta = metaRecord;
+        }
+
+        public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
+        {
+            var res = _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
+            return new DIDAWorker.DIDARecordReply { Id = "1", Val = "1", Version = { VersionNumber = 1, ReplicaId = 1 } };
+        }
+
+        public virtual DIDAWorker.DIDAVersion write(DIDAWorker.DIDAWriteRequest r)
+        {
+            var res = _clients["s1"].write(new DIDAWriteRequest { Id = r.Id, Val = r.Val });
+            return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
+        }
+
+        public virtual DIDAWorker.DIDAVersion updateIfValueIs(DIDAWorker.DIDAUpdateIfRequest r)
+        {
+            var res = _clients["s1"].updateIfValueIs(new DIDAUpdateIfRequest { Id = r.Id, Newvalue = r.Newvalue, Oldvalue = r.Oldvalue });
+            return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
+        }
+    }
     class Program
     {
         static void Main(string[] args)
