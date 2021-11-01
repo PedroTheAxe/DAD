@@ -20,9 +20,60 @@ namespace DIDASchedulerUI {
 
         }
 
+        public override Task<DIDAPostInitReply> sendPostInit(DIDAPostInitRequest request, ServerCallContext context) 
+        {
+            //Console.WriteLine("estou no sendpostinit");
+            return Task.FromResult(postInitImpl(request));
+        }
+        
+
         public override Task<DIDAFileSendReply> sendFile(DIDAFileSendRequest request, ServerCallContext context)
         {
+            //Console.WriteLine("estou no sendfile");
             return Task.FromResult(sendFileImpl(request));
+        }
+
+        public DIDAPostInitReply postInitImpl(DIDAPostInitRequest request)
+        {
+
+            DIDAPostInitReply postInitReply = new DIDAPostInitReply
+            {
+                Ack = "ack"
+            };
+
+            string[] splitData = request.Data.Split(';');
+            if (request.Type.Equals("client"))
+            {
+                for (int i = 0; i < splitData.Length - 1; i++)
+                {
+                    Console.WriteLine(splitData[i]);
+                    string[] parameters = splitData[i].Split(' ');
+                    lock (this)
+                    {
+                        //we assume that the input is correct
+                        operatorsMap.Add(Int32.Parse(parameters[1]), parameters[0]);
+                    }
+                }
+                sendToWorker();
+            }
+
+            if (request.Type.Equals("populate"))
+            {
+                for (int i = 0; i < splitData.Length - 1; i++)
+                {
+                    Console.WriteLine(splitData[i]);
+                    string[] parameters = splitData[i].Split(' ');
+                    lock (this)
+                    {
+                        //we assume that the input is correct
+                        populateDataMap.Add(parameters[0], parameters[1]);
+                    }
+                }
+                populateStorage();
+
+            }
+
+            return postInitReply;
         }
 
         public DIDAFileSendReply sendFileImpl(DIDAFileSendRequest request)
@@ -54,33 +105,6 @@ namespace DIDASchedulerUI {
                     storageNodesMap.Add(parameters[0], parameters[1]);
                 }
             }
-
-            string[] ops = request.Operators.Split(';');
-            for (int i = 0; i < ops.Length-1; i++)
-            {
-                Console.WriteLine(ops[i]);
-                string[] parameters = ops[i].Split(' ');
-                lock (this)
-                {
-                    //we assume that the input is correct
-                    operatorsMap.Add(Int32.Parse(parameters[1]), parameters[0]);
-                }
-            }
-
-            string[] populate = request.PopulateData.Split(';');
-            for (int i = 0; i < populate.Length-1; i++)
-            {
-                Console.WriteLine(populate[i]);
-                string[] parameters = populate[i].Split(' ');
-                lock (this)
-                {
-                    //we assume that the input is correct
-                    populateDataMap.Add(parameters[0], parameters[1]);
-                }
-            }
-
-            populateStorage();
-            sendToWorker();
 
             return fileSendReply;
         }

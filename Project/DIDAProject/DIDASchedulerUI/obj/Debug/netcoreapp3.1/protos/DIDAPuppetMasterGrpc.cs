@@ -48,6 +48,10 @@ public static partial class DIDAPuppetMasterService
   static readonly grpc::Marshaller<global::DIDAFileSendRequest> __Marshaller_DIDAFileSendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAFileSendRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAFileSendReply> __Marshaller_DIDAFileSendReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAFileSendReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPostInitRequest> __Marshaller_DIDAPostInitRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPostInitRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPostInitReply> __Marshaller_DIDAPostInitReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPostInitReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAFileSendRequest, global::DIDAFileSendReply> __Method_sendFile = new grpc::Method<global::DIDAFileSendRequest, global::DIDAFileSendReply>(
@@ -56,6 +60,14 @@ public static partial class DIDAPuppetMasterService
       "sendFile",
       __Marshaller_DIDAFileSendRequest,
       __Marshaller_DIDAFileSendReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAPostInitRequest, global::DIDAPostInitReply> __Method_sendPostInit = new grpc::Method<global::DIDAPostInitRequest, global::DIDAPostInitReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "sendPostInit",
+      __Marshaller_DIDAPostInitRequest,
+      __Marshaller_DIDAPostInitReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -73,6 +85,12 @@ public static partial class DIDAPuppetMasterService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::DIDAPostInitReply> sendPostInit(global::DIDAPostInitRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
   }
 
   /// <summary>Creates service definition that can be registered with a server</summary>
@@ -81,7 +99,8 @@ public static partial class DIDAPuppetMasterService
   public static grpc::ServerServiceDefinition BindService(DIDAPuppetMasterServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_sendFile, serviceImpl.sendFile).Build();
+        .AddMethod(__Method_sendFile, serviceImpl.sendFile)
+        .AddMethod(__Method_sendPostInit, serviceImpl.sendPostInit).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -92,6 +111,7 @@ public static partial class DIDAPuppetMasterService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, DIDAPuppetMasterServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_sendFile, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAFileSendRequest, global::DIDAFileSendReply>(serviceImpl.sendFile));
+    serviceBinder.AddMethod(__Method_sendPostInit, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAPostInitRequest, global::DIDAPostInitReply>(serviceImpl.sendPostInit));
   }
 
 }

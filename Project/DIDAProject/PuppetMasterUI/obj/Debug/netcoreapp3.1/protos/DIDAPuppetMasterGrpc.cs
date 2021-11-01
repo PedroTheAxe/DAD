@@ -48,6 +48,10 @@ public static partial class DIDAPuppetMasterService
   static readonly grpc::Marshaller<global::DIDAFileSendRequest> __Marshaller_DIDAFileSendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAFileSendRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAFileSendReply> __Marshaller_DIDAFileSendReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAFileSendReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPostInitRequest> __Marshaller_DIDAPostInitRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPostInitRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPostInitReply> __Marshaller_DIDAPostInitReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPostInitReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAFileSendRequest, global::DIDAFileSendReply> __Method_sendFile = new grpc::Method<global::DIDAFileSendRequest, global::DIDAFileSendReply>(
@@ -56,6 +60,14 @@ public static partial class DIDAPuppetMasterService
       "sendFile",
       __Marshaller_DIDAFileSendRequest,
       __Marshaller_DIDAFileSendReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAPostInitRequest, global::DIDAPostInitReply> __Method_sendPostInit = new grpc::Method<global::DIDAPostInitRequest, global::DIDAPostInitReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "sendPostInit",
+      __Marshaller_DIDAPostInitRequest,
+      __Marshaller_DIDAPostInitReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -109,6 +121,26 @@ public static partial class DIDAPuppetMasterService
     public virtual grpc::AsyncUnaryCall<global::DIDAFileSendReply> sendFileAsync(global::DIDAFileSendRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_sendFile, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPostInitReply sendPostInit(global::DIDAPostInitRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendPostInit(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPostInitReply sendPostInit(global::DIDAPostInitRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_sendPostInit, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPostInitReply> sendPostInitAsync(global::DIDAPostInitRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendPostInitAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPostInitReply> sendPostInitAsync(global::DIDAPostInitRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_sendPostInit, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

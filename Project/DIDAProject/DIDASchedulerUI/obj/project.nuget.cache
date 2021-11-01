@@ -1,19 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "hLy9pTKEIGi79Vg+TXOtbNbtt7kp65axoUM/pT3kQDsP7brAb6/s6U8jYh74QuFYdss5PxCCkqTgp0z5dROZZw==",
+  "dgSpecHash": "5s60xISR1X3NkTp0JrTQmj3VTbHsQQwwdl2FHbtwpRcqiby5CiP5TofLRI6y2bJy+hCwEpV4SrO3R1rQZV/w2g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
+  "projectFilePath": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\google.protobuf\\3.18.1\\google.protobuf.3.18.1.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\grpc.core\\2.41.0\\grpc.core.2.41.0.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\grpc.core.api\\2.41.0\\grpc.core.api.2.41.0.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\grpc.net.client\\2.40.0\\grpc.net.client.2.40.0.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\grpc.net.common\\2.40.0\\grpc.net.common.2.40.0.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\grpc.tools\\2.41.0\\grpc.tools.2.41.0.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.5.1\\system.diagnostics.diagnosticsource.4.5.1.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+    "C:\\Users\\Pedro\\.nuget\\packages\\google.protobuf\\3.18.1\\google.protobuf.3.18.1.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\grpc.core\\2.41.0\\grpc.core.2.41.0.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\grpc.core.api\\2.41.0\\grpc.core.api.2.41.0.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\grpc.net.client\\2.40.0\\grpc.net.client.2.40.0.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\grpc.net.common\\2.40.0\\grpc.net.common.2.40.0.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\grpc.tools\\2.41.0\\grpc.tools.2.41.0.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.5.1\\system.diagnostics.diagnosticsource.4.5.1.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\Pedro\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
   ],
   "logs": []
 }

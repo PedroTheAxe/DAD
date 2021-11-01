@@ -1,16 +1,24 @@
 ﻿syntax = "proto3";  
 
 service DIDAPuppetMasterService {   
-	rpc sendFile(DIDAFileSendRequest) returns (DIDAFileSendReply); 
+	rpc sendFile(DIDAFileSendRequest) returns (DIDAFileSendReply);
+	rpc sendPostInit(DIDAPostInitRequest) returns (DIDAPostInitReply);
 } 
 
 message DIDAFileSendRequest {     
 	string workers = 1;
-	string operators = 2;
-	string storageNodes = 3;
-	string populateData = 4;
+	string storageNodes = 2;
 }  
 
+message DIDAPostInitRequest {
+	string data = 1;
+	string type = 2;
+}
+
 message DIDAFileSendReply {     
+	string ack = 1;
+}
+
+message DIDAPostInitReply {
 	string ack = 1;
 }

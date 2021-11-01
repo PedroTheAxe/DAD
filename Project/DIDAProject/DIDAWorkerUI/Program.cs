@@ -84,9 +84,7 @@ namespace DIDAWorkerUI
                 {
                     Console.WriteLine(".ddl found");
                     Assembly _dll = Assembly.LoadFrom(filename);
-                    Console.WriteLine("ola");
                     Type[] _typeList = _dll.GetTypes();
-                    Console.WriteLine("ola2");
 
                     foreach (Type type in _typeList)
                     {
@@ -101,10 +99,8 @@ namespace DIDAWorkerUI
                             }
                             DIDAStorageNode[] storageNodes = new DIDAStorageNode[request.StorageNodes.Count];
                             int i = 0;
-                            Console.WriteLine("yau");
                             foreach(DIDAStorageNode n in request.StorageNodes)
                             {
-                                Console.WriteLine("yau2");
                                 storageNodes[i] = n;
                                 i++;
                                 Console.WriteLine(i);
@@ -112,8 +108,8 @@ namespace DIDAWorkerUI
                             StorageProxy storageProxy = new StorageProxy(storageNodes, request.Request.Meta);
                             _objLoadedByReflection.ConfigureStorage(storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
+                            Console.WriteLine("previous: " + _previousOutput);
                             return;
-                            //Console.WriteLine("previous: " + _previousOutput);
                         }
                     }
                 }

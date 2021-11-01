@@ -395,19 +395,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\": {}
+    "C:\\Users\\Pedro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\PuppetMasterUI.csproj",
+      "projectUniqueName": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\PuppetMasterUI.csproj",
       "projectName": "PuppetMasterUI",
-      "projectPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\PuppetMasterUI.csproj",
-      "packagesPath": "C:\\Users\\francisco_rosa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\obj\\",
+      "projectPath": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\PuppetMasterUI.csproj",
+      "packagesPath": "C:\\Users\\Pedro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\PuppetMasterUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\francisco_rosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
