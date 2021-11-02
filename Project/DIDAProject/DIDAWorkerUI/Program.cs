@@ -157,7 +157,7 @@ namespace DIDAWorkerUI
     {
         static void Main(string[] args)
         {
-            // code to start grpc server for scheduler 
+            // code to start grpc server for worker 
             Console.WriteLine(args[1]);
 
             string[] decomposedArgs = args[1].Split(":");

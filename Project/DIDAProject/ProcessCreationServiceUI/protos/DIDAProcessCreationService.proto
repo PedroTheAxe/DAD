@@ -1,0 +1,14 @@
+﻿syntax = "proto3";  
+
+service DIDAProcessCreationService {   
+	rpc sendProcess(DIDAProcessSendRequest) returns (DIDAProcessSendReply);
+} 
+
+message DIDAProcessSendRequest {     
+	string fileName = 1;
+	string args = 2;
+}  
+
+message DIDAProcessSendReply {
+	string ack = 1;
+}

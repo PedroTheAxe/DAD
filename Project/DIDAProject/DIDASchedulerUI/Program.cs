@@ -17,7 +17,7 @@ namespace DIDASchedulerUI {
 
         public PuppetMasterService()
         {
-
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
         public override Task<DIDAPostInitReply> sendPostInit(DIDAPostInitRequest request, ServerCallContext context) 
@@ -39,10 +39,10 @@ namespace DIDASchedulerUI {
             {
                 Ack = "ack"
             };
-
             string[] splitData = request.Data.Split(';');
             if (request.Type.Equals("client"))
             {
+                operatorsMap.Clear();
                 for (int i = 0; i < splitData.Length - 1; i++)
                 {
                     Console.WriteLine(splitData[i]);
@@ -56,8 +56,10 @@ namespace DIDASchedulerUI {
                 sendToWorker();
             }
 
+
             if (request.Type.Equals("populate"))
             {
+                populateDataMap.Clear();
                 for (int i = 0; i < splitData.Length - 1; i++)
                 {
                     Console.WriteLine(splitData[i]);
@@ -70,6 +72,11 @@ namespace DIDASchedulerUI {
                 }
                 populateStorage();
             }
+
+            //if (request.Type.Equals("listServer"))
+            //{
+
+            //}
 
             return postInitReply;
         }
@@ -109,7 +116,6 @@ namespace DIDASchedulerUI {
 
         public void populateStorage()
         {
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             foreach (var item in storageNodesMap)
             {
                 Console.WriteLine("---------------");
@@ -131,7 +137,6 @@ namespace DIDASchedulerUI {
 
         public void sendToWorker()
         {
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             
             GrpcChannel channel = GrpcChannel.ForAddress(lowestWorkerPort());
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);

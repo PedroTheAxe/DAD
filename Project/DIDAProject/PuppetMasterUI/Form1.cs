@@ -21,10 +21,10 @@ namespace PuppetMasterUI
         private string _operators = "";
         private string _populateData = "";
         private string _storageNodes = "";
-        private Dictionary<string, int> _storageProcessMap = new Dictionary<string, int>();
+        private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _usedClientsMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
         private List<string> _commands = new List<string>();
-        private bool sentInits = false;
-        private string previousCommand = "";
+        private bool _sentInits = false;
+        private string _previousCommand = "";
         private DIDAPuppetMasterService.DIDAPuppetMasterServiceClient _client = null;
 
         public Form1()
@@ -80,19 +80,19 @@ namespace PuppetMasterUI
             if (_commands.Count != 0)
             {
                 string[] tempSplit = _commands[0].Split(" ");
-                if (isInit(previousCommand) && !isInit(tempSplit[0]))
+                if (isInit(_previousCommand) && !isInit(tempSplit[0]))
                 {
-                    sentInits = true;
+                    _sentInits = true;
                 }
-                MessageBox.Show(sentInits.ToString());
+                MessageBox.Show(_sentInits.ToString());
                 textBox1.Text = _commands[0];
-                if (sentInits)
+                if (_sentInits)
                 {
                     startFunc();
-                    sentInits = false;
+                    _sentInits = false;
                 }
                 commandParser(_commands[0]);
-                previousCommand = tempSplit[0];
+                _previousCommand = tempSplit[0];
                 _commands.RemoveAt(0);
                 if (_commands.Count != 0)
                     textBox1.Text = _commands[0];
@@ -111,10 +111,10 @@ namespace PuppetMasterUI
                     //instance[1] -- é o server_id
                     arguments = instance[2];
                     string[] handleConnection = arguments.Split(":");
-                    _schedulerHost = handleConnection[1].Substring(2);
+                    _schedulerHost = handleConnection[1][2..];
                     _schedulerPort = Int32.Parse(handleConnection[2]);
                     fileName = "DIDASchedulerUI";
-                    processCreationService(fileName, arguments);
+                    processCreationService(fileName, arguments, "scheduler");
                     GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
                     _client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
                     break;
@@ -124,7 +124,7 @@ namespace PuppetMasterUI
                     arguments = instance[1] + " " + instance[2];
                     _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
-                    processCreationService(fileName, arguments);
+                    processCreationService(fileName, arguments, "storage");
                     break;
 
                 case "worker":
@@ -132,21 +132,17 @@ namespace PuppetMasterUI
                     arguments = instance[1] + " " + instance[2];
                     _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
-                    processCreationService(fileName, arguments);
+                    processCreationService(fileName, arguments, "worker");
                     break;
 
                 case "populate":
                     Console.WriteLine("entered populate\r\n");
-                    MessageBox.Show("ENTREI");
                     _populateData = openFile("populate", instance[1]);
-                    MessageBox.Show("SQ MATO ME");
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
-                    MessageBox.Show("YA PUTO NAO ME VAIS LER");
                     break;
 
                 case "client":
                     Console.WriteLine("entered client\r\n");
-                    MessageBox.Show("CLIENTIIIII");
                     _operators = openFile("client", instance[2]);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" });
                     break;
@@ -157,6 +153,7 @@ namespace PuppetMasterUI
                 
                 case "listServer":
                     Console.WriteLine("entered list server\r\n");
+                    //_client.sendPostInit(new DIDAPostInitRequest { Data = instance[1], Type = "listServer" });
                     break;
 
                 case "listGlobal":
@@ -170,8 +167,8 @@ namespace PuppetMasterUI
                 case "crash":
                     Console.WriteLine("entered crash\r\n");
                     string serverId = instance[1].Split("\r")[0];
-                    var p = Process.GetProcessById(_storageProcessMap[serverId]);
-                    p.Kill();
+                    //var p = Process.GetProcessById(_storageProcessMap[serverId]);
+                    //p.Kill();
                     break;
 
                 case "wait":
@@ -183,46 +180,28 @@ namespace PuppetMasterUI
             }
         }
 
-        private Task<int> processCreationService(string fileName, string args)
+        private void processCreationService(string fileName, string args, string type)
         {
-            var tcs = new TaskCompletionSource<int>();
-
-            try
+            //TODO
+            //  parse of https://...
+            //  create dict with host + client associated
+            //  verify if already exists -> not -> create new client add to dict
+            //  send fileName and args to pcs
+            string[] toParse = args.Split(" ");
+            string host = "";
+            if (type.Equals("scheduler"))
+                host = toParse[0].Split(":")[1][2..];
+            if (type.Equals("worker") || type.Equals("storage"))
+                host = toParse[1].Split(":")[1][2..];
+            MessageBox.Show(host);
+            if (!_usedClientsMap.Keys.Contains(host))
             {
-                string execName = fileName + ".exe";
-                string directory = System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString();
-                Console.WriteLine(@directory + "\r\n");
-                string applicationPath = Path.GetFullPath(Path.Combine(directory, @"..\..\..\", fileName, @"bin\Debug\netcoreapp3.1\", execName));
-                Console.WriteLine(applicationPath + "\r\n");
-
-                using (Process process = new Process())
-                {
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.FileName = applicationPath;
-                    process.StartInfo.CreateNoWindow = false;
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                    process.StartInfo.Arguments = args;
-                    process.Exited += (sender, args) =>
-                    {
-                        tcs.SetResult(process.ExitCode);
-                        process.Dispose();
-                    };
-                    process.Start();
-
-                    if (fileName.Equals("DIDAStorageUI"))
-                    {
-                        string[] processArgs = args.Split(" ");
-                        string serverId = processArgs[0];
-                        _storageProcessMap.Add(serverId, process.Id);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                GrpcChannel channel = GrpcChannel.ForAddress("http://" + host + ":" + 10000);
+                DIDAProcessCreationService.DIDAProcessCreationServiceClient processClient = new DIDAProcessCreationService.DIDAProcessCreationServiceClient(channel);
+                _usedClientsMap.Add(host, processClient);
             }
 
-            return tcs.Task;
+            _usedClientsMap[host].sendProcess(new DIDAProcessSendRequest { FileName = fileName, Args = args });
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -243,7 +222,7 @@ namespace PuppetMasterUI
         {
             string ops = "";
             string currWorkingDir = Directory.GetCurrentDirectory(); 
-            string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName)); //please laod the scripts to a specific folder
+            string path = Path.GetFullPath(Path.Combine(currWorkingDir, @"..\..\..\..\scripts\", fileName)); //please load the scripts to a specific folder
 
             string[] paths = path.Split("\r");
 
@@ -277,18 +256,17 @@ namespace PuppetMasterUI
             foreach (string s in _commands)
             {
                 string[] tempSplit = s.Split(" ");
-                if (isInit(previousCommand) && !isInit(tempSplit[0]))
+                if (isInit(_previousCommand) && !isInit(tempSplit[0]))
                 {
-                    sentInits = true;
+                    _sentInits = true;
                 }
-                commandParser(s);
-                previousCommand = tempSplit[0];
-                if (sentInits)
+                if (_sentInits)
                 {
                     startFunc();
-                    sentInits = false;
+                    _sentInits = false;
                 }
-
+                commandParser(s);
+                _previousCommand = tempSplit[0];
             }          
         }
     }

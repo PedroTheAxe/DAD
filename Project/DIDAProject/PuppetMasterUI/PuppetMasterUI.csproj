@@ -22,4 +22,8 @@
 		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Client" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Protobuf Include="protos\DIDAProcessCreationService.proto" GrpcServices="Client" />
+	</ItemGroup>
+
 </Project>
