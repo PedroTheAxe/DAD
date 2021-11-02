@@ -48,6 +48,10 @@ public static partial class DIDAProcessCreationService
   static readonly grpc::Marshaller<global::DIDAProcessSendRequest> __Marshaller_DIDAProcessSendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAProcessSendRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAProcessSendReply> __Marshaller_DIDAProcessSendReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAProcessSendReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDACrashRequest> __Marshaller_DIDACrashRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDACrashRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDACrashReply> __Marshaller_DIDACrashReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDACrashReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAProcessSendRequest, global::DIDAProcessSendReply> __Method_sendProcess = new grpc::Method<global::DIDAProcessSendRequest, global::DIDAProcessSendReply>(
@@ -56,6 +60,14 @@ public static partial class DIDAProcessCreationService
       "sendProcess",
       __Marshaller_DIDAProcessSendRequest,
       __Marshaller_DIDAProcessSendReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDACrashRequest, global::DIDACrashReply> __Method_crashServer = new grpc::Method<global::DIDACrashRequest, global::DIDACrashReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "crashServer",
+      __Marshaller_DIDACrashRequest,
+      __Marshaller_DIDACrashReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -109,6 +121,26 @@ public static partial class DIDAProcessCreationService
     public virtual grpc::AsyncUnaryCall<global::DIDAProcessSendReply> sendProcessAsync(global::DIDAProcessSendRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_sendProcess, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDACrashReply crashServer(global::DIDACrashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return crashServer(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDACrashReply crashServer(global::DIDACrashRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_crashServer, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDACrashReply> crashServerAsync(global::DIDACrashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return crashServerAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDACrashReply> crashServerAsync(global::DIDACrashRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_crashServer, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

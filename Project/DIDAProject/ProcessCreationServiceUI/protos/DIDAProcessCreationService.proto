@@ -2,6 +2,7 @@
 
 service DIDAProcessCreationService {   
 	rpc sendProcess(DIDAProcessSendRequest) returns (DIDAProcessSendReply);
+	rpc crashServer(DIDACrashRequest) returns (DIDACrashReply);
 } 
 
 message DIDAProcessSendRequest {     
@@ -10,5 +11,13 @@ message DIDAProcessSendRequest {
 }  
 
 message DIDAProcessSendReply {
+	string ack = 1;
+}
+
+message DIDACrashRequest {
+	string serverId = 1;
+}
+
+message DIDACrashReply {
 	string ack = 1;
 }

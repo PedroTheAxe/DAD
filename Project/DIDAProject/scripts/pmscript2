@@ -7,6 +7,7 @@ worker w2 http://localhost:4002 0
 populate app2_data
 client 23 app2
 wait 2000
+crash s2
 client 13 app2
 wait 2000
 

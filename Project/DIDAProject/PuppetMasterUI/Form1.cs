@@ -21,12 +21,14 @@ namespace PuppetMasterUI
         private string _operators = "";
         private string _populateData = "";
         private string _storageNodes = "";
-        private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _usedClientsMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
         private List<string> _commands = new List<string>();
         private bool _sentInits = false;
         private string _previousCommand = "";
         private DIDAPuppetMasterService.DIDAPuppetMasterServiceClient _client = null;
-
+        DIDAProcessCreationService.DIDAProcessCreationServiceClient _processClient = null;
+        private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _usedClientsMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
+        private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _storageNodesMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
+        
         public Form1()
         {
             InitializeComponent();
@@ -39,10 +41,6 @@ namespace PuppetMasterUI
             if (command.Equals("scheduler") || command.Equals("worker") || command.Equals("storage")) {
                 return true;
             }
-            //else if (!command.Equals("scheduler") && !command.Equals("worker") && !command.Equals("storage"))
-            //{
-            //    return false;
-            //}
             else
             {
                 return false;
@@ -59,7 +57,7 @@ namespace PuppetMasterUI
                 try
                 {
                     string text = File.ReadAllText(file);
-                    Console.WriteLine(text); // only to debug
+                    Console.WriteLine(text);
 
                     foreach (string command in text.Split('\n'))
                     {
@@ -84,14 +82,15 @@ namespace PuppetMasterUI
                 {
                     _sentInits = true;
                 }
-                MessageBox.Show(_sentInits.ToString());
-                textBox1.Text = _commands[0];
+
                 if (_sentInits)
                 {
                     startFunc();
                     _sentInits = false;
                 }
+                textBox1.Text = _commands[0];
                 commandParser(_commands[0]);
+
                 _previousCommand = tempSplit[0];
                 _commands.RemoveAt(0);
                 if (_commands.Count != 0)
@@ -167,6 +166,9 @@ namespace PuppetMasterUI
                 case "crash":
                     Console.WriteLine("entered crash\r\n");
                     string serverId = instance[1].Split("\r")[0];
+                    var reply = _storageNodesMap[serverId].crashServer(new DIDACrashRequest { ServerId = serverId });
+                    if (reply.Equals("ack"))
+                        _storageNodesMap.Remove(serverId);
                     //var p = Process.GetProcessById(_storageProcessMap[serverId]);
                     //p.Kill();
                     break;
@@ -190,15 +192,44 @@ namespace PuppetMasterUI
             string[] toParse = args.Split(" ");
             string host = "";
             if (type.Equals("scheduler"))
+            {
                 host = toParse[0].Split(":")[1][2..];
+
+                string directory = System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString();
+                Console.WriteLine(@directory + "\r\n");
+                string applicationPath = Path.GetFullPath(Path.Combine(directory, @"..\..\..\", "ProcessCreationServiceUI", @"bin\Debug\netcoreapp3.1\", "ProcessCreationServiceUI.exe"));
+                Console.WriteLine(applicationPath + "\r\n");
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.FileName = applicationPath;
+                    process.StartInfo.CreateNoWindow = false;
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    process.Start();
+                }
+            }
+                
             if (type.Equals("worker") || type.Equals("storage"))
                 host = toParse[1].Split(":")[1][2..];
-            MessageBox.Show(host);
+
             if (!_usedClientsMap.Keys.Contains(host))
             {
                 GrpcChannel channel = GrpcChannel.ForAddress("http://" + host + ":" + 10000);
-                DIDAProcessCreationService.DIDAProcessCreationServiceClient processClient = new DIDAProcessCreationService.DIDAProcessCreationServiceClient(channel);
-                _usedClientsMap.Add(host, processClient);
+                _processClient = new DIDAProcessCreationService.DIDAProcessCreationServiceClient(channel);
+                _usedClientsMap.Add(host, _processClient);
+                //if (type.Equals("storage"))
+                //{
+                //    MessageBox.Show(toParse[0]);
+                //    _storageNodesMap.Add(toParse[0], _processClient);
+                //}
+                    
+            }
+
+            if (type.Equals("storage"))
+            {
+                MessageBox.Show(toParse[0]);
+                _storageNodesMap.Add(toParse[0], _processClient);
             }
 
             _usedClientsMap[host].sendProcess(new DIDAProcessSendRequest { FileName = fileName, Args = args });
@@ -211,11 +242,7 @@ namespace PuppetMasterUI
 
         private void startFunc()
         {
-
-            var reply = _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes} );
-            
-            //if (reply.Ack.Equals("ack"))
-            //    MessageBox.Show("Scheduler received all necessary infomation.");
+            _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes} );
         }
 
         public string openFile(string type, string fileName)
@@ -260,11 +287,13 @@ namespace PuppetMasterUI
                 {
                     _sentInits = true;
                 }
+
                 if (_sentInits)
                 {
                     startFunc();
                     _sentInits = false;
                 }
+
                 commandParser(s);
                 _previousCommand = tempSplit[0];
             }          

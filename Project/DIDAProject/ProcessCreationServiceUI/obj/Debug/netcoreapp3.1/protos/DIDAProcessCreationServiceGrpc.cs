@@ -48,6 +48,10 @@ public static partial class DIDAProcessCreationService
   static readonly grpc::Marshaller<global::DIDAProcessSendRequest> __Marshaller_DIDAProcessSendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAProcessSendRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAProcessSendReply> __Marshaller_DIDAProcessSendReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAProcessSendReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDACrashRequest> __Marshaller_DIDACrashRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDACrashRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDACrashReply> __Marshaller_DIDACrashReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDACrashReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAProcessSendRequest, global::DIDAProcessSendReply> __Method_sendProcess = new grpc::Method<global::DIDAProcessSendRequest, global::DIDAProcessSendReply>(
@@ -56,6 +60,14 @@ public static partial class DIDAProcessCreationService
       "sendProcess",
       __Marshaller_DIDAProcessSendRequest,
       __Marshaller_DIDAProcessSendReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDACrashRequest, global::DIDACrashReply> __Method_crashServer = new grpc::Method<global::DIDACrashRequest, global::DIDACrashReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "crashServer",
+      __Marshaller_DIDACrashRequest,
+      __Marshaller_DIDACrashReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -73,6 +85,12 @@ public static partial class DIDAProcessCreationService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::DIDACrashReply> crashServer(global::DIDACrashRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
   }
 
   /// <summary>Creates service definition that can be registered with a server</summary>
@@ -81,7 +99,8 @@ public static partial class DIDAProcessCreationService
   public static grpc::ServerServiceDefinition BindService(DIDAProcessCreationServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_sendProcess, serviceImpl.sendProcess).Build();
+        .AddMethod(__Method_sendProcess, serviceImpl.sendProcess)
+        .AddMethod(__Method_crashServer, serviceImpl.crashServer).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -92,6 +111,7 @@ public static partial class DIDAProcessCreationService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, DIDAProcessCreationServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_sendProcess, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAProcessSendRequest, global::DIDAProcessSendReply>(serviceImpl.sendProcess));
+    serviceBinder.AddMethod(__Method_crashServer, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDACrashRequest, global::DIDACrashReply>(serviceImpl.crashServer));
   }
 
 }
