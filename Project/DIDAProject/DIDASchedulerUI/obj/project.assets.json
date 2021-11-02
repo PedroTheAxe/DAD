@@ -395,19 +395,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pedro\\.nuget\\packages\\": {}
+    "C:\\Users\\joaop\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
+      "projectUniqueName": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
       "projectName": "DIDASchedulerUI",
-      "projectPath": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
-      "packagesPath": "C:\\Users\\Pedro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pedro\\source\\repos\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\obj\\",
+      "projectPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\DIDASchedulerUI.csproj",
+      "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\DIDASchedulerUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -467,7 +467,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

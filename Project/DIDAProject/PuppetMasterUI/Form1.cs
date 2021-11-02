@@ -25,7 +25,7 @@ namespace PuppetMasterUI
         private List<string> _commands = new List<string>();
         private bool sentInits = false;
         private string previousCommand = "";
-        DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = null;
+        private DIDAPuppetMasterService.DIDAPuppetMasterServiceClient _client = null;
 
         public Form1()
         {
@@ -38,11 +38,15 @@ namespace PuppetMasterUI
             // removed wait and debug - check if ok!
             if (command.Equals("scheduler") || command.Equals("worker") || command.Equals("storage")) {
                 return true;
-            } else if (!command.Equals("scheduler") && !command.Equals("worker") && !command.Equals("storage"))
+            }
+            //else if (!command.Equals("scheduler") && !command.Equals("worker") && !command.Equals("storage"))
+            //{
+            //    return false;
+            //}
+            else
             {
                 return false;
             }
-            return false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -62,6 +66,8 @@ namespace PuppetMasterUI
                         _commands.Add(command);
                     }
 
+                    textBox1.Text = _commands[0];
+                    _commands.RemoveAt(0);
                 }
                 catch (IOException)
                 {
@@ -78,15 +84,18 @@ namespace PuppetMasterUI
                 {
                     sentInits = true;
                 }
+                MessageBox.Show(sentInits.ToString());
                 textBox1.Text = _commands[0];
-                commandParser(_commands[0]);
-                previousCommand = tempSplit[0];
-                _commands.RemoveAt(0);
                 if (sentInits)
                 {
                     startFunc();
                     sentInits = false;
                 }
+                commandParser(_commands[0]);
+                previousCommand = tempSplit[0];
+                _commands.RemoveAt(0);
+                if (_commands.Count != 0)
+                    textBox1.Text = _commands[0];
             }
         }
 
@@ -107,7 +116,7 @@ namespace PuppetMasterUI
                     fileName = "DIDASchedulerUI";
                     processCreationService(fileName, arguments);
                     GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
-                    client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
+                    _client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
                     break;
 
                 case "storage":
@@ -128,14 +137,18 @@ namespace PuppetMasterUI
 
                 case "populate":
                     Console.WriteLine("entered populate\r\n");
+                    MessageBox.Show("ENTREI");
                     _populateData = openFile("populate", instance[1]);
-                    client.sendPostInitAsync(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
+                    MessageBox.Show("SQ MATO ME");
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
+                    MessageBox.Show("YA PUTO NAO ME VAIS LER");
                     break;
 
                 case "client":
                     Console.WriteLine("entered client\r\n");
+                    MessageBox.Show("CLIENTIIIII");
                     _operators = openFile("client", instance[2]);
-                    client.sendPostInitAsync(new DIDAPostInitRequest { Data = _operators, Type = "client" });
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" });
                     break;
 
                 case "status":
@@ -220,7 +233,7 @@ namespace PuppetMasterUI
         private void startFunc()
         {
 
-            var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes} );
+            var reply = _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes} );
             
             //if (reply.Ack.Equals("ack"))
             //    MessageBox.Show("Scheduler received all necessary infomation.");

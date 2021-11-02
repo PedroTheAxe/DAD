@@ -13,11 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDAWorkerUI", "DIDAWorkerUI\DIDAWorkerUI.csproj", "{D8FF3ED3-F5E7-4320-BFFA-764BB46AF3F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDAOperator", "DIDAReader\DIDAOperator.csproj", "{2FFB8E5A-8285-4179-A704-38131E278D93}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDASchedulerUI", "DIDASchedulerUI\DIDASchedulerUI.csproj", "{70A61F76-9D08-49A0-8AB9-FED9D4923B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppetMasterUI", "PuppetMasterUI\PuppetMasterUI.csproj", "{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuppetMasterUI", "PuppetMasterUI\PuppetMasterUI.csproj", "{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{D8FF3ED3-F5E7-4320-BFFA-764BB46AF3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8FF3ED3-F5E7-4320-BFFA-764BB46AF3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8FF3ED3-F5E7-4320-BFFA-764BB46AF3F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FFB8E5A-8285-4179-A704-38131E278D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FFB8E5A-8285-4179-A704-38131E278D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FFB8E5A-8285-4179-A704-38131E278D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FFB8E5A-8285-4179-A704-38131E278D93}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70A61F76-9D08-49A0-8AB9-FED9D4923B38}.Release|Any CPU.ActiveCfg = Release|Any CPU

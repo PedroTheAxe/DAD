@@ -35,7 +35,6 @@ namespace DIDASchedulerUI {
 
         public DIDAPostInitReply postInitImpl(DIDAPostInitRequest request)
         {
-
             DIDAPostInitReply postInitReply = new DIDAPostInitReply
             {
                 Ack = "ack"
@@ -70,7 +69,6 @@ namespace DIDASchedulerUI {
                     }
                 }
                 populateStorage();
-
             }
 
             return postInitReply;
@@ -112,7 +110,6 @@ namespace DIDASchedulerUI {
         public void populateStorage()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
             foreach (var item in storageNodesMap)
             {
                 Console.WriteLine("---------------");
