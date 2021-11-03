@@ -75,8 +75,8 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWor
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfoInputs.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfo.cs
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.CoreCompileInputs.cache
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.CopyComplete
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.genruntimeconfig.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.CopyComplete

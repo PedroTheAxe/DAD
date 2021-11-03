@@ -12,6 +12,7 @@ namespace DIDASchedulerUI {
         private Dictionary<string, string> workersMap = new Dictionary<string, string>();
         private Dictionary<int, string> operatorsMap = new Dictionary<int, string>();
         private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
+        private Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
         private Dictionary<string, string> populateDataMap = new Dictionary<string, string>();
         private int metaRecordId = 0;
 
@@ -39,9 +40,10 @@ namespace DIDASchedulerUI {
             {
                 Ack = "ack"
             };
-            string[] splitData = request.Data.Split(';');
+            
             if (request.Type.Equals("client"))
             {
+                string[] splitData = request.Data.Split(';');
                 operatorsMap.Clear();
                 for (int i = 0; i < splitData.Length - 1; i++)
                 {
@@ -59,6 +61,7 @@ namespace DIDASchedulerUI {
 
             if (request.Type.Equals("populate"))
             {
+                string[] splitData = request.Data.Split(';');
                 populateDataMap.Clear();
                 for (int i = 0; i < splitData.Length - 1; i++)
                 {
@@ -73,10 +76,28 @@ namespace DIDASchedulerUI {
                 populateStorage();
             }
 
-            //if (request.Type.Equals("listServer"))
-            //{
+            if (request.Type.Equals("listServer"))
+            {
+                requestList(request.Data);
+            }
 
-            //}
+            if (request.Type.Equals("listGlobal"))
+            {
+                Console.WriteLine("entered listGlobal");
+
+                foreach (string id in storageClientsMap.Keys)
+                {
+                    Console.WriteLine(id);
+                    requestList(id);
+                }
+                   
+            }
+
+            if (request.Type.Equals("crash"))
+            {
+                storageNodesMap.Remove(request.Data);
+                storageClientsMap.Remove(request.Data);
+            }
 
             return postInitReply;
         }
@@ -105,10 +126,14 @@ namespace DIDASchedulerUI {
             {
                 Console.WriteLine(storageNodes[i]);
                 string[] parameters = storageNodes[i].Split(' ');
+                Console.WriteLine(parameters[1]);
+                GrpcChannel channel = GrpcChannel.ForAddress(parameters[1]);
+                DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
                 lock (this)
                 {
                     storageNodesMap.Add(parameters[0], parameters[1]);
-                }
+                    storageClientsMap.Add(parameters[0], client);
+                } 
             }
 
             return fileSendReply;
@@ -116,19 +141,17 @@ namespace DIDASchedulerUI {
 
         public void populateStorage()
         {
-            foreach (var item in storageNodesMap)
+            foreach (var item in storageClientsMap)
             {
                 Console.WriteLine("---------------");
-                string url = item.Value;
-                Console.WriteLine("url: " + url);
 
-                GrpcChannel channel = GrpcChannel.ForAddress(url);
-                DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
+                //GrpcChannel channel = GrpcChannel.ForAddress(url);
+                //DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
                 foreach (var identifier in populateDataMap)
                 {
                     Console.WriteLine("id: " + identifier.Key);
                     Console.WriteLine("val: " + identifier.Value);
-                    client.write(new DIDAWriteRequest { Id = identifier.Key, Val = identifier.Value });
+                    item.Value.write(new DIDAWriteRequest { Id = identifier.Key, Val = identifier.Value });
                 }
             }
 
@@ -156,6 +179,12 @@ namespace DIDASchedulerUI {
             //    reply = client.send(new DIDASendRequest { Request = request });
             //}
             //var reply = client.send(new DIDASendRequest { Request = buildRequest(buildAssignments(buildOperatorsIDs())) });
+        }
+
+        public void requestList(string serverId)
+        {
+            Console.WriteLine("entered list");
+            var reply = storageClientsMap[serverId].listServer(new DIDAListServerRequest { Request = "list" });
         }
 
         public DIDAStorageNode[] buildStorageNodes()

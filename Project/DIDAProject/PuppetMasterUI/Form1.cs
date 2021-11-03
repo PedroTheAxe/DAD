@@ -152,11 +152,12 @@ namespace PuppetMasterUI
                 
                 case "listServer":
                     Console.WriteLine("entered list server\r\n");
-                    //_client.sendPostInit(new DIDAPostInitRequest { Data = instance[1], Type = "listServer" });
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = instance[1].Split("\r")[0], Type = "listServer" });
                     break;
 
-                case "listGlobal":
+                case "listGlobal\r":
                     Console.WriteLine("entered list global\r\n");
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
                     break;
 
                 case "debug":
@@ -169,6 +170,7 @@ namespace PuppetMasterUI
                     var reply = _storageNodesMap[serverId].crashServer(new DIDACrashRequest { ServerId = serverId });
                     if (reply.Equals("ack"))
                         _storageNodesMap.Remove(serverId);
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = serverId, Type = "crash" });
                     //var p = Process.GetProcessById(_storageProcessMap[serverId]);
                     //p.Kill();
                     break;

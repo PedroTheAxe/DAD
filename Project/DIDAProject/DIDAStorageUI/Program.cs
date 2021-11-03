@@ -127,6 +127,27 @@ namespace DIDAStorageUI {
 
             return v;
         }
+
+        public override Task<DIDAListServerReply> listServer(DIDAListServerRequest request, ServerCallContext context)
+        {
+            return Task.FromResult<DIDAListServerReply>(listServerImpl(request));
+        }
+
+        public DIDAListServerReply listServerImpl(DIDAListServerRequest request)
+        {
+            if (request.Request.Equals("list"))
+            {
+                foreach (DIDARecord record in recordsList)
+                {
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine("Record id: " + record.id);
+                    Console.WriteLine("Record stored value: " + record.val);
+                    Console.WriteLine("Record version number: " + record.version.versionNumber);
+                }
+            }
+
+            return new DIDAListServerReply { Ack = "ack" };
+        }
     }
 
     class Program {

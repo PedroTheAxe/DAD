@@ -5,9 +5,13 @@ storage s2 http://localhost:3002 0
 worker w1 http://localhost:4001 0
 worker w2 http://localhost:4002 0
 populate app2_data
+listServer s1
+listServer s2
+listGlobal
 client 23 app2
 wait 2000
 crash s2
 client 13 app2
+listServer s1
 wait 2000
 
