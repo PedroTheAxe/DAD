@@ -31,13 +31,11 @@ public static partial class DIDAStorageReflection {
           "SURBVXBkYXRlSWZSZXF1ZXN0EgoKAmlkGAEgASgJEhAKCG9sZHZhbHVlGAIg",
           "ASgJEhAKCG5ld3ZhbHVlGAMgASgJIkQKF0RJREFNZXRhUmVjb3JkRXh0ZW5z",
           "aW9uEgoKAmlkGAEgASgFEh0KB3ZlcnNpb24YAiABKAsyDC5ESURBVmVyc2lv",
-          "biIiChNESURBUHJldmlvdXNPcFJlcGx5EgsKA2FjaxgBIAEoCTLmAQoSRElE",
+          "biIiChNESURBUHJldmlvdXNPcFJlcGx5EgsKA2FjaxgBIAEoCTKhAQoSRElE",
           "QVN0b3JhZ2VTZXJ2aWNlEioKBHJlYWQSEC5ESURBUmVhZFJlcXVlc3QaEC5E",
           "SURBUmVjb3JkUmVwbHkSKAoFd3JpdGUSES5ESURBV3JpdGVSZXF1ZXN0Ggwu",
           "RElEQVZlcnNpb24SNQoPdXBkYXRlSWZWYWx1ZUlzEhQuRElEQVVwZGF0ZUlm",
-          "UmVxdWVzdBoMLkRJREFWZXJzaW9uEkMKEXByZXZpb3VzT3BWZXJzaW9uEhgu",
-          "RElEQU1ldGFSZWNvcmRFeHRlbnNpb24aFC5ESURBUHJldmlvdXNPcFJlcGx5",
-          "YgZwcm90bzM="));
+          "UmVxdWVzdBoMLkRJREFWZXJzaW9uYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {

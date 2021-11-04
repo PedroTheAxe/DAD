@@ -5,7 +5,7 @@ service DIDAStorageService {
   rpc read(DIDAReadRequest) returns (DIDARecordReply);
   rpc write(DIDAWriteRequest) returns (DIDAVersion);
   rpc updateIfValueIs(DIDAUpdateIfRequest) returns (DIDAVersion);
-  rpc previousOpVersion(DIDAMetaRecordExtension) returns (DIDAPreviousOpReply);
+  //rpc previousOpVersion(DIDAMetaRecordExtension) returns (DIDAPreviousOpReply);
 }
 
 message DIDAReadRequest {

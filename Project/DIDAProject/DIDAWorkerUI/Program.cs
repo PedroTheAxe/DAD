@@ -14,11 +14,11 @@ namespace DIDAWorkerUI
         private string _previousOutput = "";
         //DIDASendRequest _request;
         //private List<DIDAStorageNode> _storageNodes;
-        //private DIDAVersion _previousVersion = null;
+        private DIDAMetaRecordExtension _previousMeta = null;
 
         public SchedulerService()
         {
-
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
         public override Task<DIDASendReply> send(DIDASendRequest request, ServerCallContext context)
@@ -27,6 +27,33 @@ namespace DIDAWorkerUI
         }
 
         public DIDASendReply sendImpl(DIDASendRequest request)
+        {
+            Console.WriteLine(request);
+
+            string className = request.Request.Chain[request.Request.Next].Op.Classname;
+            reflectionLoad(className, request); //.dll reflection
+
+            DIDASendReply sendReply = new DIDASendReply
+            {
+                Ack = "ack"
+            };
+
+            if (request.Request.Next < request.Request.ChainSize)
+            {
+                Console.WriteLine("-------------------------------");
+                sendToNextWorker(request);
+                Console.WriteLine("-------------------------------");
+            }
+
+
+            return sendReply;
+        }
+        public override Task<DIDAPreviousOpReply> previousOpVersion(DIDAMetaRecordExtension meta, ServerCallContext context)
+        {
+            return Task.FromResult(previousOpVersionImpl(meta));
+        }
+
+        public DIDAPreviousOpReply previousOpVersionImpl(DIDAMetaRecordExtension meta)
         {
             Console.WriteLine(request);
 
@@ -57,8 +84,6 @@ namespace DIDAWorkerUI
             string url = "http://" + host + ":" + port;
             Console.WriteLine(url);
 
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
             DIDASendRequest sendRequest = new DIDASendRequest();
@@ -67,6 +92,7 @@ namespace DIDAWorkerUI
             var reply = client.sendAsync(sendRequest);
 
             DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
+            var reply = client.previousOpVersionAsync();
 
         }
 
@@ -166,6 +192,8 @@ namespace DIDAWorkerUI
         }
     }
 
+
+
     public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
     {
         public DIDAVersion _outputVersion = null;
@@ -176,6 +204,42 @@ namespace DIDAWorkerUI
             this._outputVersion = version;
         }
     }
+
+    //class WorkerService : DIDAStorageService.DIDAStorageServiceBase
+    //{
+    //    public WorkerService()
+    //    {
+    //        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+    //    }
+
+    //    public override Task<DIDAPreviousOpReply> previousOpVersion(DIDAMetaRecordExtension meta, ServerCallContext context)
+    //    {
+    //        return Task.FromResult(previousOpVersionImpl(meta));
+    //    }
+
+    //    public DIDAPreviousOpReply previousOpVersionImpl(DIDAMetaRecordExtension meta)
+    //    {
+    //        Console.WriteLine(request);
+
+    //        string className = request.Request.Chain[request.Request.Next].Op.Classname;
+    //        reflectionLoad(className, request); //.dll reflection
+
+    //        DIDASendReply sendReply = new DIDASendReply
+    //        {
+    //            Ack = "ack"
+    //        };
+
+    //        if (request.Request.Next < request.Request.ChainSize)
+    //        {
+    //            Console.WriteLine("-------------------------------");
+    //            sendToNextWorker(request);
+    //            Console.WriteLine("-------------------------------");
+    //        }
+
+
+    //        return sendReply;
+    //    }
+    //}
     class Program
     {
         static void Main(string[] args)
@@ -194,7 +258,7 @@ namespace DIDAWorkerUI
 
             Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new SchedulerService()) },
+                Services = { DIDASchedulerService.BindService(new SchedulerService())/*, DIDAStorageService.BindService(new WorkerService())*/ },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();

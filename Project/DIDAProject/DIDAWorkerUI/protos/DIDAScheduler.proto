@@ -3,6 +3,7 @@
 
 service DIDASchedulerService {   
 	rpc send(DIDASendRequest) returns (DIDASendReply); 
+	rpc previousOpVersion(DIDAMetaRecordExtension) returns (DIDAPreviousOpReply);
 } 
 
 message DIDASendRequest {     
@@ -42,4 +43,18 @@ message DIDAStorageNode {
 	string serverId = 1;
 	string host = 2;
 	int32 port = 3;
+}
+
+message DIDAMetaRecordExtension {
+	int32 id = 1;
+	DIDAVersion version = 2;
+}
+
+message DIDAPreviousOpReply {
+	string ack = 1;
+}
+
+message DIDAVersion {
+	int32 versionNumber = 1;
+	int32 replicaId = 2;
 }
