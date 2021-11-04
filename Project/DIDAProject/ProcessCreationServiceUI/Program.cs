@@ -54,7 +54,6 @@ namespace ProcessCreationServiceUI
 
         public override Task<DIDACrashReply> crashServer(DIDACrashRequest request, ServerCallContext context)
         {
-            Console.WriteLine("PUATAAAAAAA");
             return Task.FromResult(crashServerImpl(request));
         }
 

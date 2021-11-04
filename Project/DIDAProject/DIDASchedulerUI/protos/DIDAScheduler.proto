@@ -30,7 +30,13 @@ message DIDAAssignment {
 }
 
 message DIDAMetaRecord {     
-	int32 id = 1; 
+	int32 id = 1;
+	//DIDAVersion version = 2;
+}
+
+message DIDAMetaRecordExtension {     
+	int32 id = 1;
+	//DIDAVersion version = 2;
 }
 
 message DIDAOperatorID {     
@@ -43,3 +49,8 @@ message DIDAStorageNode {
 	string host = 2;
 	int32 port = 3;
 }
+
+/*message DIDAVersion {
+	int32 versionNumber = 1;
+	int32 replicaId = 2;
+}*/

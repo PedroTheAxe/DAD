@@ -143,10 +143,10 @@ namespace PuppetMasterUI
                 case "client":
                     Console.WriteLine("entered client\r\n");
                     _operators = openFile("client", instance[2]);
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" });
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] });
                     break;
 
-                case "status":
+                case "status": 
                     Console.WriteLine("entered status\r\n");
                     break;
                 
