@@ -65,14 +65,15 @@ namespace DIDAWorkerUI
             sendRequest.Request = request.Request;
             sendRequest.StorageNodes.Add(request.StorageNodes);
             var reply = client.sendAsync(sendRequest);
-            //Console.WriteLine("CCCCCCCCCCCCCCCCC: "  + reply);
+
+            DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
+
         }
 
         public void reflectionLoad(string className, DIDASendRequest request)
         {
-            //TODO: check and maybe refactor
             string _dllNameTermination = ".dll";
-            string _currWorkingDir = Directory.GetCurrentDirectory(); //maybe use Desktop or Downloads
+            string _currWorkingDir = Directory.GetCurrentDirectory();
             string savingPath = Path.GetFullPath(Path.Combine(_currWorkingDir, @"..\..\..\..\"));
             DIDAWorker.IDIDAOperator _objLoadedByReflection;
 
@@ -106,8 +107,8 @@ namespace DIDAWorkerUI
                                 i++;
                                 Console.WriteLine(i);
                             }
-                            DIDAMetaRecordExtension metaExtension = new DIDAMetaRecordExtension(request.Request.Meta.Id/*, request.Request.Meta.Version*/);
-                            StorageProxy storageProxy = new StorageProxy(storageNodes, metaExtension);
+                            
+                            StorageProxy storageProxy = new StorageProxy(storageNodes, request.Request.Meta.Id);
                             _objLoadedByReflection.ConfigureStorage(storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
                             Console.WriteLine("previous: " + _previousOutput);
@@ -124,9 +125,9 @@ namespace DIDAWorkerUI
     {
         Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> _clients = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
         Dictionary<string, Grpc.Net.Client.GrpcChannel> _channels = new Dictionary<string, Grpc.Net.Client.GrpcChannel>();
-        DIDAMetaRecordExtension _meta;
+        int _metaRecordId;
       
-        public StorageProxy(DIDAStorageNode[] storageNodes, DIDAMetaRecordExtension metaRecord)
+        public StorageProxy(DIDAStorageNode[] storageNodes, int metaRecordId)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             foreach (DIDAStorageNode n in storageNodes)
@@ -134,14 +135,20 @@ namespace DIDAWorkerUI
                 _channels[n.ServerId] = Grpc.Net.Client.GrpcChannel.ForAddress("http://" + n.Host + ":" + n.Port);
                 _clients[n.ServerId] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
             }
-            _meta = metaRecord;
+            _metaRecordId = metaRecordId;
         }
 
         public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
         {
-            //if (r.Version.VersionNumber == -1 && r.Version.ReplicaId == -1)
-            //{
-            //}
+            if (r.Version.VersionNumber == -1 && r.Version.ReplicaId == -1)
+            {
+                if (true)
+                {
+                    DIDAMetaRecordExtension metaRecordExtension = new DIDAMetaRecordExtension(_metaRecordId, );
+                    _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
+                }
+                    
+            } 
             var res = _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
             return new DIDAWorker.DIDARecordReply { Id = "1", Val = "1", Version = { VersionNumber = 1, ReplicaId = 1 } };
         }
@@ -161,13 +168,12 @@ namespace DIDAWorkerUI
 
     public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
     {
-        private int id = 0;
-        //private DIDAVersion _outputVersion = null;
+        public DIDAVersion _outputVersion = null;
     
-        public DIDAMetaRecordExtension(Int32 id/*, DIDAVersion version*/)
+        public DIDAMetaRecordExtension(int id, DIDAVersion version)
         {
-            this.id = id;
-            //this._outputVersion = version;
+            this.Id = id;
+            this._outputVersion = version;
         }
     }
     class Program

@@ -5,7 +5,7 @@ service DIDAStorageService {
   rpc read(DIDAReadRequest) returns (DIDARecordReply);
   rpc write(DIDAWriteRequest) returns (DIDAVersion);
   rpc updateIfValueIs(DIDAUpdateIfRequest) returns (DIDAVersion);
-  rpc listServer(DIDAListServerRequest) returns (DIDAListServerReply);
+  rpc previousOpVersion(DIDAMetaRecordExtension) returns (DIDAPreviousOpReply);
 }
 
 message DIDAReadRequest {
@@ -17,14 +17,6 @@ message DIDARecordReply {
 	string id = 1;
 	DIDAVersion version = 2;
 	string val = 3;
-}
-
-message DIDAListServerRequest {
-	string request = 1;
-}
-
-message DIDAListServerReply {
-	string ack = 1;
 }
 
 message DIDAVersion {
@@ -41,4 +33,13 @@ message DIDAUpdateIfRequest {
 	string id = 1;
 	string oldvalue = 2;
 	string newvalue = 3;
+}
+
+message DIDAMetaRecordExtension {
+	int32 id = 1;
+	DIDAVersion version = 2;
+}
+
+message DIDAPreviousOpReply {
+	string ack = 1;
 }

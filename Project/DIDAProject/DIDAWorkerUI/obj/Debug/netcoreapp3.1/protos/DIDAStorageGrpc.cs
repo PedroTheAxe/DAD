@@ -57,6 +57,10 @@ public static partial class DIDAStorageService
   static readonly grpc::Marshaller<global::DIDAVersion> __Marshaller_DIDAVersion = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAVersion.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAUpdateIfRequest> __Marshaller_DIDAUpdateIfRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAUpdateIfRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAMetaRecordExtension> __Marshaller_DIDAMetaRecordExtension = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAMetaRecordExtension.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPreviousOpReply> __Marshaller_DIDAPreviousOpReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPreviousOpReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAReadRequest, global::DIDARecordReply> __Method_read = new grpc::Method<global::DIDAReadRequest, global::DIDARecordReply>(
@@ -81,6 +85,14 @@ public static partial class DIDAStorageService
       "updateIfValueIs",
       __Marshaller_DIDAUpdateIfRequest,
       __Marshaller_DIDAVersion);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAMetaRecordExtension, global::DIDAPreviousOpReply> __Method_previousOpVersion = new grpc::Method<global::DIDAMetaRecordExtension, global::DIDAPreviousOpReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "previousOpVersion",
+      __Marshaller_DIDAMetaRecordExtension,
+      __Marshaller_DIDAPreviousOpReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -174,6 +186,26 @@ public static partial class DIDAStorageService
     public virtual grpc::AsyncUnaryCall<global::DIDAVersion> updateIfValueIsAsync(global::DIDAUpdateIfRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_updateIfValueIs, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPreviousOpReply previousOpVersion(global::DIDAMetaRecordExtension request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return previousOpVersion(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPreviousOpReply previousOpVersion(global::DIDAMetaRecordExtension request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_previousOpVersion, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPreviousOpReply> previousOpVersionAsync(global::DIDAMetaRecordExtension request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return previousOpVersionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPreviousOpReply> previousOpVersionAsync(global::DIDAMetaRecordExtension request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_previousOpVersion, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
