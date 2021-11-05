@@ -52,7 +52,6 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWor
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.genruntimeconfig.cache
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.csproj.AssemblyReference.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfoInputs.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAWorkerUI\obj\Debug\netcoreapp3.1\DIDAWorkerUI.AssemblyInfo.cs

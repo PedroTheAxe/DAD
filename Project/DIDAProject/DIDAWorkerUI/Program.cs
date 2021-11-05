@@ -48,33 +48,6 @@ namespace DIDAWorkerUI
 
             return sendReply;
         }
-        public override Task<DIDAPreviousOpReply> previousOpVersion(DIDAMetaRecordExtension meta, ServerCallContext context)
-        {
-            return Task.FromResult(previousOpVersionImpl(meta));
-        }
-
-        public DIDAPreviousOpReply previousOpVersionImpl(DIDAMetaRecordExtension meta)
-        {
-            Console.WriteLine(request);
-
-            string className = request.Request.Chain[request.Request.Next].Op.Classname;
-            reflectionLoad(className, request); //.dll reflection
-
-            DIDASendReply sendReply = new DIDASendReply
-            {
-                Ack = "ack"
-            };
-
-            if (request.Request.Next < request.Request.ChainSize)
-            {
-                Console.WriteLine("-------------------------------");
-                sendToNextWorker(request);
-                Console.WriteLine("-------------------------------");
-            }
-
-
-            return sendReply;
-        }
 
         public void sendToNextWorker(DIDASendRequest request)
         {
@@ -91,8 +64,8 @@ namespace DIDAWorkerUI
             sendRequest.StorageNodes.Add(request.StorageNodes);
             var reply = client.sendAsync(sendRequest);
 
-            DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
-            var reply = client.previousOpVersionAsync();
+            //DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
+            //var reply = client.previousOpVersionAsync();
 
         }
 
@@ -170,7 +143,7 @@ namespace DIDAWorkerUI
             {
                 if (true)
                 {
-                    DIDAMetaRecordExtension metaRecordExtension = new DIDAMetaRecordExtension(_metaRecordId, );
+                    //DIDAMetaRecordExtension metaRecordExtension = new DIDAMetaRecordExtension(_metaRecordId, );
                     _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
                 }
                     
@@ -205,41 +178,23 @@ namespace DIDAWorkerUI
         }
     }
 
-    //class WorkerService : DIDAStorageService.DIDAStorageServiceBase
-    //{
-    //    public WorkerService()
-    //    {
-    //        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-    //    }
+    class WorkerService : DIDAStorageService.DIDAStorageServiceBase
+    {
+        public WorkerService()
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        }
 
-    //    public override Task<DIDAPreviousOpReply> previousOpVersion(DIDAMetaRecordExtension meta, ServerCallContext context)
-    //    {
-    //        return Task.FromResult(previousOpVersionImpl(meta));
-    //    }
+        public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(previousVersionImpl(request));
+        }
 
-    //    public DIDAPreviousOpReply previousOpVersionImpl(DIDAMetaRecordExtension meta)
-    //    {
-    //        Console.WriteLine(request);
-
-    //        string className = request.Request.Chain[request.Request.Next].Op.Classname;
-    //        reflectionLoad(className, request); //.dll reflection
-
-    //        DIDASendReply sendReply = new DIDASendReply
-    //        {
-    //            Ack = "ack"
-    //        };
-
-    //        if (request.Request.Next < request.Request.ChainSize)
-    //        {
-    //            Console.WriteLine("-------------------------------");
-    //            sendToNextWorker(request);
-    //            Console.WriteLine("-------------------------------");
-    //        }
-
-
-    //        return sendReply;
-    //    }
-    //}
+        public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
+        {
+            return new DIDAPreviousOpReply { Ack = "ack" };
+        }
+    }
     class Program
     {
         static void Main(string[] args)
@@ -258,7 +213,7 @@ namespace DIDAWorkerUI
 
             Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new SchedulerService())/*, DIDAStorageService.BindService(new WorkerService())*/ },
+                Services = { DIDASchedulerService.BindService(new SchedulerService()), DIDAStorageService.BindService(new WorkerService()) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
