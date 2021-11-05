@@ -14,7 +14,7 @@ namespace DIDAWorkerUI
         private string _previousOutput = "";
         //DIDASendRequest _request;
         //private List<DIDAStorageNode> _storageNodes;
-        private DIDAMetaRecordExtension _previousMeta = null;
+        private DIDAMetaRecordExtension _meta = null;
 
         public SchedulerService()
         {
@@ -31,7 +31,7 @@ namespace DIDAWorkerUI
             Console.WriteLine(request);
 
             string className = request.Request.Chain[request.Request.Next].Op.Classname;
-            reflectionLoad(className, request); //.dll reflection
+            reflectionLoad(className, request, _meta); //.dll reflection
 
             DIDASendReply sendReply = new DIDASendReply
             {
@@ -58,18 +58,21 @@ namespace DIDAWorkerUI
             Console.WriteLine(url);
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
+            DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
+            DIDAPreviousOpReply previousMeta = clientOp.previousVersionAsync();
+            _meta = previousMeta.Ack;
+
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
             DIDASendRequest sendRequest = new DIDASendRequest();
             sendRequest.Request = request.Request;
             sendRequest.StorageNodes.Add(request.StorageNodes);
             var reply = client.sendAsync(sendRequest);
 
-            //DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
-            //var reply = client.previousOpVersionAsync();
+            
 
         }
 
-        public void reflectionLoad(string className, DIDASendRequest request)
+        public void reflectionLoad(string className, DIDASendRequest request, DIDAMetaRecordExtension meta)
         {
             string _dllNameTermination = ".dll";
             string _currWorkingDir = Directory.GetCurrentDirectory();
@@ -107,7 +110,7 @@ namespace DIDAWorkerUI
                                 Console.WriteLine(i);
                             }
                             
-                            StorageProxy storageProxy = new StorageProxy(storageNodes, request.Request.Meta.Id);
+                            StorageProxy storageProxy = new StorageProxy(storageNodes, meta);
                             _objLoadedByReflection.ConfigureStorage(storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
                             Console.WriteLine("previous: " + _previousOutput);
@@ -124,9 +127,9 @@ namespace DIDAWorkerUI
     {
         Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> _clients = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
         Dictionary<string, Grpc.Net.Client.GrpcChannel> _channels = new Dictionary<string, Grpc.Net.Client.GrpcChannel>();
-        int _metaRecordId;
+        DIDAMetaRecordExtension _previousMeta;
       
-        public StorageProxy(DIDAStorageNode[] storageNodes, int metaRecordId)
+        public StorageProxy(DIDAStorageNode[] storageNodes, DIDAMetaRecordExtension meta)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             foreach (DIDAStorageNode n in storageNodes)
@@ -134,7 +137,7 @@ namespace DIDAWorkerUI
                 _channels[n.ServerId] = Grpc.Net.Client.GrpcChannel.ForAddress("http://" + n.Host + ":" + n.Port);
                 _clients[n.ServerId] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
             }
-            _metaRecordId = metaRecordId;
+            _previousMeta = meta;
         }
 
         public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
@@ -169,17 +172,19 @@ namespace DIDAWorkerUI
 
     public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
     {
-        public DIDAVersion _outputVersion = null;
+        public DIDAVersion _outputVersion;
     
         public DIDAMetaRecordExtension(int id, DIDAVersion version)
         {
-            this.Id = id;
-            this._outputVersion = version;
+            Id = id;
+            _outputVersion = version;
         }
     }
 
     class WorkerService : DIDAStorageService.DIDAStorageServiceBase
     {
+        private DIDAMetaRecordExtension _previousMeta;
+
         public WorkerService()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -192,7 +197,16 @@ namespace DIDAWorkerUI
 
         public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
         {
-            return new DIDAPreviousOpReply { Ack = "ack" };
+            DIDAVersion version = new DIDAVersion
+            {
+                VersionNumber = request.Meta.Version.VersionNumber,
+                ReplicaId = request.Meta.Version.ReplicaId 
+            };
+            
+            DIDAMetaRecordExtension meta = new DIDAMetaRecordExtension(request.Meta.Id, version);
+
+            _previousMeta = meta;
+            return new DIDAPreviousOpReply { Ack = _previousMeta };
         }
     }
     class Program
