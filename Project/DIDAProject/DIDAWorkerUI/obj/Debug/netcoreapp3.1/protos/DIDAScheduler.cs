@@ -36,12 +36,11 @@ public static partial class DIDASchedulerReflection {
           "CHNlcnZlcklkGAEgASgJEgwKBGhvc3QYAiABKAkSDAoEcG9ydBgDIAEoBSI/",
           "ChVESURBUHJldmlvdXNPcFJlcXVlc3QSJgoEbWV0YRgBIAEoCzIYLkRJREFN",
           "ZXRhUmVjb3JkRXh0ZW5zaW9uIkQKF0RJREFNZXRhUmVjb3JkRXh0ZW5zaW9u",
-          "EgoKAmlkGAEgASgFEh0KB3ZlcnNpb24YAiABKAsyDC5ESURBVmVyc2lvbiI8",
-          "ChNESURBUHJldmlvdXNPcFJlcGx5EiUKA2FjaxgBIAEoCzIYLkRJREFNZXRh",
-          "UmVjb3JkRXh0ZW5zaW9uMoEBChRESURBU2NoZWR1bGVyU2VydmljZRIoCgRz",
-          "ZW5kEhAuRElEQVNlbmRSZXF1ZXN0Gg4uRElEQVNlbmRSZXBseRI/Cg9wcmV2",
-          "aW91c1ZlcnNpb24SFi5ESURBUHJldmlvdXNPcFJlcXVlc3QaFC5ESURBUHJl",
-          "dmlvdXNPcFJlcGx5YgZwcm90bzM="));
+          "EgoKAmlkGAEgASgFEh0KB3ZlcnNpb24YAiABKAsyDC5ESURBVmVyc2lvbiIi",
+          "ChNESURBUHJldmlvdXNPcFJlcGx5EgsKA2FjaxgBIAEoCTKBAQoURElEQVNj",
+          "aGVkdWxlclNlcnZpY2USKAoEc2VuZBIQLkRJREFTZW5kUmVxdWVzdBoOLkRJ",
+          "REFTZW5kUmVwbHkSPwoPcHJldmlvdXNWZXJzaW9uEhYuRElEQVByZXZpb3Vz",
+          "T3BSZXF1ZXN0GhQuRElEQVByZXZpb3VzT3BSZXBseWIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::DIDAStorageReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -2263,7 +2262,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public DIDAPreviousOpReply(DIDAPreviousOpReply other) : this() {
-    ack_ = other.ack_ != null ? other.ack_.Clone() : null;
+    ack_ = other.ack_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -2275,13 +2274,13 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
 
   /// <summary>Field number for the "ack" field.</summary>
   public const int AckFieldNumber = 1;
-  private global::DIDAMetaRecordExtension ack_;
+  private string ack_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::DIDAMetaRecordExtension Ack {
+  public string Ack {
     get { return ack_; }
     set {
-      ack_ = value;
+      ack_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -2300,7 +2299,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(Ack, other.Ack)) return false;
+    if (Ack != other.Ack) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2308,7 +2307,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (ack_ != null) hash ^= Ack.GetHashCode();
+    if (Ack.Length != 0) hash ^= Ack.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2327,9 +2326,9 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (ack_ != null) {
+    if (Ack.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Ack);
+      output.WriteString(Ack);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -2341,9 +2340,9 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (ack_ != null) {
+    if (Ack.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Ack);
+      output.WriteString(Ack);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -2355,8 +2354,8 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (ack_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Ack);
+    if (Ack.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Ack);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2370,11 +2369,8 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
     if (other == null) {
       return;
     }
-    if (other.ack_ != null) {
-      if (ack_ == null) {
-        Ack = new global::DIDAMetaRecordExtension();
-      }
-      Ack.MergeFrom(other.Ack);
+    if (other.Ack.Length != 0) {
+      Ack = other.Ack;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2392,10 +2388,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (ack_ == null) {
-            Ack = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Ack);
+          Ack = input.ReadString();
           break;
         }
       }
@@ -2414,10 +2407,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          if (ack_ == null) {
-            Ack = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Ack);
+          Ack = input.ReadString();
           break;
         }
       }

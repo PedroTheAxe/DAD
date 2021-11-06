@@ -56,5 +56,5 @@ message DIDAMetaRecordExtension {
 }
 
 message DIDAPreviousOpReply {
-    DIDAMetaRecordExtension ack = 1;
+    string ack = 1;
 }
