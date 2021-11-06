@@ -11,6 +11,7 @@ namespace DIDAWorkerUI
 {
     public class SchedulerService : DIDASchedulerService.DIDASchedulerServiceBase
     {
+        private DIDAMetaRecordExtension _previousMeta;
         private string _previousOutput = "";
         //DIDASendRequest _request;
         //private List<DIDAStorageNode> _storageNodes;
@@ -19,6 +20,28 @@ namespace DIDAWorkerUI
         public SchedulerService()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+        }
+
+        public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(previousVersionImpl(request));
+        }
+
+        public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
+        {
+            DIDAVersion version = new DIDAVersion
+            {
+                VersionNumber = request.Meta.Version.VersionNumber,
+                ReplicaId = request.Meta.Version.ReplicaId
+            };
+
+            DIDAMetaRecordExtension meta = new DIDAMetaRecordExtension {
+                Id = request.Meta.Id, 
+                Version = version 
+            };
+
+            _previousMeta = meta;
+            return new DIDAPreviousOpReply { Ack = _previousMeta };
         }
 
         public override Task<DIDASendReply> send(DIDASendRequest request, ServerCallContext context)
@@ -58,9 +81,9 @@ namespace DIDAWorkerUI
             Console.WriteLine(url);
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
-            DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
-            DIDAPreviousOpReply previousMeta = clientOp.previousVersionAsync();
-            _meta = previousMeta.Ack;
+            //DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
+            //DIDAPreviousOpReply previousMeta = clientOp.previousVersionAsync();
+            //_meta = previousMeta.Ack;
 
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
             DIDASendRequest sendRequest = new DIDASendRequest();
@@ -170,45 +193,45 @@ namespace DIDAWorkerUI
 
 
 
-    public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
-    {
-        public DIDAVersion _outputVersion;
+    //public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
+    //{
+    //    public DIDAVersion _outputVersion;
     
-        public DIDAMetaRecordExtension(int id, DIDAVersion version)
-        {
-            Id = id;
-            _outputVersion = version;
-        }
-    }
+    //    public DIDAMetaRecordExtension(int id, DIDAVersion version)
+    //    {
+    //        Id = id;
+    //        _outputVersion = version;
+    //    }
+    //}
 
-    class WorkerService : DIDAStorageService.DIDAStorageServiceBase
-    {
-        private DIDAMetaRecordExtension _previousMeta;
+    //class WorkerService : DIDAStorageService.DIDAStorageServiceBase
+    //{
+    //    private DIDAMetaRecordExtension _previousMeta;
 
-        public WorkerService()
-        {
-            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-        }
+    //    public WorkerService()
+    //    {
+    //        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+    //    }
 
-        public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
-        {
-            return Task.FromResult(previousVersionImpl(request));
-        }
+    //    public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
+    //    {
+    //        return Task.FromResult(previousVersionImpl(request));
+    //    }
 
-        public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
-        {
-            DIDAVersion version = new DIDAVersion
-            {
-                VersionNumber = request.Meta.Version.VersionNumber,
-                ReplicaId = request.Meta.Version.ReplicaId 
-            };
+    //    public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
+    //    {
+    //        DIDAVersion version = new DIDAVersion
+    //        {
+    //            VersionNumber = request.Meta.Version.VersionNumber,
+    //            ReplicaId = request.Meta.Version.ReplicaId 
+    //        };
             
-            DIDAMetaRecordExtension meta = new DIDAMetaRecordExtension(request.Meta.Id, version);
+    //        DIDAMetaRecordExtension meta = new DIDAMetaRecordExtension(request.Meta.Id, version);
 
-            _previousMeta = meta;
-            return new DIDAPreviousOpReply { Ack = _previousMeta };
-        }
-    }
+    //        _previousMeta = meta;
+    //        return new DIDAPreviousOpReply { Ack = _previousMeta };
+    //    }
+    //}
     class Program
     {
         static void Main(string[] args)
@@ -227,7 +250,7 @@ namespace DIDAWorkerUI
 
             Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new SchedulerService()), DIDAStorageService.BindService(new WorkerService()) },
+                Services = { DIDASchedulerService.BindService(new SchedulerService())/*, DIDAStorageService.BindService(new WorkerService())*/ },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();

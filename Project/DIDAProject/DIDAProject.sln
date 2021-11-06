@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIDASchedulerUI", "DIDASche
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuppetMasterUI", "PuppetMasterUI\PuppetMasterUI.csproj", "{A5F57280-EF6E-43C9-8D88-B4AE74AA1188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessCreationServiceUI", "ProcessCreationServiceUI\ProcessCreationServiceUI.csproj", "{0C1ECDBF-0A0E-48DE-83B3-ED687801C029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessCreationServiceUI", "ProcessCreationServiceUI\ProcessCreationServiceUI.csproj", "{0C1ECDBF-0A0E-48DE-83B3-ED687801C029}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

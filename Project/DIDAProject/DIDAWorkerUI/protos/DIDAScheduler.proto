@@ -1,45 +1,60 @@
-﻿syntax = "proto3";  
+﻿syntax = "proto3";
 
+import "protos/DIDAStorage.proto";
 
-service DIDASchedulerService {   
-	rpc send(DIDASendRequest) returns (DIDASendReply); 
+service DIDASchedulerService {
+    rpc send(DIDASendRequest) returns (DIDASendReply); 
+    rpc previousVersion(DIDAPreviousOpRequest) returns (DIDAPreviousOpReply);
 } 
 
-message DIDASendRequest {     
-	DIDARequest request = 1;
-	repeated DIDAStorageNode storageNodes = 2;
+message DIDASendRequest {
+    DIDARequest request = 1;
+    repeated DIDAStorageNode storageNodes = 2;
 }
 
-message DIDASendReply {     
-	string ack = 1;
+message DIDASendReply {
+    string ack = 1;
 }
 
 message DIDARequest {
-	DIDAMetaRecord meta = 1;
-	string input = 2;
-	int32 next = 3;
-	int32 chainSize = 4;
-	repeated DIDAAssignment chain = 5;
+    DIDAMetaRecord meta = 1;
+    string input = 2;
+    int32 next = 3;
+    int32 chainSize = 4;
+    repeated DIDAAssignment chain = 5;
 }
 
-message DIDAAssignment {     
-	DIDAOperatorID op = 1;
-	string host = 2;
-	int32 port = 3;
-	string output = 4;
+message DIDAAssignment {
+    DIDAOperatorID op = 1;
+    string host = 2;
+    int32 port = 3;
+    string output = 4;
 }
 
-message DIDAMetaRecord {     
-	int32 id = 1;
+message DIDAMetaRecord {
+    int32 id = 1;
 }
 
-message DIDAOperatorID {     
-	string classname = 1; 
-	int32 order = 2;
+message DIDAOperatorID {
+    string classname = 1; 
+    int32 order = 2;
 }
 
 message DIDAStorageNode {
-	string serverId = 1;
-	string host = 2;
-	int32 port = 3;
+    string serverId = 1;
+    string host = 2;
+    int32 port = 3;
+}
+
+message DIDAPreviousOpRequest {
+    DIDAMetaRecordExtension meta = 1;
+}
+
+message DIDAMetaRecordExtension {
+    int32 id = 1;
+    DIDAVersion version = 2;
+}
+
+message DIDAPreviousOpReply {
+    DIDAMetaRecordExtension ack = 1;
 }

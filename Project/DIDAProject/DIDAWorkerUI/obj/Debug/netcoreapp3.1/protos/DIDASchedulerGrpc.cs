@@ -48,6 +48,10 @@ public static partial class DIDASchedulerService
   static readonly grpc::Marshaller<global::DIDASendRequest> __Marshaller_DIDASendRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDASendRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDASendReply> __Marshaller_DIDASendReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDASendReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPreviousOpRequest> __Marshaller_DIDAPreviousOpRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPreviousOpRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAPreviousOpReply> __Marshaller_DIDAPreviousOpReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPreviousOpReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDASendRequest, global::DIDASendReply> __Method_send = new grpc::Method<global::DIDASendRequest, global::DIDASendReply>(
@@ -56,6 +60,14 @@ public static partial class DIDASchedulerService
       "send",
       __Marshaller_DIDASendRequest,
       __Marshaller_DIDASendReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAPreviousOpRequest, global::DIDAPreviousOpReply> __Method_previousVersion = new grpc::Method<global::DIDAPreviousOpRequest, global::DIDAPreviousOpReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "previousVersion",
+      __Marshaller_DIDAPreviousOpRequest,
+      __Marshaller_DIDAPreviousOpReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -69,6 +81,12 @@ public static partial class DIDASchedulerService
   {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::DIDASendReply> send(global::DIDASendRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::DIDAPreviousOpReply> previousVersion(global::DIDAPreviousOpRequest request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -122,6 +140,26 @@ public static partial class DIDASchedulerService
     {
       return CallInvoker.AsyncUnaryCall(__Method_send, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPreviousOpReply previousVersion(global::DIDAPreviousOpRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return previousVersion(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAPreviousOpReply previousVersion(global::DIDAPreviousOpRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_previousVersion, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPreviousOpReply> previousVersionAsync(global::DIDAPreviousOpRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return previousVersionAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAPreviousOpReply> previousVersionAsync(global::DIDAPreviousOpRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_previousVersion, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override DIDASchedulerServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -136,7 +174,8 @@ public static partial class DIDASchedulerService
   public static grpc::ServerServiceDefinition BindService(DIDASchedulerServiceBase serviceImpl)
   {
     return grpc::ServerServiceDefinition.CreateBuilder()
-        .AddMethod(__Method_send, serviceImpl.send).Build();
+        .AddMethod(__Method_send, serviceImpl.send)
+        .AddMethod(__Method_previousVersion, serviceImpl.previousVersion).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -147,6 +186,7 @@ public static partial class DIDASchedulerService
   public static void BindService(grpc::ServiceBinderBase serviceBinder, DIDASchedulerServiceBase serviceImpl)
   {
     serviceBinder.AddMethod(__Method_send, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDASendRequest, global::DIDASendReply>(serviceImpl.send));
+    serviceBinder.AddMethod(__Method_previousVersion, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAPreviousOpRequest, global::DIDAPreviousOpReply>(serviceImpl.previousVersion));
   }
 
 }
