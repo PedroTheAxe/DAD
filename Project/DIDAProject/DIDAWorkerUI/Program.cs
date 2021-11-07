@@ -16,6 +16,7 @@ namespace DIDAWorkerUI
         //DIDASendRequest _request;
         //private List<DIDAStorageNode> _storageNodes;
         private DIDAMetaRecordExtension _meta = new DIDAMetaRecordExtension();
+        private StorageProxy _storageProxy;
 
         public SchedulerService()
         {
@@ -152,12 +153,12 @@ namespace DIDAWorkerUI
                                 Console.WriteLine(i);
                             }
                             
-                            StorageProxy storageProxy = new StorageProxy(storageNodes, meta);
-                            _objLoadedByReflection.ConfigureStorage(storageProxy);
+                            _storageProxy = new StorageProxy(storageNodes, meta);
+                            _objLoadedByReflection.ConfigureStorage(_storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
                             Console.WriteLine("previous: " + _previousOutput);
-                            storageProxy.setPreviousMeta();
-                            return storageProxy.getPreviousMeta();
+                            _storageProxy.setPreviousMeta();
+                            return _storageProxy.getPreviousMeta();
                         }
                     }
                 }
@@ -169,7 +170,7 @@ namespace DIDAWorkerUI
 
     public class StorageProxy : IDIDAStorage
     {
-        Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> _clients = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
+        Dictionary<int, DIDAStorageService.DIDAStorageServiceClient> _clients = new Dictionary<int, DIDAStorageService.DIDAStorageServiceClient>();
         Dictionary<string, Grpc.Net.Client.GrpcChannel> _channels = new Dictionary<string, Grpc.Net.Client.GrpcChannel>();
         DIDAMetaRecordExtension _previousMeta = new DIDAMetaRecordExtension();
         DIDAMetaRecordExtension _newMeta = new DIDAMetaRecordExtension();
@@ -180,7 +181,7 @@ namespace DIDAWorkerUI
             foreach (DIDAStorageNode n in storageNodes)
             {
                 _channels[n.ServerId] = Grpc.Net.Client.GrpcChannel.ForAddress("http://" + n.Host + ":" + n.Port);
-                _clients[n.ServerId] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
+                _clients[n.ServerId.GetHashCode()] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
             }
             _previousMeta = meta;
             _newMeta.Id = 0;
@@ -204,33 +205,51 @@ namespace DIDAWorkerUI
 
         public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
         {
+            int serverNode = 0;
+            int position = 0;
+            var keys = new List<int>(_clients.Keys);
+            keys.Sort();
+
+            foreach (int i in keys)
+            {
+                if (r.Id.GetHashCode() < i)
+                {
+                    serverNode = i;
+                    break;
+                }
+
+                position++;
+
+                if (position == _clients.Keys.Count)
+                {
+                    serverNode = keys[0];
+                    break;
+                }
+
+            }
+
             if (r.Version.VersionNumber == -1 && r.Version.ReplicaId == -1)
             {
-                Console.WriteLine("version null");
                 if (_previousMeta.Version.VersionNumber == -1  && _previousMeta.Version.ReplicaId == -1)
                 {
-                    Console.WriteLine("first worker");
-                    var resultStorage = _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
-                    Console.WriteLine("puattaa");
+                    var resultStorage = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
                     _newMeta.Version.VersionNumber = resultStorage.Version.VersionNumber;
                     _newMeta.Version.ReplicaId = resultStorage.Version.ReplicaId;
-                    Console.WriteLine(resultStorage.Version.VersionNumber);
-                    Console.WriteLine(resultStorage.Version.ReplicaId);
+                    //Console.WriteLine(resultStorage.Version.VersionNumber);
+                    //Console.WriteLine(resultStorage.Version.ReplicaId);
                     return new DIDAWorker.DIDARecordReply { Id = resultStorage.Id, Val = resultStorage.Val, Version = { VersionNumber = resultStorage.Version.VersionNumber, ReplicaId = resultStorage.Version.ReplicaId } };
                 }
-                Console.WriteLine("read previous version");
-                Console.WriteLine(_previousMeta.Version.VersionNumber);
-                Console.WriteLine(_previousMeta.Version.ReplicaId);
-                var resultPrevious = _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = _previousMeta.Version.VersionNumber, ReplicaId = _previousMeta.Version.ReplicaId } });
+                //Console.WriteLine(_previousMeta.Version.VersionNumber);
+                //Console.WriteLine(_previousMeta.Version.ReplicaId);
+                var resultPrevious = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = _previousMeta.Version.VersionNumber, ReplicaId = _previousMeta.Version.ReplicaId } });
                 _newMeta.Version.VersionNumber = resultPrevious.Version.VersionNumber;
                 _newMeta.Version.ReplicaId = resultPrevious.Version.ReplicaId;
-                Console.WriteLine(resultPrevious.Version.VersionNumber);
-                Console.WriteLine(resultPrevious.Version.ReplicaId);
+                //Console.WriteLine(resultPrevious.Version.VersionNumber);
+                //Console.WriteLine(resultPrevious.Version.ReplicaId);
                 return new DIDAWorker.DIDARecordReply { Id = resultPrevious.Id, Val = resultPrevious.Val, Version = { VersionNumber = resultPrevious.Version.VersionNumber, ReplicaId = resultPrevious.Version.ReplicaId } };
 
             }
-            Console.WriteLine("read from version " + r.Version.VersionNumber);
-            var res = _clients["s1"].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
+            var res = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
             _newMeta.Version.VersionNumber = res.Version.VersionNumber;
             _newMeta.Version.ReplicaId = res.Version.ReplicaId;
             return new DIDAWorker.DIDARecordReply { Id = res.Id, Val = res.Val, Version = { VersionNumber = res.Version.VersionNumber, ReplicaId = res.Version.ReplicaId } };
@@ -238,13 +257,59 @@ namespace DIDAWorkerUI
 
         public virtual DIDAWorker.DIDAVersion write(DIDAWorker.DIDAWriteRequest r)
         {
-            var res = _clients["s1"].write(new DIDAWriteRequest { Id = r.Id, Val = r.Val });
+            int serverNode = 0;
+            int position = 0;
+            var keys = new List<int>(_clients.Keys);
+            keys.Sort();
+
+            foreach (int i in keys)
+            {
+                if (r.Id.GetHashCode() < i)
+                {
+                    serverNode = i;
+                    break;
+                }
+
+                position++;
+
+                if (position == _clients.Keys.Count)
+                {
+                    serverNode = keys[0];
+                    break;
+                }
+
+            }
+
+            var res = _clients[serverNode].write(new DIDAWriteRequest { Id = r.Id, Val = r.Val });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
         }
 
         public virtual DIDAWorker.DIDAVersion updateIfValueIs(DIDAWorker.DIDAUpdateIfRequest r)
         {
-            var res = _clients["s1"].updateIfValueIs(new DIDAUpdateIfRequest { Id = r.Id, Newvalue = r.Newvalue, Oldvalue = r.Oldvalue });
+            int serverNode = 0;
+            int position = 0;
+            var keys = new List<int>(_clients.Keys);
+            keys.Sort();
+
+            foreach (int i in keys)
+            {
+                if (r.Id.GetHashCode() < i)
+                {
+                    serverNode = i;
+                    break;
+                }
+
+                position++;
+
+                if (position == _clients.Keys.Count)
+                {
+                    serverNode = keys[0];
+                    break;
+                }
+
+            }
+
+            var res = _clients[serverNode].updateIfValueIs(new DIDAUpdateIfRequest { Id = r.Id, Newvalue = r.Newvalue, Oldvalue = r.Oldvalue });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
         }
     }
