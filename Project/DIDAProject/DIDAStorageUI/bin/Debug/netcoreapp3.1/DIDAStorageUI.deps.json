@@ -12,7 +12,8 @@
           "Grpc.Core": "2.41.0",
           "Grpc.Net.Client": "2.40.0",
           "Grpc.Tools": "2.41.0",
-          "LibDIDAStorage": "1.0.0.0"
+          "LibDIDAStorage": "1.0.0.0",
+          "LibDIDAWorker": "1.0.0.0"
         },
         "runtime": {
           "DIDAStorageUI.dll": {}
@@ -123,6 +124,14 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "LibDIDAWorker/1.0.0.0": {
+        "runtime": {
+          "LibDIDAWorker.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -203,6 +212,11 @@
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
     },
     "LibDIDAStorage/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LibDIDAWorker/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

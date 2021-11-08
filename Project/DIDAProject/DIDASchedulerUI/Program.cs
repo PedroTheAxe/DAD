@@ -134,7 +134,11 @@ namespace DIDASchedulerUI {
                 {
                     storageNodesMap.Add(parameters[0], parameters[1]);
                     storageClientsMap.Add(parameters[0], client);
-                } 
+                }
+                DIDAUpdateServerIdRequest serverIdRequest = new DIDAUpdateServerIdRequest();
+                serverIdRequest.ServerId = parameters[0];
+                serverIdRequest.StorageNodes.Add(storageNodes);
+                client.updateServerId(serverIdRequest);
             }
 
             return fileSendReply;

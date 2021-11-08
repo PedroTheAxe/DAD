@@ -31,18 +31,16 @@ public static partial class DIDAStorageReflection {
           "YmVyGAEgASgFEhEKCXJlcGxpY2FJZBgCIAEoBSIrChBESURBV3JpdGVSZXF1",
           "ZXN0EgoKAmlkGAEgASgJEgsKA3ZhbBgCIAEoCSJFChNESURBVXBkYXRlSWZS",
           "ZXF1ZXN0EgoKAmlkGAEgASgJEhAKCG9sZHZhbHVlGAIgASgJEhAKCG5ld3Zh",
-          "bHVlGAMgASgJIj8KFURJREFQcmV2aW91c09wUmVxdWVzdBImCgRtZXRhGAEg",
-          "ASgLMhguRElEQU1ldGFSZWNvcmRFeHRlbnNpb24iRAoXRElEQU1ldGFSZWNv",
-          "cmRFeHRlbnNpb24SCgoCaWQYASABKAUSHQoHdmVyc2lvbhgCIAEoCzIMLkRJ",
-          "REFWZXJzaW9uIjwKE0RJREFQcmV2aW91c09wUmVwbHkSJQoDYWNrGAEgASgL",
-          "MhguRElEQU1ldGFSZWNvcmRFeHRlbnNpb24yngIKEkRJREFTdG9yYWdlU2Vy",
-          "dmljZRIqCgRyZWFkEhAuRElEQVJlYWRSZXF1ZXN0GhAuRElEQVJlY29yZFJl",
-          "cGx5EigKBXdyaXRlEhEuRElEQVdyaXRlUmVxdWVzdBoMLkRJREFWZXJzaW9u",
-          "EjUKD3VwZGF0ZUlmVmFsdWVJcxIULkRJREFVcGRhdGVJZlJlcXVlc3QaDC5E",
-          "SURBVmVyc2lvbhI6CgpsaXN0U2VydmVyEhYuRElEQUxpc3RTZXJ2ZXJSZXF1",
-          "ZXN0GhQuRElEQUxpc3RTZXJ2ZXJSZXBseRI/Cg9wcmV2aW91c1ZlcnNpb24S",
-          "Fi5ESURBUHJldmlvdXNPcFJlcXVlc3QaFC5ESURBUHJldmlvdXNPcFJlcGx5",
-          "YgZwcm90bzM="));
+          "bHVlGAMgASgJIkMKGURJREFVcGRhdGVTZXJ2ZXJJZFJlcXVlc3QSEAoIc2Vy",
+          "dmVySWQYASABKAkSFAoMc3RvcmFnZU5vZGVzGAIgAygJIiYKF0RJREFVcGRh",
+          "dGVTZXJ2ZXJJZFJlcGx5EgsKA2FjaxgBIAEoCTKlAgoSRElEQVN0b3JhZ2VT",
+          "ZXJ2aWNlEioKBHJlYWQSEC5ESURBUmVhZFJlcXVlc3QaEC5ESURBUmVjb3Jk",
+          "UmVwbHkSKAoFd3JpdGUSES5ESURBV3JpdGVSZXF1ZXN0GgwuRElEQVZlcnNp",
+          "b24SNQoPdXBkYXRlSWZWYWx1ZUlzEhQuRElEQVVwZGF0ZUlmUmVxdWVzdBoM",
+          "LkRJREFWZXJzaW9uEjoKCmxpc3RTZXJ2ZXISFi5ESURBTGlzdFNlcnZlclJl",
+          "cXVlc3QaFC5ESURBTGlzdFNlcnZlclJlcGx5EkYKDnVwZGF0ZVNlcnZlcklk",
+          "EhouRElEQVVwZGF0ZVNlcnZlcklkUmVxdWVzdBoYLkRJREFVcGRhdGVTZXJ2",
+          "ZXJJZFJlcGx5YgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -53,9 +51,8 @@ public static partial class DIDAStorageReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAVersion), global::DIDAVersion.Parser, new[]{ "VersionNumber", "ReplicaId" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAWriteRequest), global::DIDAWriteRequest.Parser, new[]{ "Id", "Val" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAUpdateIfRequest), global::DIDAUpdateIfRequest.Parser, new[]{ "Id", "Oldvalue", "Newvalue" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAPreviousOpRequest), global::DIDAPreviousOpRequest.Parser, new[]{ "Meta" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAMetaRecordExtension), global::DIDAMetaRecordExtension.Parser, new[]{ "Id", "Version" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAPreviousOpReply), global::DIDAPreviousOpReply.Parser, new[]{ "Ack" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAUpdateServerIdRequest), global::DIDAUpdateServerIdRequest.Parser, new[]{ "ServerId", "StorageNodes" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAUpdateServerIdReply), global::DIDAUpdateServerIdReply.Parser, new[]{ "Ack" }, null, null, null, null)
         }));
   }
   #endregion
@@ -1665,16 +1662,16 @@ public sealed partial class DIDAUpdateIfRequest : pb::IMessage<DIDAUpdateIfReque
 
 }
 
-public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpRequest>
+public sealed partial class DIDAUpdateServerIdRequest : pb::IMessage<DIDAUpdateServerIdRequest>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<DIDAPreviousOpRequest> _parser = new pb::MessageParser<DIDAPreviousOpRequest>(() => new DIDAPreviousOpRequest());
+  private static readonly pb::MessageParser<DIDAUpdateServerIdRequest> _parser = new pb::MessageParser<DIDAUpdateServerIdRequest>(() => new DIDAUpdateServerIdRequest());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<DIDAPreviousOpRequest> Parser { get { return _parser; } }
+  public static pb::MessageParser<DIDAUpdateServerIdRequest> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1690,7 +1687,7 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpRequest() {
+  public DIDAUpdateServerIdRequest() {
     OnConstruction();
   }
 
@@ -1698,45 +1695,58 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpRequest(DIDAPreviousOpRequest other) : this() {
-    meta_ = other.meta_ != null ? other.meta_.Clone() : null;
+  public DIDAUpdateServerIdRequest(DIDAUpdateServerIdRequest other) : this() {
+    serverId_ = other.serverId_;
+    storageNodes_ = other.storageNodes_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpRequest Clone() {
-    return new DIDAPreviousOpRequest(this);
+  public DIDAUpdateServerIdRequest Clone() {
+    return new DIDAUpdateServerIdRequest(this);
   }
 
-  /// <summary>Field number for the "meta" field.</summary>
-  public const int MetaFieldNumber = 1;
-  private global::DIDAMetaRecordExtension meta_;
+  /// <summary>Field number for the "serverId" field.</summary>
+  public const int ServerIdFieldNumber = 1;
+  private string serverId_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::DIDAMetaRecordExtension Meta {
-    get { return meta_; }
+  public string ServerId {
+    get { return serverId_; }
     set {
-      meta_ = value;
+      serverId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
+  }
+
+  /// <summary>Field number for the "storageNodes" field.</summary>
+  public const int StorageNodesFieldNumber = 2;
+  private static readonly pb::FieldCodec<string> _repeated_storageNodes_codec
+      = pb::FieldCodec.ForString(18);
+  private readonly pbc::RepeatedField<string> storageNodes_ = new pbc::RepeatedField<string>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<string> StorageNodes {
+    get { return storageNodes_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as DIDAPreviousOpRequest);
+    return Equals(other as DIDAUpdateServerIdRequest);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(DIDAPreviousOpRequest other) {
+  public bool Equals(DIDAUpdateServerIdRequest other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(Meta, other.Meta)) return false;
+    if (ServerId != other.ServerId) return false;
+    if(!storageNodes_.Equals(other.storageNodes_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1744,7 +1754,8 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (meta_ != null) hash ^= Meta.GetHashCode();
+    if (ServerId.Length != 0) hash ^= ServerId.GetHashCode();
+    hash ^= storageNodes_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1763,10 +1774,11 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (meta_ != null) {
+    if (ServerId.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Meta);
+      output.WriteString(ServerId);
     }
+    storageNodes_.WriteTo(output, _repeated_storageNodes_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1777,10 +1789,11 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (meta_ != null) {
+    if (ServerId.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Meta);
+      output.WriteString(ServerId);
     }
+    storageNodes_.WriteTo(ref output, _repeated_storageNodes_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1791,9 +1804,10 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (meta_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Meta);
+    if (ServerId.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ServerId);
     }
+    size += storageNodes_.CalculateSize(_repeated_storageNodes_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1802,16 +1816,14 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(DIDAPreviousOpRequest other) {
+  public void MergeFrom(DIDAUpdateServerIdRequest other) {
     if (other == null) {
       return;
     }
-    if (other.meta_ != null) {
-      if (meta_ == null) {
-        Meta = new global::DIDAMetaRecordExtension();
-      }
-      Meta.MergeFrom(other.Meta);
+    if (other.ServerId.Length != 0) {
+      ServerId = other.ServerId;
     }
+    storageNodes_.Add(other.storageNodes_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1828,10 +1840,11 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (meta_ == null) {
-            Meta = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Meta);
+          ServerId = input.ReadString();
+          break;
+        }
+        case 18: {
+          storageNodes_.AddEntriesFrom(input, _repeated_storageNodes_codec);
           break;
         }
       }
@@ -1850,10 +1863,11 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          if (meta_ == null) {
-            Meta = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Meta);
+          ServerId = input.ReadString();
+          break;
+        }
+        case 18: {
+          storageNodes_.AddEntriesFrom(ref input, _repeated_storageNodes_codec);
           break;
         }
       }
@@ -1863,16 +1877,16 @@ public sealed partial class DIDAPreviousOpRequest : pb::IMessage<DIDAPreviousOpR
 
 }
 
-public sealed partial class DIDAMetaRecordExtension : pb::IMessage<DIDAMetaRecordExtension>
+public sealed partial class DIDAUpdateServerIdReply : pb::IMessage<DIDAUpdateServerIdReply>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<DIDAMetaRecordExtension> _parser = new pb::MessageParser<DIDAMetaRecordExtension>(() => new DIDAMetaRecordExtension());
+  private static readonly pb::MessageParser<DIDAUpdateServerIdReply> _parser = new pb::MessageParser<DIDAUpdateServerIdReply>(() => new DIDAUpdateServerIdReply());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<DIDAMetaRecordExtension> Parser { get { return _parser; } }
+  public static pb::MessageParser<DIDAUpdateServerIdReply> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1888,7 +1902,7 @@ public sealed partial class DIDAMetaRecordExtension : pb::IMessage<DIDAMetaRecor
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAMetaRecordExtension() {
+  public DIDAUpdateServerIdReply() {
     OnConstruction();
   }
 
@@ -1896,280 +1910,45 @@ public sealed partial class DIDAMetaRecordExtension : pb::IMessage<DIDAMetaRecor
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAMetaRecordExtension(DIDAMetaRecordExtension other) : this() {
-    id_ = other.id_;
-    version_ = other.version_ != null ? other.version_.Clone() : null;
+  public DIDAUpdateServerIdReply(DIDAUpdateServerIdReply other) : this() {
+    ack_ = other.ack_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAMetaRecordExtension Clone() {
-    return new DIDAMetaRecordExtension(this);
-  }
-
-  /// <summary>Field number for the "id" field.</summary>
-  public const int IdFieldNumber = 1;
-  private int id_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public int Id {
-    get { return id_; }
-    set {
-      id_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "version" field.</summary>
-  public const int VersionFieldNumber = 2;
-  private global::DIDAVersion version_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::DIDAVersion Version {
-    get { return version_; }
-    set {
-      version_ = value;
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override bool Equals(object other) {
-    return Equals(other as DIDAMetaRecordExtension);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(DIDAMetaRecordExtension other) {
-    if (ReferenceEquals(other, null)) {
-      return false;
-    }
-    if (ReferenceEquals(other, this)) {
-      return true;
-    }
-    if (Id != other.Id) return false;
-    if (!object.Equals(Version, other.Version)) return false;
-    return Equals(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override int GetHashCode() {
-    int hash = 1;
-    if (Id != 0) hash ^= Id.GetHashCode();
-    if (version_ != null) hash ^= Version.GetHashCode();
-    if (_unknownFields != null) {
-      hash ^= _unknownFields.GetHashCode();
-    }
-    return hash;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override string ToString() {
-    return pb::JsonFormatter.ToDiagnosticString(this);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void WriteTo(pb::CodedOutputStream output) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    output.WriteRawMessage(this);
-  #else
-    if (Id != 0) {
-      output.WriteRawTag(8);
-      output.WriteInt32(Id);
-    }
-    if (version_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(Version);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(output);
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Id != 0) {
-      output.WriteRawTag(8);
-      output.WriteInt32(Id);
-    }
-    if (version_ != null) {
-      output.WriteRawTag(18);
-      output.WriteMessage(Version);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(ref output);
-    }
-  }
-  #endif
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public int CalculateSize() {
-    int size = 0;
-    if (Id != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-    }
-    if (version_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Version);
-    }
-    if (_unknownFields != null) {
-      size += _unknownFields.CalculateSize();
-    }
-    return size;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(DIDAMetaRecordExtension other) {
-    if (other == null) {
-      return;
-    }
-    if (other.Id != 0) {
-      Id = other.Id;
-    }
-    if (other.version_ != null) {
-      if (version_ == null) {
-        Version = new global::DIDAVersion();
-      }
-      Version.MergeFrom(other.Version);
-    }
-    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(pb::CodedInputStream input) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    input.ReadRawMessage(this);
-  #else
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-          break;
-        case 8: {
-          Id = input.ReadInt32();
-          break;
-        }
-        case 18: {
-          if (version_ == null) {
-            Version = new global::DIDAVersion();
-          }
-          input.ReadMessage(Version);
-          break;
-        }
-      }
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-          break;
-        case 8: {
-          Id = input.ReadInt32();
-          break;
-        }
-        case 18: {
-          if (version_ == null) {
-            Version = new global::DIDAVersion();
-          }
-          input.ReadMessage(Version);
-          break;
-        }
-      }
-    }
-  }
-  #endif
-
-}
-
-public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpReply>
-#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    , pb::IBufferMessage
-#endif
-{
-  private static readonly pb::MessageParser<DIDAPreviousOpReply> _parser = new pb::MessageParser<DIDAPreviousOpReply>(() => new DIDAPreviousOpReply());
-  private pb::UnknownFieldSet _unknownFields;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<DIDAPreviousOpReply> Parser { get { return _parser; } }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pbr::MessageDescriptor Descriptor {
-    get { return global::DIDAStorageReflection.Descriptor.MessageTypes[9]; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  pbr::MessageDescriptor pb::IMessage.Descriptor {
-    get { return Descriptor; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpReply() {
-    OnConstruction();
-  }
-
-  partial void OnConstruction();
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpReply(DIDAPreviousOpReply other) : this() {
-    ack_ = other.ack_ != null ? other.ack_.Clone() : null;
-    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public DIDAPreviousOpReply Clone() {
-    return new DIDAPreviousOpReply(this);
+  public DIDAUpdateServerIdReply Clone() {
+    return new DIDAUpdateServerIdReply(this);
   }
 
   /// <summary>Field number for the "ack" field.</summary>
   public const int AckFieldNumber = 1;
-  private global::DIDAMetaRecordExtension ack_;
+  private string ack_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::DIDAMetaRecordExtension Ack {
+  public string Ack {
     get { return ack_; }
     set {
-      ack_ = value;
+      ack_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as DIDAPreviousOpReply);
+    return Equals(other as DIDAUpdateServerIdReply);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(DIDAPreviousOpReply other) {
+  public bool Equals(DIDAUpdateServerIdReply other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (!object.Equals(Ack, other.Ack)) return false;
+    if (Ack != other.Ack) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2177,7 +1956,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (ack_ != null) hash ^= Ack.GetHashCode();
+    if (Ack.Length != 0) hash ^= Ack.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2196,9 +1975,9 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (ack_ != null) {
+    if (Ack.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Ack);
+      output.WriteString(Ack);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -2210,9 +1989,9 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (ack_ != null) {
+    if (Ack.Length != 0) {
       output.WriteRawTag(10);
-      output.WriteMessage(Ack);
+      output.WriteString(Ack);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -2224,8 +2003,8 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (ack_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Ack);
+    if (Ack.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Ack);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -2235,15 +2014,12 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(DIDAPreviousOpReply other) {
+  public void MergeFrom(DIDAUpdateServerIdReply other) {
     if (other == null) {
       return;
     }
-    if (other.ack_ != null) {
-      if (ack_ == null) {
-        Ack = new global::DIDAMetaRecordExtension();
-      }
-      Ack.MergeFrom(other.Ack);
+    if (other.Ack.Length != 0) {
+      Ack = other.Ack;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2261,10 +2037,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          if (ack_ == null) {
-            Ack = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Ack);
+          Ack = input.ReadString();
           break;
         }
       }
@@ -2283,10 +2056,7 @@ public sealed partial class DIDAPreviousOpReply : pb::IMessage<DIDAPreviousOpRep
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          if (ack_ == null) {
-            Ack = new global::DIDAMetaRecordExtension();
-          }
-          input.ReadMessage(Ack);
+          Ack = input.ReadString();
           break;
         }
       }

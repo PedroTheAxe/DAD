@@ -4,11 +4,39 @@ using System.Threading.Tasks;
 using DIDAStorage;
 using Grpc.Core;
 
-namespace DIDAStorageUI {
-    
+namespace DIDAStorageUI
+{
+
     class StorageService : DIDAStorageService.DIDAStorageServiceBase {
         
         public List<DIDARecord> recordsList = new List<DIDARecord>();
+        private string _serverId = "";
+        private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
+        private int replicationFactor = 1;
+
+        //TODO Replication Function -> add to Storage.proto + Consistency algorithm
+
+        public override Task<DIDAUpdateServerIdReply> updateServerId(DIDAUpdateServerIdRequest request, ServerCallContext context)
+        {
+            return Task.FromResult<DIDAUpdateServerIdReply>(UpdateServerIdImpl(request));
+        }
+
+        public DIDAUpdateServerIdReply UpdateServerIdImpl(DIDAUpdateServerIdRequest request)
+        {
+            _serverId = request.ServerId;
+            for (int i = 0; i < request.StorageNodes.Count - 1; i++)
+            {
+                Console.WriteLine(request.StorageNodes[i]);
+                string[] parameters = request.StorageNodes[i].Split(' ');
+                Console.WriteLine(parameters[1]);
+                lock (this)
+                {
+                    storageNodesMap.Add(parameters[0], parameters[1]);
+                }
+            }
+            Console.WriteLine(_serverId);
+            return new DIDAUpdateServerIdReply { Ack = "ack" };
+        }
 
         public override Task<DIDARecordReply> read(DIDAReadRequest request, ServerCallContext context) {
             return Task.FromResult<DIDARecordReply>(ReadImpl(request));
@@ -78,7 +106,7 @@ namespace DIDAStorageUI {
                     Id = request.Id,
                     Val = request.Newvalue
                 };
-                DIDAVersion version = ((StorageService)this).WriteImpl(writeRequest); //why not only write??
+                DIDAVersion version = ((StorageService)this).WriteImpl(writeRequest);
                 return version;
             }
             else
@@ -86,7 +114,7 @@ namespace DIDAStorageUI {
                 return new DIDAVersion
                 {
                     VersionNumber = -1,
-                    ReplicaId = 0, //no clue what i should use here
+                    ReplicaId = -1, //no clue what i should use here
                 };
             }
         }
@@ -98,7 +126,7 @@ namespace DIDAStorageUI {
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
             Console.WriteLine("write");
             int latestVersionNumber = -1;
-            int replicaId = 0; //tenho de saber em q replica quero meter -- should be a list or a dict
+            int replicaId = _serverId.GetHashCode();
 
             foreach (DIDARecord r in recordsList)
             {
@@ -151,6 +179,7 @@ namespace DIDAStorageUI {
     }
 
     class Program {
+
         static void Main(string[] args) {
             Console.WriteLine(args[1]);
             string[] decomposedArgs = args[1].Split(":");
@@ -162,13 +191,29 @@ namespace DIDAStorageUI {
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
 
+            StorageService storage = new StorageService();
+
             Server server = new Server
             {
-                Services = { DIDAStorageService.BindService(new StorageService()) },
+                Services = { DIDAStorageService.BindService(storage) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
             Console.ReadKey();
+            //storage.Replicate() 
+            //private Timer timer1;
+            //public void InitTimer()
+            //{
+            //    timer1 = new Timer();
+            //    timer1.Tick += new EventHandler(timer1_Tick);
+            //    timer1.Interval = 2000; // in miliseconds
+            //    timer1.Start();
+            //}
+
+            //private void timer1_Tick(object sender, EventArgs e)
+            //{
+            //    isonline();
+            //}
             server.ShutdownAsync().Wait();
             Console.ReadLine();
         }

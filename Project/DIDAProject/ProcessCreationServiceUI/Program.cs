@@ -39,7 +39,6 @@ namespace ProcessCreationServiceUI
                     {
                         string[] processArgs = request.Args.Split(" ");
                         string serverId = processArgs[0];
-                        Console.WriteLine(serverId + "cpcp");
                         _storageProcessMap.Add(serverId, process.Id);
                     }
                 }
