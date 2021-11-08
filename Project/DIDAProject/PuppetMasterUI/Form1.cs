@@ -95,6 +95,8 @@ namespace PuppetMasterUI
                 _commands.RemoveAt(0);
                 if (_commands.Count != 0)
                     textBox1.Text = _commands[0];
+                else
+                    textBox1.Text = "EOF -- no more commands to execute";
             }
         }
 

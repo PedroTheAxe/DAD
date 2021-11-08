@@ -203,7 +203,7 @@ namespace DIDAWorkerUI
             _previousMeta = _newMeta;
         }
 
-        public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
+        public int chooseReplica(int recordHash)
         {
             int serverNode = 0;
             int position = 0;
@@ -212,7 +212,7 @@ namespace DIDAWorkerUI
 
             foreach (int i in keys)
             {
-                if (r.Id.GetHashCode() < i)
+                if (recordHash < i)
                 {
                     serverNode = i;
                     break;
@@ -227,6 +227,12 @@ namespace DIDAWorkerUI
                 }
 
             }
+            return serverNode;
+        }
+
+        public virtual DIDAWorker.DIDARecordReply read(DIDAWorker.DIDAReadRequest r)
+        {
+            int serverNode = chooseReplica(r.Id.GetHashCode());
 
             if (r.Version.VersionNumber == -1 && r.Version.ReplicaId == -1)
             {
@@ -257,28 +263,7 @@ namespace DIDAWorkerUI
 
         public virtual DIDAWorker.DIDAVersion write(DIDAWorker.DIDAWriteRequest r)
         {
-            int serverNode = 0;
-            int position = 0;
-            var keys = new List<int>(_clients.Keys);
-            keys.Sort();
-
-            foreach (int i in keys)
-            {
-                if (r.Id.GetHashCode() < i)
-                {
-                    serverNode = i;
-                    break;
-                }
-
-                position++;
-
-                if (position == _clients.Keys.Count)
-                {
-                    serverNode = keys[0];
-                    break;
-                }
-
-            }
+            int serverNode = chooseReplica(r.Id.GetHashCode());
 
             var res = _clients[serverNode].write(new DIDAWriteRequest { Id = r.Id, Val = r.Val });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
@@ -286,28 +271,7 @@ namespace DIDAWorkerUI
 
         public virtual DIDAWorker.DIDAVersion updateIfValueIs(DIDAWorker.DIDAUpdateIfRequest r)
         {
-            int serverNode = 0;
-            int position = 0;
-            var keys = new List<int>(_clients.Keys);
-            keys.Sort();
-
-            foreach (int i in keys)
-            {
-                if (r.Id.GetHashCode() < i)
-                {
-                    serverNode = i;
-                    break;
-                }
-
-                position++;
-
-                if (position == _clients.Keys.Count)
-                {
-                    serverNode = keys[0];
-                    break;
-                }
-
-            }
+            int serverNode = chooseReplica(r.Id.GetHashCode());
 
             var res = _clients[serverNode].updateIfValueIs(new DIDAUpdateIfRequest { Id = r.Id, Newvalue = r.Newvalue, Oldvalue = r.Oldvalue });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
