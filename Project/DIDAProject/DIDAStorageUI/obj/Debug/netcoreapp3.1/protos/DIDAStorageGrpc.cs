@@ -140,6 +140,12 @@ public static partial class DIDAStorageService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
+    /// <summary>
+    ///rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
+    /// </summary>
+    /// <param name="request">The request received from the client.</param>
+    /// <param name="context">The context of the server-side call handler being invoked.</param>
+    /// <returns>The response to send back to the client (wrapped by a task).</returns>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::DIDAUpdateServerIdReply> updateServerId(global::DIDAUpdateServerIdRequest request, grpc::ServerCallContext context)
     {

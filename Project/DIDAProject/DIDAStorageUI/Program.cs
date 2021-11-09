@@ -13,8 +13,47 @@ namespace DIDAStorageUI
         private string _serverId = "";
         private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
         private int replicationFactor = 1;
+        private Dictionary<DIDAVersion, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDAVersion, DIDAUpdateIfRequest>();
+        private Dictionary<DIDAVersion, DIDAWriteRequest> writeLog = new Dictionary<DIDAVersion, DIDAWriteRequest>();
+
 
         //TODO Replication Function -> add to Storage.proto + Consistency algorithm
+        // Replication factor -> DONE
+        // Log de updates e writes -> DONE
+        // Function de replication + impl -> TODO (Push)
+        // Periodicamente fazer a replication -> TODO
+
+        //public override Task<DIDAReplicationReply> replicate(DIDAReplicationRequest request, ServerCallContext context)
+        //{
+        //    return Task.FromResult<DIDAUpdateServerIdReply>(replicateImpl(request));
+        //}
+
+        //public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
+        //{
+        //TODO: consistency and updating logs (and recordsList?)
+
+        // Consistency:
+        //
+        //              look at updateLog
+        //                      if updateLog.sameDIDARecord.DIDAVersion.VersionNumber > writeLog.sameDIDARecord.DIDAVersion.VersionNumber (loop)
+        //                              do WriteRequest(s) then
+        //                              do UpdateRequest
+        //
+        //              before executing request
+        //                      if writeLog.DIDARecord.id (or updateLog.DIDARecord.id) == recordsList.DIDARecord.id and  writeLog.DIDARecord.DIDAVersion.VersionNumber (or updateLog.DIDARecord.id) == recordsList.DIDARecord.DIDAVersion.VersionNumber
+        //                              update Log and recordsList(?) with Record of highest replicaId (to discuss)
+        //
+        //}
+
+        public Dictionary<DIDAVersion, DIDAUpdateIfRequest> getUpdateLog()
+        {
+            return updateLog;
+        }
+
+        public Dictionary<DIDAVersion, DIDAWriteRequest> getWriteLog()
+        {
+            return writeLog;
+        }
 
         public override Task<DIDAUpdateServerIdReply> updateServerId(DIDAUpdateServerIdRequest request, ServerCallContext context)
         {
@@ -200,7 +239,7 @@ namespace DIDAStorageUI
             };
             server.Start();
             Console.ReadKey();
-            //storage.Replicate() 
+            //storage.replicate() 
             //private Timer timer1;
             //public void InitTimer()
             //{
