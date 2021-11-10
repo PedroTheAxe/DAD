@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using DIDAStorage;
 using Grpc.Core;
@@ -74,6 +76,7 @@ namespace DIDAStorageUI
                 }
             }
             Console.WriteLine(_serverId);
+            Console.WriteLine(calculateHash(_serverId));
             return new DIDAUpdateServerIdReply { Ack = "ack" };
         }
 
@@ -165,7 +168,7 @@ namespace DIDAStorageUI
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
             Console.WriteLine("write");
             int latestVersionNumber = -1;
-            int replicaId = _serverId.GetHashCode();
+            int replicaId = calculateHash(_serverId);
 
             foreach (DIDARecord r in recordsList)
             {
@@ -214,6 +217,13 @@ namespace DIDAStorageUI
             }
 
             return new DIDAListServerReply { Ack = "ack" };
+        }
+
+        public int calculateHash(string id)
+        {
+            byte[] encoded = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(id));
+            var value = BitConverter.ToInt32(encoded, 0) % 1000000;
+            return value;
         }
     }
 
