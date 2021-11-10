@@ -64,11 +64,16 @@ message DIDAReplicationReply {
 }
 
 message DIDAWriteLog { 
-    DIDAVersion version = 1;
+    DIDARecordInfo record = 1;
     DIDAWriteRequest request = 2;
 }
 
 message DIDAUpdateLog { 
-    DIDAVersion version = 1;
+    DIDARecordInfo record = 1;
     DIDAUpdateIfRequest request = 2;
+}
+
+message DIDARecordInfo {
+    string id = 1;
+    DIDAVersion version = 2;
 }

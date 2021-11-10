@@ -18,8 +18,8 @@ namespace DIDAStorageUI
         private Dictionary<int, string> storageNodesMap = new Dictionary<int, string>();
         private Dictionary<int, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<int, DIDAStorageService.DIDAStorageServiceClient>();
         private int replicationFactor = 2;
-        private Dictionary<DIDAVersion, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDAVersion, DIDAUpdateIfRequest>();
-        private Dictionary<DIDAVersion, DIDAWriteRequest> writeLog = new Dictionary<DIDAVersion, DIDAWriteRequest>();
+        private Dictionary<DIDARecordInfo, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDARecordInfo, DIDAUpdateIfRequest>();
+        private Dictionary<DIDARecordInfo, DIDAWriteRequest> writeLog = new Dictionary<DIDARecordInfo, DIDAWriteRequest>();
 
         public StorageService()
         {
@@ -49,7 +49,7 @@ namespace DIDAStorageUI
             foreach (var item in writeLog)
             {
                 DIDAWriteLog writeRequestLog = new DIDAWriteLog();
-                writeRequestLog.Version = item.Key;
+                writeRequestLog.Record = item.Key;
                 writeRequestLog.Request = item.Value;
                 //Console.WriteLine(writeRequestLog);
                 writeLogArray[i] = writeRequestLog;
@@ -62,7 +62,7 @@ namespace DIDAStorageUI
             foreach (var item in updateLog)
             {
                 DIDAUpdateLog udpdateRequestLog = new DIDAUpdateLog();
-                udpdateRequestLog.Version = item.Key;
+                udpdateRequestLog.Record = item.Key;
                 udpdateRequestLog.Request = item.Value;
                 updateLogArray[j] = udpdateRequestLog;
                 j++;
@@ -203,7 +203,12 @@ namespace DIDAStorageUI
                     Val = request.Newvalue
                 };
                 DIDAVersion version = ((StorageService)this).UpdateToWrite(writeRequest);
-                updateLog.Add(version, request);
+                DIDARecordInfo recordInfo = new DIDARecordInfo
+                {
+                    Id = request.Id,
+                    Version = version
+                };
+                updateLog.Add(recordInfo, request);
                 return version;
             }
             else
@@ -213,7 +218,12 @@ namespace DIDAStorageUI
                     VersionNumber = -1,
                     ReplicaId = -1, //no clue what i should use here
                 };
-                updateLog.Add(version, request);
+                DIDARecordInfo recordInfo = new DIDARecordInfo
+                {
+                    Id = request.Id,
+                    Version = version
+                };
+                updateLog.Add(recordInfo, request);
                 return version;
             }
         }
@@ -221,7 +231,12 @@ namespace DIDAStorageUI
         public DIDAVersion UpdateToWrite(DIDAWriteRequest request)
         {
             DIDAVersion version = ((StorageService)this).WriteImpl(request);
-            writeLog.Remove(version);
+            DIDARecordInfo recordInfo = new DIDARecordInfo
+            {
+                Id = request.Id,
+                Version = version
+            };
+            writeLog.Remove(recordInfo);
             return version;
         }
 
@@ -231,13 +246,16 @@ namespace DIDAStorageUI
 
         private DIDAVersion WriteImpl(DIDAWriteRequest request) {
             Console.WriteLine("write");
-            int latestVersionNumber = -1;
+            int latestVersionNumber = 0;
             int replicaId = calculateHash(_serverId);
 
             foreach (DIDARecord r in recordsList)
             {
-                if (r.version.replicaId == replicaId)
+                if (r.id.Equals(request.Id))
+                {
+                    Console.WriteLine("estou aqui");
                     latestVersionNumber = Math.Max(latestVersionNumber, r.version.versionNumber);
+                }
             }
 
             DIDAVersion v = new DIDAVersion();
@@ -259,7 +277,12 @@ namespace DIDAStorageUI
 
             recordsList.Add(record);
 
-            writeLog.Add(v, request);
+            DIDARecordInfo recordInfo = new DIDARecordInfo
+            {
+                Id = request.Id,
+                Version = v
+            };
+            writeLog.Add(recordInfo, request);
             return v;
         }
 
