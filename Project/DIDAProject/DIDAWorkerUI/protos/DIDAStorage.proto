@@ -7,7 +7,7 @@ service DIDAStorageService {
   rpc updateIfValueIs(DIDAUpdateIfRequest) returns (DIDAVersion);
   rpc listServer(DIDAListServerRequest) returns (DIDAListServerReply);
   rpc updateServerId(DIDAUpdateServerIdRequest) returns (DIDAUpdateServerIdReply);
-  //rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
+  rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
 }
 
 message DIDAReadRequest {
@@ -54,11 +54,21 @@ message DIDAUpdateServerIdReply {
     string ack = 1;
 }
 
-/*message DIDAReplicationRequest {
-    map<DIDAVersion, DIDAWriteRequest> writeLog = 1;
-    map<DIDAVersion, DIDAUpdateIfRequest> updateLog = 2;
+message DIDAReplicationRequest {
+    repeated DIDAWriteLog writeLog = 1;
+    repeated DIDAUpdateLog updateLog = 2;
 }
 
 message DIDAReplicationReply {
     string ack = 1;
-}*/
+}
+
+message DIDAWriteLog { 
+    DIDAVersion version = 1;
+    DIDAWriteRequest request = 2;
+}
+
+message DIDAUpdateLog { 
+    DIDAVersion version = 1;
+    DIDAUpdateIfRequest request = 2;
+}

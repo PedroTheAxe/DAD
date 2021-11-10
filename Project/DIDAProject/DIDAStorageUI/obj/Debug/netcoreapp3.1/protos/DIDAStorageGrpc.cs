@@ -65,6 +65,10 @@ public static partial class DIDAStorageService
   static readonly grpc::Marshaller<global::DIDAUpdateServerIdRequest> __Marshaller_DIDAUpdateServerIdRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAUpdateServerIdRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAUpdateServerIdReply> __Marshaller_DIDAUpdateServerIdReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAUpdateServerIdReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAReplicationRequest> __Marshaller_DIDAReplicationRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAReplicationRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAReplicationReply> __Marshaller_DIDAReplicationReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAReplicationReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAReadRequest, global::DIDARecordReply> __Method_read = new grpc::Method<global::DIDAReadRequest, global::DIDARecordReply>(
@@ -106,6 +110,14 @@ public static partial class DIDAStorageService
       __Marshaller_DIDAUpdateServerIdRequest,
       __Marshaller_DIDAUpdateServerIdReply);
 
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAReplicationRequest, global::DIDAReplicationReply> __Method_replicate = new grpc::Method<global::DIDAReplicationRequest, global::DIDAReplicationReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "replicate",
+      __Marshaller_DIDAReplicationRequest,
+      __Marshaller_DIDAReplicationReply);
+
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
   {
@@ -140,18 +152,173 @@ public static partial class DIDAStorageService
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
-    /// <summary>
-    ///rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
-    /// </summary>
-    /// <param name="request">The request received from the client.</param>
-    /// <param name="context">The context of the server-side call handler being invoked.</param>
-    /// <returns>The response to send back to the client (wrapped by a task).</returns>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::DIDAUpdateServerIdReply> updateServerId(global::DIDAUpdateServerIdRequest request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::DIDAReplicationReply> replicate(global::DIDAReplicationRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+  }
+
+  /// <summary>Client for DIDAStorageService</summary>
+  public partial class DIDAStorageServiceClient : grpc::ClientBase<DIDAStorageServiceClient>
+  {
+    /// <summary>Creates a new client for DIDAStorageService</summary>
+    /// <param name="channel">The channel to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public DIDAStorageServiceClient(grpc::ChannelBase channel) : base(channel)
+    {
+    }
+    /// <summary>Creates a new client for DIDAStorageService that uses a custom <c>CallInvoker</c>.</summary>
+    /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public DIDAStorageServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+    {
+    }
+    /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected DIDAStorageServiceClient() : base()
+    {
+    }
+    /// <summary>Protected constructor to allow creation of configured clients.</summary>
+    /// <param name="configuration">The client configuration.</param>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected DIDAStorageServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+    {
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDARecordReply read(global::DIDAReadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return read(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDARecordReply read(global::DIDAReadRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_read, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDARecordReply> readAsync(global::DIDAReadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return readAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDARecordReply> readAsync(global::DIDAReadRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_read, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAVersion write(global::DIDAWriteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return write(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAVersion write(global::DIDAWriteRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_write, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAVersion> writeAsync(global::DIDAWriteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return writeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAVersion> writeAsync(global::DIDAWriteRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_write, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAVersion updateIfValueIs(global::DIDAUpdateIfRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return updateIfValueIs(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAVersion updateIfValueIs(global::DIDAUpdateIfRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_updateIfValueIs, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAVersion> updateIfValueIsAsync(global::DIDAUpdateIfRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return updateIfValueIsAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAVersion> updateIfValueIsAsync(global::DIDAUpdateIfRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_updateIfValueIs, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAListServerReply listServer(global::DIDAListServerRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return listServer(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAListServerReply listServer(global::DIDAListServerRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_listServer, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAListServerReply> listServerAsync(global::DIDAListServerRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return listServerAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAListServerReply> listServerAsync(global::DIDAListServerRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_listServer, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAUpdateServerIdReply updateServerId(global::DIDAUpdateServerIdRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return updateServerId(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAUpdateServerIdReply updateServerId(global::DIDAUpdateServerIdRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_updateServerId, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAUpdateServerIdReply> updateServerIdAsync(global::DIDAUpdateServerIdRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return updateServerIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAUpdateServerIdReply> updateServerIdAsync(global::DIDAUpdateServerIdRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_updateServerId, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAReplicationReply replicate(global::DIDAReplicationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return replicate(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAReplicationReply replicate(global::DIDAReplicationRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_replicate, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAReplicationReply> replicateAsync(global::DIDAReplicationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return replicateAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAReplicationReply> replicateAsync(global::DIDAReplicationRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_replicate, null, options, request);
+    }
+    /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    protected override DIDAStorageServiceClient NewInstance(ClientBaseConfiguration configuration)
+    {
+      return new DIDAStorageServiceClient(configuration);
+    }
   }
 
   /// <summary>Creates service definition that can be registered with a server</summary>
@@ -164,7 +331,8 @@ public static partial class DIDAStorageService
         .AddMethod(__Method_write, serviceImpl.write)
         .AddMethod(__Method_updateIfValueIs, serviceImpl.updateIfValueIs)
         .AddMethod(__Method_listServer, serviceImpl.listServer)
-        .AddMethod(__Method_updateServerId, serviceImpl.updateServerId).Build();
+        .AddMethod(__Method_updateServerId, serviceImpl.updateServerId)
+        .AddMethod(__Method_replicate, serviceImpl.replicate).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -179,6 +347,7 @@ public static partial class DIDAStorageService
     serviceBinder.AddMethod(__Method_updateIfValueIs, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAUpdateIfRequest, global::DIDAVersion>(serviceImpl.updateIfValueIs));
     serviceBinder.AddMethod(__Method_listServer, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAListServerRequest, global::DIDAListServerReply>(serviceImpl.listServer));
     serviceBinder.AddMethod(__Method_updateServerId, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAUpdateServerIdRequest, global::DIDAUpdateServerIdReply>(serviceImpl.updateServerId));
+    serviceBinder.AddMethod(__Method_replicate, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAReplicationRequest, global::DIDAReplicationReply>(serviceImpl.replicate));
   }
 
 }

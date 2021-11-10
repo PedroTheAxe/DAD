@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using DIDAStorage;
 using Grpc.Core;
+using Grpc.Net.Client;
 
 namespace DIDAStorageUI
 {
@@ -13,23 +15,84 @@ namespace DIDAStorageUI
         
         public List<DIDARecord> recordsList = new List<DIDARecord>();
         private string _serverId = "";
-        private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
-        private int replicationFactor = 1;
+        private Dictionary<int, string> storageNodesMap = new Dictionary<int, string>();
+        private Dictionary<int, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<int, DIDAStorageService.DIDAStorageServiceClient>();
+        private int replicationFactor = 2;
         private Dictionary<DIDAVersion, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDAVersion, DIDAUpdateIfRequest>();
         private Dictionary<DIDAVersion, DIDAWriteRequest> writeLog = new Dictionary<DIDAVersion, DIDAWriteRequest>();
 
+        public StorageService()
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            Timer t = new Timer();
+            t = new Timer(); //new Timer(1000);
+            t.Elapsed += new ElapsedEventHandler(ExecuteReplication);
+            t.Interval = 2000;//miliseconds
+            t.AutoReset = true;
+            t.Start();
+        }
 
+        private void ExecuteReplication(Object source, ElapsedEventArgs e)
+        {
+            if (_serverId.Equals(""))
+            {
+                Console.WriteLine("no serverId yet!");
+                return;
+            }
+
+            DIDAReplicationRequest request = new DIDAReplicationRequest();
+
+            DIDAWriteLog[] writeLogArray = new DIDAWriteLog[writeLog.Count];
+            int i = 0;
+
+            //Console.WriteLine(writeLog.Count);
+            foreach (var item in writeLog)
+            {
+                DIDAWriteLog writeRequestLog = new DIDAWriteLog();
+                writeRequestLog.Version = item.Key;
+                writeRequestLog.Request = item.Value;
+                //Console.WriteLine(writeRequestLog);
+                writeLogArray[i] = writeRequestLog;
+                i++;
+            }
+
+            DIDAUpdateLog[] updateLogArray = new DIDAUpdateLog[updateLog.Count];
+            int j = 0;
+
+            foreach (var item in updateLog)
+            {
+                DIDAUpdateLog udpdateRequestLog = new DIDAUpdateLog();
+                udpdateRequestLog.Version = item.Key;
+                udpdateRequestLog.Request = item.Value;
+                updateLogArray[j] = udpdateRequestLog;
+                j++;
+            }
+
+            request.WriteLog.Add(writeLogArray);
+            request.UpdateLog.Add(updateLogArray);
+
+            foreach (var item in storageClientsMap)
+            {
+                var reply = item.Value.replicateAsync(request);
+            }
+            
+        }
         //TODO Replication Function -> add to Storage.proto + Consistency algorithm
         // Replication factor -> DONE
         // Log de updates e writes -> DONE
         // Function de replication + impl -> TODO (Push)
         // Periodicamente fazer a replication -> TODO
 
-        //public override Task<DIDAReplicationReply> replicate(DIDAReplicationRequest request, ServerCallContext context)
-        //{
-        //    return Task.FromResult<DIDAUpdateServerIdReply>(replicateImpl(request));
-        //}
+        public override Task<DIDAReplicationReply> replicate(DIDAReplicationRequest request, ServerCallContext context)
+        {
+            return Task.FromResult<DIDAReplicationReply>(replicateImpl(request));
+        }
 
+        public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
+        {
+            Console.WriteLine(request);
+            return new DIDAReplicationReply { Ack = "ack" };
+        }
         //public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
         //{
         //TODO: consistency and updating logs (and recordsList?)
@@ -47,16 +110,6 @@ namespace DIDAStorageUI
         //
         //}
 
-        public Dictionary<DIDAVersion, DIDAUpdateIfRequest> getUpdateLog()
-        {
-            return updateLog;
-        }
-
-        public Dictionary<DIDAVersion, DIDAWriteRequest> getWriteLog()
-        {
-            return writeLog;
-        }
-
         public override Task<DIDAUpdateServerIdReply> updateServerId(DIDAUpdateServerIdRequest request, ServerCallContext context)
         {
             return Task.FromResult<DIDAUpdateServerIdReply>(UpdateServerIdImpl(request));
@@ -72,9 +125,10 @@ namespace DIDAStorageUI
                 Console.WriteLine(parameters[1]);
                 lock (this)
                 {
-                    storageNodesMap.Add(parameters[0], parameters[1]);
+                    storageNodesMap.Add(calculateHash(parameters[0]), parameters[1]);
                 }
             }
+            createConnection();
             Console.WriteLine(_serverId);
             Console.WriteLine(calculateHash(_serverId));
             return new DIDAUpdateServerIdReply { Ack = "ack" };
@@ -148,17 +202,27 @@ namespace DIDAStorageUI
                     Id = request.Id,
                     Val = request.Newvalue
                 };
-                DIDAVersion version = ((StorageService)this).WriteImpl(writeRequest);
+                DIDAVersion version = ((StorageService)this).UpdateToWrite(writeRequest);
+                updateLog.Add(version, request);
                 return version;
             }
             else
             {
-                return new DIDAVersion
+                DIDAVersion version = new DIDAVersion
                 {
                     VersionNumber = -1,
                     ReplicaId = -1, //no clue what i should use here
                 };
+                updateLog.Add(version, request);
+                return version;
             }
+        }
+
+        public DIDAVersion UpdateToWrite(DIDAWriteRequest request)
+        {
+            DIDAVersion version = ((StorageService)this).WriteImpl(request);
+            writeLog.Remove(version);
+            return version;
         }
 
         public override Task<DIDAVersion> write(DIDAWriteRequest request, ServerCallContext context) {
@@ -195,6 +259,7 @@ namespace DIDAStorageUI
 
             recordsList.Add(record);
 
+            writeLog.Add(v, request);
             return v;
         }
 
@@ -225,10 +290,30 @@ namespace DIDAStorageUI
             var value = BitConverter.ToInt32(encoded, 0) % 1000000;
             return value;
         }
+        public void createConnection()
+        {
+            var keys = new List<int>(storageNodesMap.Keys);
+            keys.Sort();
+            int position = 0;
+            int key = 0;
+            string url = "";
+            foreach(var i in keys)
+            {
+                if (calculateHash(_serverId) == i) break;
+                position++; //finds where the storage is in the ring (position)
+            }
+            for(int i = 1; i < replicationFactor; i++)
+            {
+                key = keys[(position + i) % keys.Count];
+                url = storageNodesMap[key];
+                GrpcChannel channel = GrpcChannel.ForAddress(url);
+                DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
+                storageClientsMap.Add(key, client);
+            }            
+        }
     }
 
     class Program {
-
         static void Main(string[] args) {
             Console.WriteLine(args[1]);
             string[] decomposedArgs = args[1].Split(":");
@@ -240,29 +325,13 @@ namespace DIDAStorageUI
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
 
-            StorageService storage = new StorageService();
-
             Server server = new Server
             {
-                Services = { DIDAStorageService.BindService(storage) },
+                Services = { DIDAStorageService.BindService(new StorageService()) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
             Console.ReadKey();
-            //storage.replicate() 
-            //private Timer timer1;
-            //public void InitTimer()
-            //{
-            //    timer1 = new Timer();
-            //    timer1.Tick += new EventHandler(timer1_Tick);
-            //    timer1.Interval = 2000; // in miliseconds
-            //    timer1.Start();
-            //}
-
-            //private void timer1_Tick(object sender, EventArgs e)
-            //{
-            //    isonline();
-            //}
             server.ShutdownAsync().Wait();
             Console.ReadLine();
         }
