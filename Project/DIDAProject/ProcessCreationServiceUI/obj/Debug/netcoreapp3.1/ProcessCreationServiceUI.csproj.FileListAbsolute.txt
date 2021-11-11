@@ -48,4 +48,3 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\Process
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\ProcessCreationServiceUI\obj\Debug\netcoreapp3.1\ProcessCreationServiceUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\ProcessCreationServiceUI\obj\Debug\netcoreapp3.1\ProcessCreationServiceUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\ProcessCreationServiceUI\obj\Debug\netcoreapp3.1\ProcessCreationServiceUI.genruntimeconfig.cache
-C:\Users\joaop\Documents\DAD\Project\DIDAProject\ProcessCreationServiceUI\obj\Debug\netcoreapp3.1\ProcessCreationServiceUI.csproj.AssemblyReference.cache

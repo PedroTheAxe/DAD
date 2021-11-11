@@ -108,7 +108,7 @@ namespace PuppetMasterUI
             switch (instance[0])
             {
                 case "scheduler":
-                    Console.WriteLine("entered scheduler\r\n");
+                    //Console.WriteLine("entered scheduler\r\n");
                     //instance[1] -- é o server_id
                     arguments = instance[2];
                     string[] handleConnection = arguments.Split(":");
@@ -121,7 +121,7 @@ namespace PuppetMasterUI
                     break;
 
                 case "storage":
-                    Console.WriteLine("entered storage\r\n");
+                    //Console.WriteLine("entered storage\r\n");
                     arguments = instance[1] + " " + instance[2];
                     _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
@@ -129,7 +129,7 @@ namespace PuppetMasterUI
                     break;
 
                 case "worker":
-                    Console.WriteLine("entered worker\r\n");
+                    //Console.WriteLine("entered worker\r\n");
                     arguments = instance[1] + " " + instance[2];
                     _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
@@ -137,48 +137,50 @@ namespace PuppetMasterUI
                     break;
 
                 case "populate":
-                    Console.WriteLine("entered populate\r\n");
+                    //Console.WriteLine("entered populate\r\n");
                     _populateData = openFile("populate", instance[1]);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
                     break;
 
                 case "client":
-                    Console.WriteLine("entered client\r\n");
+                    //Console.WriteLine("entered client\r\n");
                     _operators = openFile("client", instance[2]);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] });
                     break;
 
-                case "status": 
-                    Console.WriteLine("entered status\r\n");
+                case "status":
+                    //Console.WriteLine("entered status\r\n");
                     break;
                 
                 case "listServer":
-                    Console.WriteLine("entered list server\r\n");
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = instance[1].Split("\r")[0], Type = "listServer" });
+                    //Console.WriteLine("entered list server\r\n");
+                    string server = instance[1].Split("\r")[0];
+                    if (_storageNodesMap.ContainsKey(server))
+                        _client.sendPostInit(new DIDAPostInitRequest { Data = server, Type = "listServer" });  
+                    else
+                        MessageBox.Show("Server not alive!");
                     break;
 
                 case "listGlobal\r":
-                    Console.WriteLine("entered list global\r\n");
+                    //Console.WriteLine("entered list global\r\n");
                     _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
                     break;
 
                 case "debug":
-                    Console.WriteLine("entered debug\r\n");
+                    //Console.WriteLine("entered debug\r\n");
                     break;
 
                 case "crash":
-                    Console.WriteLine("entered crash\r\n");
+                    //Console.WriteLine("entered crash\r\n");
                     string serverId = instance[1].Split("\r")[0];
                     var reply = _storageNodesMap[serverId].crashServer(new DIDACrashRequest { ServerId = serverId });
-                    if (reply.Equals("ack"))
+                    if (reply.Ack.Equals("ack"))
                         _storageNodesMap.Remove(serverId);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = serverId, Type = "crash" });
-                    //var p = Process.GetProcessById(_storageProcessMap[serverId]);
-                    //p.Kill();
                     break;
 
                 case "wait":
-                    Console.WriteLine("entered wait\r\n");
+                    //Console.WriteLine("entered wait\r\n");
                     int timeToSleep = Int32.Parse(instance[1].Split("\r")[0]);
                     MessageBox.Show(timeToSleep.ToString());
                     System.Threading.Thread.Sleep(timeToSleep);
@@ -232,7 +234,6 @@ namespace PuppetMasterUI
 
             if (type.Equals("storage"))
             {
-                MessageBox.Show(toParse[0]);
                 _storageNodesMap.Add(toParse[0], _processClient);
             }
 

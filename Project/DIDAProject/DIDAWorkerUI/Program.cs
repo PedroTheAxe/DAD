@@ -93,8 +93,6 @@ namespace DIDAWorkerUI
             Console.WriteLine(url);
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
-            //DIDAStorageService.DIDAStorageServiceClient clientOp = new DIDAStorageService.DIDAStorageServiceClient(channel);
-
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
 
             DIDAPreviousOpRequest previousOpRequest = new DIDAPreviousOpRequest();
@@ -255,16 +253,16 @@ namespace DIDAWorkerUI
                     //Console.WriteLine(resultStorage.Version.ReplicaId);
                     return new DIDAWorker.DIDARecordReply { Id = resultStorage.Id, Val = resultStorage.Val, Version = { VersionNumber = resultStorage.Version.VersionNumber, ReplicaId = resultStorage.Version.ReplicaId } };
                 }
-                //Console.WriteLine(_previousMeta.Version.VersionNumber);
-                //Console.WriteLine(_previousMeta.Version.ReplicaId);
+                //Console.WriteLine("prevV:" + _previousMeta.Version.VersionNumber);
+                //Console.WriteLine("prevID:" + _previousMeta.Version.ReplicaId);
                 var resultPrevious = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = _previousMeta.Version.VersionNumber, ReplicaId = _previousMeta.Version.ReplicaId } });
                 _newMeta.Version.VersionNumber = resultPrevious.Version.VersionNumber;
                 _newMeta.Version.ReplicaId = resultPrevious.Version.ReplicaId;
-                //Console.WriteLine(resultPrevious.Version.VersionNumber);
-                //Console.WriteLine(resultPrevious.Version.ReplicaId);
+                //Console.WriteLine("V:" + resultPrevious.Version.VersionNumber);
+                //Console.WriteLine("ID:" + resultPrevious.Version.ReplicaId);
                 return new DIDAWorker.DIDARecordReply { Id = resultPrevious.Id, Val = resultPrevious.Val, Version = { VersionNumber = resultPrevious.Version.VersionNumber, ReplicaId = resultPrevious.Version.ReplicaId } };
-
             }
+
             var res = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
             _newMeta.Version.VersionNumber = res.Version.VersionNumber;
             _newMeta.Version.ReplicaId = res.Version.ReplicaId;

@@ -23,14 +23,12 @@ namespace DIDASchedulerUI {
 
         public override Task<DIDAPostInitReply> sendPostInit(DIDAPostInitRequest request, ServerCallContext context) 
         {
-            //Console.WriteLine("estou no sendpostinit");
             return Task.FromResult(postInitImpl(request));
         }
         
 
         public override Task<DIDAFileSendReply> sendFile(DIDAFileSendRequest request, ServerCallContext context)
         {
-            //Console.WriteLine("estou no sendfile");
             return Task.FromResult(sendFileImpl(request));
         }
 
@@ -88,16 +86,21 @@ namespace DIDASchedulerUI {
 
                 foreach (string id in storageClientsMap.Keys)
                 {
-                    Console.WriteLine(id);
-                    requestList(id);
+                    lock (this)
+                    {
+                        requestList(id);
+                    }
                 }
                    
             }
 
             if (request.Type.Equals("crash"))
             {
-                storageNodesMap.Remove(request.Data);
-                storageClientsMap.Remove(request.Data);
+                lock (this)
+                {
+                    storageNodesMap.Remove(request.Data);
+                    storageClientsMap.Remove(request.Data);
+                }
             }
 
             return postInitReply;

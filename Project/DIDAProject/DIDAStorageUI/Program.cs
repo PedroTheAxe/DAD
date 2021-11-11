@@ -46,13 +46,11 @@ namespace DIDAStorageUI
             DIDAWriteLog[] writeLogArray = new DIDAWriteLog[writeLog.Count];
             int i = 0;
 
-            //Console.WriteLine(writeLog.Count);
             foreach (var item in writeLog)
             {
                 DIDAWriteLog writeRequestLog = new DIDAWriteLog();
                 writeRequestLog.Record = item.Key;
                 writeRequestLog.Request = item.Value;
-                //Console.WriteLine(writeRequestLog);
                 writeLogArray[i] = writeRequestLog;
                 i++;
             }
@@ -191,7 +189,7 @@ namespace DIDAStorageUI
             foreach (DIDARecord r in recordsList)
             {
                 if (r.id == request.Id)
-                    latestVersionNumber = Math.Max(latestVersionNumber, r.version.versionNumber);
+                    latestVersionNumber = Math.Max(latestVersionNumber, r.version.versionNumber);                    
             }
 
             if (request.Version.VersionNumber > latestVersionNumber)
@@ -218,11 +216,12 @@ namespace DIDAStorageUI
                 return r;
             }
 
-            DIDARecord record = recordsList.Find(r => r.version.Equals(request.Version));
+            DIDARecord record = recordsList.Find(r => r.version.versionNumber == latestVersionNumber);
             
             DIDAVersion version = new DIDAVersion();
             version.ReplicaId = record.version.replicaId;
-            version.VersionNumber = record.version.versionNumber;
+            version.VersionNumber = latestVersionNumber;
+
 
             return new DIDARecordReply
             {
