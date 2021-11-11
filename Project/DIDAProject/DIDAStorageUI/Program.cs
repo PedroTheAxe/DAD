@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,9 +72,13 @@ namespace DIDAStorageUI
             request.WriteLog.Add(writeLogArray);
             request.UpdateLog.Add(updateLogArray);
 
-            foreach (var item in storageClientsMap)
+            lock(this)
             {
-                item.Value.replicateAsync(request);
+                foreach (var item in storageClientsMap)
+                {
+                    item.Value.replicateAsync(request);
+                }
+
             }
 
             //replication done -- clear logs
@@ -100,12 +105,38 @@ namespace DIDAStorageUI
         {
             //Console.WriteLine(request);
             Console.WriteLine("entrar");
+            List<DIDAWriteLog> writeQueue = new List<DIDAWriteLog>();
+            foreach(var update in request.UpdateLog)
+            {
+                foreach(var write in request.WriteLog)
+                {
+                    if (update.Record.Id.Equals(write.Record.Id) && update.Record.Version.VersionNumber > write.Record.Version.VersionNumber)
+                    {
+                        writeQueue.Add(write);
+                        request.WriteLog.Remove(write);
+                    }
+                        
+                }
+                writeQueue = writeQueue.OrderBy(wr => wr.Record.Version.VersionNumber).ToList();
+                foreach(var w in writeQueue)
+                {
+                    WriteAndDelete(w.Request);
+                }
+                writeQueue.Clear();
+                UpdateAndDelete(update.Request);
+            }
+
             foreach (var write in request.WriteLog)
             {
-                Console.WriteLine("antes");
-                WriteImpl(write.Request); //((StorageService)this).WriteImpl(write.Request);
-                Console.WriteLine("depois");
+                //Console.WriteLine("antes");
+                //WriteImpl(write.Request); //((StorageService)this).WriteImpl(write.Request);
+                WriteAndDelete(write.Request);
+                //Console.WriteLine("depois");
             }
+
+            //replication done --clear logs
+            //writeLog.Clear();
+            //updateLog.Clear();
 
             return new DIDAReplicationReply { Ack = "ack" };
         }
@@ -159,7 +190,6 @@ namespace DIDAStorageUI
             int latestVersionNumber = 0;
             foreach (DIDARecord r in recordsList)
             {
-                //Console.WriteLine(r);
                 if (r.id == request.Id)
                     latestVersionNumber = Math.Max(latestVersionNumber, r.version.versionNumber);
             }
@@ -179,7 +209,7 @@ namespace DIDAStorageUI
                 DIDAVersion v = new DIDAVersion();
                 v.ReplicaId = recordVersionNull.version.replicaId;
                 v.VersionNumber = recordVersionNull.version.versionNumber;
-                //Console.WriteLine(v);
+
                 DIDARecordReply r = new DIDARecordReply();
                 r.Id = recordVersionNull.id;
                 r.Version = v;
@@ -218,7 +248,7 @@ namespace DIDAStorageUI
                     Id = request.Id,
                     Val = request.Newvalue
                 };
-                DIDAVersion version = ((StorageService)this).UpdateToWrite(writeRequest);
+                DIDAVersion version = ((StorageService)this).WriteAndDelete(writeRequest);
                 DIDARecordInfo recordInfo = new DIDARecordInfo
                 {
                     Id = request.Id,
@@ -244,15 +274,27 @@ namespace DIDAStorageUI
             }
         }
 
-        public DIDAVersion UpdateToWrite(DIDAWriteRequest request)
+        public DIDAVersion WriteAndDelete(DIDAWriteRequest request)
         {
-            DIDAVersion version = ((StorageService)this).WriteImpl(request);
+            DIDAVersion version = WriteImpl(request);
             DIDARecordInfo recordInfo = new DIDARecordInfo
             {
                 Id = request.Id,
                 Version = version
             };
             writeLog.Remove(recordInfo);
+            return version;
+        }
+
+        public DIDAVersion UpdateAndDelete(DIDAUpdateIfRequest request)
+        {
+            DIDAVersion version = UpdateImpl(request);
+            DIDARecordInfo recordInfo = new DIDARecordInfo
+            {
+                Id = request.Id,
+                Version = version
+            };
+            updateLog.Remove(recordInfo);
             return version;
         }
 

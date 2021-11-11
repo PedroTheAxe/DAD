@@ -33,8 +33,8 @@ namespace PuppetMasterUI
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
-            Console.ReadKey();
             //server.ShutdownAsync().Wait();
+            Console.ReadKey();
         }
     }
 }
