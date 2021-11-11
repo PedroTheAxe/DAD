@@ -104,7 +104,16 @@ namespace DIDAStorageUI
             //Console.WriteLine(request);
             Console.WriteLine("entrar");
             List<DIDAWriteLog> writeQueue = new List<DIDAWriteLog>();
-            foreach(var update in request.UpdateLog)
+            List<DIDAUpdateLog> updateQueue = new List<DIDAUpdateLog>();
+            
+            foreach (var update in request.UpdateLog)
+            {
+                updateQueue.Add(update);
+                request.UpdateLog.Remove(update);
+            }
+            updateQueue = updateQueue.OrderBy(wr => wr.Record.Version.VersionNumber).ToList();
+
+            foreach (var update in updateQueue)
             {
                 foreach(var write in request.WriteLog)
                 {
@@ -126,15 +135,8 @@ namespace DIDAStorageUI
 
             foreach (var write in request.WriteLog)
             {
-                //Console.WriteLine("antes");
-                //WriteImpl(write.Request); //((StorageService)this).WriteImpl(write.Request);
                 WriteAndDelete(write.Request);
-                //Console.WriteLine("depois");
             }
-
-            //replication done --clear logs
-            //writeLog.Clear();
-            //updateLog.Clear();
 
             return new DIDAReplicationReply { Ack = "ack" };
         }
