@@ -52,6 +52,10 @@ public static partial class DIDASchedulerService
   static readonly grpc::Marshaller<global::DIDAPreviousOpRequest> __Marshaller_DIDAPreviousOpRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPreviousOpRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAPreviousOpReply> __Marshaller_DIDAPreviousOpReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAPreviousOpReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDANotifyCrashWorkerRequest> __Marshaller_DIDANotifyCrashWorkerRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashWorkerRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDANotifyCrashWorkerReply> __Marshaller_DIDANotifyCrashWorkerReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashWorkerReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDASendRequest, global::DIDASendReply> __Method_send = new grpc::Method<global::DIDASendRequest, global::DIDASendReply>(
@@ -68,6 +72,14 @@ public static partial class DIDASchedulerService
       "previousVersion",
       __Marshaller_DIDAPreviousOpRequest,
       __Marshaller_DIDAPreviousOpReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDANotifyCrashWorkerRequest, global::DIDANotifyCrashWorkerReply> __Method_notifyCrashWorker = new grpc::Method<global::DIDANotifyCrashWorkerRequest, global::DIDANotifyCrashWorkerReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "notifyCrashWorker",
+      __Marshaller_DIDANotifyCrashWorkerRequest,
+      __Marshaller_DIDANotifyCrashWorkerReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -141,6 +153,26 @@ public static partial class DIDASchedulerService
     public virtual grpc::AsyncUnaryCall<global::DIDAPreviousOpReply> previousVersionAsync(global::DIDAPreviousOpRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_previousVersion, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDANotifyCrashWorkerReply notifyCrashWorker(global::DIDANotifyCrashWorkerRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return notifyCrashWorker(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDANotifyCrashWorkerReply notifyCrashWorker(global::DIDANotifyCrashWorkerRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_notifyCrashWorker, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDANotifyCrashWorkerReply> notifyCrashWorkerAsync(global::DIDANotifyCrashWorkerRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return notifyCrashWorkerAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDANotifyCrashWorkerReply> notifyCrashWorkerAsync(global::DIDANotifyCrashWorkerRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_notifyCrashWorker, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

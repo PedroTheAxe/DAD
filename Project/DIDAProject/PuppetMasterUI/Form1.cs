@@ -122,7 +122,7 @@ namespace PuppetMasterUI
 
                 case "storage":
                     //Console.WriteLine("entered storage\r\n");
-                    arguments = instance[1] + " " + instance[2];
+                    arguments = instance[1] + " " + instance[2] + " " + instance[3];
                     _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
                     processCreationService(fileName, arguments, "storage");
@@ -130,7 +130,7 @@ namespace PuppetMasterUI
 
                 case "worker":
                     //Console.WriteLine("entered worker\r\n");
-                    arguments = instance[1] + " " + instance[2];
+                    arguments = instance[1] + " " + instance[2] + " " + instance[3];
                     _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
                     processCreationService(fileName, arguments, "worker");

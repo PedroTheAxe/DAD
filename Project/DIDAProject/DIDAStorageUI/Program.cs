@@ -21,14 +21,14 @@ namespace DIDAStorageUI
         private int replicationFactor = 2;
         private Dictionary<DIDARecordInfo, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDARecordInfo, DIDAUpdateIfRequest>();
         private Dictionary<DIDARecordInfo, DIDAWriteRequest> writeLog = new Dictionary<DIDARecordInfo, DIDAWriteRequest>();
+        private int MaxVersions = 5;
+        Timer t = new Timer();
 
         public StorageService()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            Timer t = new Timer();
-            t = new Timer(); //new Timer(1000);
             t.Elapsed += new ElapsedEventHandler(ExecuteReplication);
-            t.Interval = 5000;//miliseconds
+            t.Interval = 10000;//miliseconds
             t.AutoReset = true;
             t.Start();
         }
@@ -93,6 +93,22 @@ namespace DIDAStorageUI
         // Log de updates e writes -> DONE
         // Function de replication + impl -> TODO (Push)
         // Periodicamente fazer a replication -> TODO
+
+        public override Task<DIDANotifyCrashStorageReply> notifyCrashStorage(DIDANotifyCrashStorageRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(notifyCrashStorageImpl(request));
+        }
+
+        public DIDANotifyCrashStorageReply notifyCrashStorageImpl(DIDANotifyCrashStorageRequest request)
+        {
+            lock(this)
+            {
+                storageNodesMap.Remove(calculateHash(request.ServerId));
+                storageClientsMap.Remove(calculateHash(request.ServerId));
+            }
+            Console.WriteLine("removed " + request.ServerId);
+            return new DIDANotifyCrashStorageReply { Ack = "ack" };
+        }
 
         public override Task<DIDAReplicationReply> replicate(DIDAReplicationRequest request, ServerCallContext context)
         {
@@ -165,6 +181,7 @@ namespace DIDAStorageUI
         public DIDAUpdateServerIdReply UpdateServerIdImpl(DIDAUpdateServerIdRequest request)
         {
             _serverId = request.ServerId;
+            t.Interval = Int32.Parse(request.GossipDelay) * 1000;//miliseconds
             for (int i = 0; i < request.StorageNodes.Count - 1; i++)
             {
                 Console.WriteLine(request.StorageNodes[i]);
@@ -336,6 +353,13 @@ namespace DIDAStorageUI
 
             recordsList.Add(record);
 
+
+            if (recordsList.FindAll(r => r.id.Equals(record.id)).Count == MaxVersions)
+            {
+                Console.WriteLine("removed Record for MaxVersions");
+                recordsList.Remove(findLowestVersionNumber(record.id));
+            }
+
             DIDARecordInfo recordInfo = new DIDARecordInfo
             {
                 Id = request.Id,
@@ -364,6 +388,29 @@ namespace DIDAStorageUI
             }
 
             return new DIDAListServerReply { Ack = "ack" };
+        }
+
+        public DIDARecord findLowestVersionNumber(string id)
+        {
+            int minVersionNumber = Int32.MaxValue;
+            DIDARecord record = new DIDARecord();
+
+            foreach (DIDARecord r in recordsList)
+            {
+                if (r.id.Equals(id))
+                {
+                    minVersionNumber = Math.Min(minVersionNumber, r.version.versionNumber);
+
+                    if (minVersionNumber == r.version.versionNumber)
+                    {
+                        record.id = r.id;
+                        record.version = r.version;
+                        record.val = r.val;
+                    }
+                }
+            }
+            Console.WriteLine("record id after this function " + record.version.versionNumber);
+            return record;
         }
 
         public int calculateHash(string id)

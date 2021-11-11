@@ -8,6 +8,7 @@ service DIDAStorageService {
   rpc listServer(DIDAListServerRequest) returns (DIDAListServerReply);
   rpc updateServerId(DIDAUpdateServerIdRequest) returns (DIDAUpdateServerIdReply);
   rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
+  rpc notifyCrashStorage(DIDANotifyCrashStorageRequest) returns (DIDANotifyCrashStorageReply);
 }
 
 message DIDAReadRequest {
@@ -48,6 +49,7 @@ message DIDAUpdateIfRequest {
 message DIDAUpdateServerIdRequest {
     string serverId = 1;
     repeated string storageNodes = 2;
+    string gossipDelay = 3;
 }
 
 message DIDAUpdateServerIdReply {
@@ -76,4 +78,12 @@ message DIDAUpdateLog {
 message DIDARecordInfo {
     string id = 1;
     DIDAVersion version = 2;
+}
+
+message DIDANotifyCrashStorageRequest {
+    string serverId = 1;
+}
+
+message DIDANotifyCrashStorageReply {
+    string ack = 1;
 }

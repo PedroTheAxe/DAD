@@ -5,6 +5,7 @@ import "protos/DIDAStorage.proto";
 service DIDASchedulerService {
     rpc send(DIDASendRequest) returns (DIDASendReply); 
     rpc previousVersion(DIDAPreviousOpRequest) returns (DIDAPreviousOpReply);
+    rpc notifyCrashWorker(DIDANotifyCrashWorkerRequest) returns (DIDANotifyCrashWorkerReply);
 } 
 
 message DIDASendRequest {
@@ -56,5 +57,13 @@ message DIDAMetaRecordExtension {
 }
 
 message DIDAPreviousOpReply {
+    string ack = 1;
+}
+
+message DIDANotifyCrashWorkerRequest {
+    string serverId = 1;
+}
+
+message DIDANotifyCrashWorkerReply {
     string ack = 1;
 }

@@ -1,10 +1,10 @@
 debug
 scheduler sc1 http://localhost:2000
-storage s1 http://localhost:3001 0
-storage s2 http://localhost:3002 0
-storage s3 http://localhost:3003 0
-storage s4 http://localhost:3004 0
-storage s5 http://localhost:3005 0
+storage s1 http://localhost:3001 2
+storage s2 http://localhost:3002 2
+storage s3 http://localhost:3003 2
+storage s4 http://localhost:3004 7
+storage s5 http://localhost:3005 5
 worker w1 http://localhost:4001 0
 worker w2 http://localhost:4002 0
 worker w3 http://localhost:4003 0

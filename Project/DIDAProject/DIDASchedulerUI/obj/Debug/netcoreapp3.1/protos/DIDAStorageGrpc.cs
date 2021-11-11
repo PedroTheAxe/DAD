@@ -69,6 +69,10 @@ public static partial class DIDAStorageService
   static readonly grpc::Marshaller<global::DIDAReplicationRequest> __Marshaller_DIDAReplicationRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAReplicationRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAReplicationReply> __Marshaller_DIDAReplicationReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAReplicationReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDANotifyCrashStorageRequest> __Marshaller_DIDANotifyCrashStorageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashStorageRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDANotifyCrashStorageReply> __Marshaller_DIDANotifyCrashStorageReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashStorageReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAReadRequest, global::DIDARecordReply> __Method_read = new grpc::Method<global::DIDAReadRequest, global::DIDARecordReply>(
@@ -117,6 +121,14 @@ public static partial class DIDAStorageService
       "replicate",
       __Marshaller_DIDAReplicationRequest,
       __Marshaller_DIDAReplicationReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDANotifyCrashStorageRequest, global::DIDANotifyCrashStorageReply> __Method_notifyCrashStorage = new grpc::Method<global::DIDANotifyCrashStorageRequest, global::DIDANotifyCrashStorageReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "notifyCrashStorage",
+      __Marshaller_DIDANotifyCrashStorageRequest,
+      __Marshaller_DIDANotifyCrashStorageReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -270,6 +282,26 @@ public static partial class DIDAStorageService
     public virtual grpc::AsyncUnaryCall<global::DIDAReplicationReply> replicateAsync(global::DIDAReplicationRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_replicate, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDANotifyCrashStorageReply notifyCrashStorage(global::DIDANotifyCrashStorageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return notifyCrashStorage(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDANotifyCrashStorageReply notifyCrashStorage(global::DIDANotifyCrashStorageRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_notifyCrashStorage, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDANotifyCrashStorageReply> notifyCrashStorageAsync(global::DIDANotifyCrashStorageRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return notifyCrashStorageAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDANotifyCrashStorageReply> notifyCrashStorageAsync(global::DIDANotifyCrashStorageRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_notifyCrashStorage, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

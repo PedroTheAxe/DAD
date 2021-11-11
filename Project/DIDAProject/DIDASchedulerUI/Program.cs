@@ -12,8 +12,10 @@ namespace DIDASchedulerUI {
         private Dictionary<string, string> workersMap = new Dictionary<string, string>();
         private Dictionary<int, string> operatorsMap = new Dictionary<int, string>();
         private Dictionary<string, string> storageNodesMap = new Dictionary<string, string>();
-        private Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();
+        private Dictionary<string, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<string, DIDAStorageService.DIDAStorageServiceClient>();  //maps the storage serverId and gRPC client to said storage
+        private Dictionary<string, DIDASchedulerService.DIDASchedulerServiceClient> workerClientsMap = new Dictionary<string, DIDASchedulerService.DIDASchedulerServiceClient>(); //maps the worker host and gRPC client to said worker
         private Dictionary<string, string> populateDataMap = new Dictionary<string, string>();
+        private DIDASchedulerService.DIDASchedulerServiceClient firstWorker = null;
         private int _metaRecordId = 0;
 
         public PuppetMasterService()
@@ -101,6 +103,7 @@ namespace DIDASchedulerUI {
                     storageNodesMap.Remove(request.Data);
                     storageClientsMap.Remove(request.Data);
                 }
+                sendCrashNotification(request.Data);
             }
 
             return postInitReply;
@@ -119,9 +122,12 @@ namespace DIDASchedulerUI {
             {
                 Console.WriteLine(workers[i]);
                 string[] parameters = workers[i].Split(' ');
+                //GrpcChannel channel = GrpcChannel.ForAddress(parameters[1]);
+                //DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
                 lock (this)
                 {
                     workersMap.Add(parameters[0], parameters[1]);
+                    //storageClientsMap.Add(parameters[0], client);
                 }
             }
 
@@ -141,10 +147,46 @@ namespace DIDASchedulerUI {
                 DIDAUpdateServerIdRequest serverIdRequest = new DIDAUpdateServerIdRequest();
                 serverIdRequest.ServerId = parameters[0];
                 serverIdRequest.StorageNodes.Add(storageNodes);
+                serverIdRequest.GossipDelay = parameters[2];
                 client.updateServerId(serverIdRequest);
             }
 
             return fileSendReply;
+        }
+
+        public void sendCrashNotification(string id)
+        {
+            DIDANotifyCrashWorkerRequest requestWorker = new DIDANotifyCrashWorkerRequest
+            {
+                ServerId = id
+            };
+            DIDANotifyCrashStorageRequest requestStorage = new DIDANotifyCrashStorageRequest
+            {
+                ServerId = id
+            };
+            foreach (var item in storageClientsMap)
+            {
+                if (item.Key.Equals(id)) continue;
+                //GrpcChannel channel = GrpcChannel.ForAddress(url);
+                //DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
+                
+
+                //read lock?
+                item.Value.notifyCrashStorageAsync(requestStorage);
+            }
+            foreach (var item in workersMap)
+            {
+                if (!item.Value.Equals(lowestWorkerPort()))
+                {
+                    Console.WriteLine(item.Value);
+                    GrpcChannel channel = GrpcChannel.ForAddress(item.Value);
+                    DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
+                    client.notifyCrashWorkerAsync(requestWorker);
+                }
+            }
+
+            if(firstWorker != null)
+                firstWorker.notifyCrashWorkerAsync(requestWorker);
         }
 
         public void populateStorage()
@@ -170,7 +212,7 @@ namespace DIDASchedulerUI {
         {
             
             GrpcChannel channel = GrpcChannel.ForAddress(lowestWorkerPort());
-            DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
+            firstWorker = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
             
             List<DIDAOperatorID> operatorsIDs = buildOperatorsIDs();
             DIDAAssignment[] assignments = buildAssignments(operatorsIDs);
@@ -180,7 +222,7 @@ namespace DIDASchedulerUI {
             DIDASendRequest sendRequest = new DIDASendRequest();
             sendRequest.Request = request;
             sendRequest.StorageNodes.Add(nodes);
-            var reply = client.send(sendRequest);
+            var reply = firstWorker.send(sendRequest);
             Console.WriteLine(reply);
             //while (!reply.Ack.Equals("ack"))
             //{

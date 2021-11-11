@@ -32,6 +32,18 @@ namespace DIDAWorkerUI
             _meta.Version = version;
         }
 
+        public override Task<DIDANotifyCrashWorkerReply> notifyCrashWorker(DIDANotifyCrashWorkerRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(notifyCrashWorkerImpl(request));
+        }
+
+        public DIDANotifyCrashWorkerReply notifyCrashWorkerImpl(DIDANotifyCrashWorkerRequest request)
+        {
+            
+            _storageProxy.removeFromClients(request.ServerId);
+            return new DIDANotifyCrashWorkerReply { Ack = "ack" };
+        }
+
         public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
         {
             return Task.FromResult(previousVersionImpl(request));
@@ -194,8 +206,16 @@ namespace DIDAWorkerUI
             _newMeta.Version = version;
         }
 
+        public void removeFromClients(string id)
+        {
+            _clients.Remove(calculateHash(id));
+            _channels.Remove(id);
+            Console.WriteLine("removed " + id);
+        }
+
         public DIDAMetaRecordExtension getPreviousMeta()
         {
+
             return _previousMeta;
         }
 
