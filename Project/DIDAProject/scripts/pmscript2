@@ -9,8 +9,11 @@ listServer s1
 listServer s2
 listGlobal
 client 23 app2
+listServer s1
+listServer s2
 wait 2000
 client 13 app2
 listServer s1
+listServer s2
 wait 2000
 

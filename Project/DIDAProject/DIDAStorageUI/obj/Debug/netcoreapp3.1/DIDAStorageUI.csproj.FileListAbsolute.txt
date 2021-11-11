@@ -123,3 +123,5 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDASto
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.genruntimeconfig.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\bin\Debug\netcoreapp3.1\LibDIDAWorker.dll
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\DIDAStorageUI\obj\Debug\netcoreapp3.1\DIDAStorageUI.csproj.AssemblyReference.cache

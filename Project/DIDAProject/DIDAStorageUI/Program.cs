@@ -27,7 +27,7 @@ namespace DIDAStorageUI
             Timer t = new Timer();
             t = new Timer(); //new Timer(1000);
             t.Elapsed += new ElapsedEventHandler(ExecuteReplication);
-            t.Interval = 2000;//miliseconds
+            t.Interval = 5000;//miliseconds
             t.AutoReset = true;
             t.Start();
         }
@@ -73,9 +73,17 @@ namespace DIDAStorageUI
 
             foreach (var item in storageClientsMap)
             {
-                var reply = item.Value.replicateAsync(request);
+                item.Value.replicateAsync(request);
             }
-            
+
+            //replication done -- clear logs
+            request.WriteLog.Clear();
+            writeLog.Clear();
+
+            request.UpdateLog.Clear();
+            updateLog.Clear();
+
+            Console.WriteLine("-----------------------------------------------------------------");
         }
         //TODO Replication Function -> add to Storage.proto + Consistency algorithm
         // Replication factor -> DONE
@@ -90,7 +98,15 @@ namespace DIDAStorageUI
 
         public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
         {
-            Console.WriteLine(request);
+            //Console.WriteLine(request);
+            Console.WriteLine("entrar");
+            foreach (var write in request.WriteLog)
+            {
+                Console.WriteLine("antes");
+                WriteImpl(write.Request); //((StorageService)this).WriteImpl(write.Request);
+                Console.WriteLine("depois");
+            }
+
             return new DIDAReplicationReply { Ack = "ack" };
         }
         //public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)

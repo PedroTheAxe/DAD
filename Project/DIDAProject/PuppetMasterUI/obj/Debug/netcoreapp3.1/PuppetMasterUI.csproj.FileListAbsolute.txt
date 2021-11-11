@@ -79,3 +79,4 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetM
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
+C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache
