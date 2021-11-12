@@ -17,16 +17,15 @@ namespace PuppetMasterUI
         [STAThread]
         static void Main()
         {
-            /*int port = 10001;
-            Console.WriteLine("PORT " + port);
+            //int port = 10001;
 
-            Server server = new Server
-            {
-                Services = { DIDAPuppetMasterService.BindService(new PuppetMasterService()) },
-                Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
-            };
-            Console.WriteLine("SERVER: " + server);
-            server.Start();*/
+            //Server server = new Server
+            //{
+            //    Services = { DIDAPuppetMasterService.BindService(new PuppetMasterService()) },
+            //    Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) } //need to do ipconfig when testing on lab
+            //};
+            //Console.WriteLine("SERVER: " + server);
+            //server.Start();
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();

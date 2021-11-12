@@ -8,6 +8,7 @@ service DIDASchedulerService {
     rpc notifyCrashWorker(DIDANotifyCrashWorkerRequest) returns (DIDANotifyCrashWorkerReply);
     rpc sendWorkerDelay(DIDAWorkerDelayRequest) returns (DIDAWorkerDelayReply);
     rpc getWorkerStatus(DIDAWorkerStatusRequest) returns (DIDAWorkerStatusReply);
+    rpc startWorkerDebug(DIDAWorkerDebugRequest) returns (DIDAWorkerDebugReply);
 } 
 
 message DIDASendRequest {
@@ -83,5 +84,13 @@ message DIDAWorkerStatusRequest {
 }
 
 message DIDAWorkerStatusReply {
+    string ack = 1;
+}
+
+message DIDAWorkerDebugRequest {
+    string debug = 1;
+}
+
+message DIDAWorkerDebugReply {
     string ack = 1;
 }

@@ -15,6 +15,7 @@ namespace PuppetMasterUI
 {
     public partial class Form1 : Form
     {
+        private bool _debugMode = false;
         private string _schedulerHost = "";
         private int _schedulerPort;
         private string _workers = "";
@@ -154,7 +155,8 @@ namespace PuppetMasterUI
                     _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
                     break;
 
-                case "debug":
+                case "debug\r":
+                    _debugMode = true;
                     break;
 
                 case "crash":
@@ -221,7 +223,9 @@ namespace PuppetMasterUI
 
         private void startFunc()
         {
-            _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes} );
+            _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes});
+            if (_debugMode)
+                _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "debug" });
         }
 
         public string openFile(string type, string fileName)

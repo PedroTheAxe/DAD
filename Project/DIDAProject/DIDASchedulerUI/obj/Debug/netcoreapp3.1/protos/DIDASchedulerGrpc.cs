@@ -64,6 +64,10 @@ public static partial class DIDASchedulerService
   static readonly grpc::Marshaller<global::DIDAWorkerStatusRequest> __Marshaller_DIDAWorkerStatusRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerStatusRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDAWorkerStatusReply> __Marshaller_DIDAWorkerStatusReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerStatusReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAWorkerDebugRequest> __Marshaller_DIDAWorkerDebugRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerDebugRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAWorkerDebugReply> __Marshaller_DIDAWorkerDebugReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerDebugReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDASendRequest, global::DIDASendReply> __Method_send = new grpc::Method<global::DIDASendRequest, global::DIDASendReply>(
@@ -104,6 +108,14 @@ public static partial class DIDASchedulerService
       "getWorkerStatus",
       __Marshaller_DIDAWorkerStatusRequest,
       __Marshaller_DIDAWorkerStatusReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAWorkerDebugRequest, global::DIDAWorkerDebugReply> __Method_startWorkerDebug = new grpc::Method<global::DIDAWorkerDebugRequest, global::DIDAWorkerDebugReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "startWorkerDebug",
+      __Marshaller_DIDAWorkerDebugRequest,
+      __Marshaller_DIDAWorkerDebugReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -237,6 +249,26 @@ public static partial class DIDASchedulerService
     public virtual grpc::AsyncUnaryCall<global::DIDAWorkerStatusReply> getWorkerStatusAsync(global::DIDAWorkerStatusRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_getWorkerStatus, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAWorkerDebugReply startWorkerDebug(global::DIDAWorkerDebugRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return startWorkerDebug(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAWorkerDebugReply startWorkerDebug(global::DIDAWorkerDebugRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_startWorkerDebug, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAWorkerDebugReply> startWorkerDebugAsync(global::DIDAWorkerDebugRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return startWorkerDebugAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAWorkerDebugReply> startWorkerDebugAsync(global::DIDAWorkerDebugRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_startWorkerDebug, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]

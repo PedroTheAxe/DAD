@@ -22,6 +22,7 @@ namespace DIDAWorkerUI
         private StorageProxy _storageProxy;
         private int _workerDelay = 0;
         private List<string> _executedOperators = new List<string>();
+        private bool _debugMode = false;
 
         public SchedulerService()
         {
@@ -33,6 +34,17 @@ namespace DIDAWorkerUI
                 ReplicaId = -1
             };
             _meta.Version = version;
+        }
+
+        public override Task<DIDAWorkerDebugReply> startWorkerDebug(DIDAWorkerDebugRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(startWorkerDebugImpl(request));
+        }
+
+        public DIDAWorkerDebugReply startWorkerDebugImpl(DIDAWorkerDebugRequest request)
+        {
+            _debugMode = true;
+            return new DIDAWorkerDebugReply { Ack = "ack" };
         }
 
         public override Task<DIDAWorkerStatusReply> getWorkerStatus(DIDAWorkerStatusRequest request, ServerCallContext context)
@@ -215,6 +227,9 @@ namespace DIDAWorkerUI
                             _storageProxy = new StorageProxy(storageNodes, meta);
                             _objLoadedByReflection.ConfigureStorage(_storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
+                            if (_debugMode) //should send it to the PM
+                                Console.WriteLine("Output: " + _previousOutput);
+
                             _storageProxy.setPreviousMeta();
                             _executedOperators.Add(type.Name);
                             return _storageProxy.getPreviousMeta();

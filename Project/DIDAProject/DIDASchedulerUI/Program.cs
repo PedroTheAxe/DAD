@@ -103,9 +103,12 @@ namespace DIDASchedulerUI {
             }
 
             if (request.Type.Equals("status"))
-            {
-                Console.WriteLine("entreiiiiiiiiiiiii");
                 sendStatusRequest();
+
+            if (request.Type.Equals("debug"))
+            {
+                Console.WriteLine("debuuuuuuug");
+                sendDebugRequest();
             }
 
             return postInitReply;
@@ -160,6 +163,22 @@ namespace DIDASchedulerUI {
             }
 
             return fileSendReply;
+        }
+
+        public void sendDebugRequest()
+        {
+            DIDAWorkerDebugRequest requestWorker = new DIDAWorkerDebugRequest { Debug = "debug" };
+            DIDAStorageDebugRequest requestStorage = new DIDAStorageDebugRequest { Debug = "debug" };
+
+            foreach (var item in storageClientsMap)
+            {
+                item.Value.startStorageDebugAsync(requestStorage);
+            }
+
+            foreach (var item in workerClientsMap)
+            {
+                item.Value.startWorkerDebugAsync(requestWorker);
+            }
         }
 
         public void sendStatusRequest()
