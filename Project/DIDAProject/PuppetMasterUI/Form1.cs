@@ -178,9 +178,7 @@ namespace PuppetMasterUI
 
                 case "crash":
                     string serverId = instance[1].Split("\r")[0];
-                    //not async to have confirmation for the removal of the node crashed
                     var reply = _storageNodesMap[serverId].crashServerAsync(new DIDACrashRequest { ServerId = serverId });
-                    //if (reply.Ack.Equals("ack"))
                     _storageNodesMap.Remove(serverId);
                     _client.sendPostInitAsync(new DIDAPostInitRequest { Data = serverId, Type = "crash" });
                     break;
