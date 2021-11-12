@@ -16,8 +16,6 @@ namespace DIDAWorkerUI
     {
         private DIDAMetaRecordExtension _previousMeta;
         private string _previousOutput = "";
-        //DIDASendRequest _request;
-        //private List<DIDAStorageNode> _storageNodes;
         private DIDAMetaRecordExtension _meta = new DIDAMetaRecordExtension();
         private StorageProxy _storageProxy;
         private int _workerDelay = 0;
@@ -134,14 +132,16 @@ namespace DIDAWorkerUI
                 Version = version
             };
             previousOpRequest.Meta = meta;
-            var previousMeta = client.previousVersionAsync(previousOpRequest);
+            client.previousVersionAsync(previousOpRequest);
 
             DIDASendRequest sendRequest = new DIDASendRequest();
             sendRequest.Request = request.Request;
             sendRequest.StorageNodes.Add(request.StorageNodes);
+            
             if (_storageProxy.getApplicationTermination()) return;
+            
             Thread.Sleep(_workerDelay);
-            var reply = client.sendAsync(sendRequest);
+            client.sendAsync(sendRequest);
         }
 
         public DIDAMetaRecordExtension reflectionLoad(string className, DIDASendRequest request, DIDAMetaRecordExtension meta)
@@ -185,8 +185,8 @@ namespace DIDAWorkerUI
                             _storageProxy = new StorageProxy(storageNodes, meta);
                             _objLoadedByReflection.ConfigureStorage(_storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
-                            Console.WriteLine("previous: " + _previousOutput);
                             _storageProxy.setPreviousMeta();
+
                             return _storageProxy.getPreviousMeta();
                         }
                     }
@@ -212,19 +212,21 @@ namespace DIDAWorkerUI
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             _storageNodes = storageNodes;
+            
             foreach (DIDAStorageNode n in storageNodes)
             {
-               
                 _channels[n.ServerId] = Grpc.Net.Client.GrpcChannel.ForAddress("http://" + n.Host + ":" + n.Port);
                 _clients[calculateHash(n.ServerId)] = new DIDAStorageService.DIDAStorageServiceClient(_channels[n.ServerId]);
             }
-            _previousMeta = meta;
-            _newMeta.Id = 0;
+
             DIDAVersion version = new DIDAVersion()
             {
                 VersionNumber = -1,
                 ReplicaId = -1
             };
+
+            _previousMeta = meta;
+            _newMeta.Id = 0;
             _newMeta.Version = version;
         }
 
@@ -242,7 +244,6 @@ namespace DIDAWorkerUI
 
         public DIDAMetaRecordExtension getPreviousMeta()
         {
-
             return _previousMeta;
         }
 
@@ -314,21 +315,15 @@ namespace DIDAWorkerUI
                     {
                         if (_previousMeta.Version.VersionNumber == -1 && _previousMeta.Version.ReplicaId == -1)
                         {
-
                             var resultStorage = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = r.Version.VersionNumber, ReplicaId = r.Version.ReplicaId } });
                             _newMeta.Version.VersionNumber = resultStorage.Version.VersionNumber;
                             _newMeta.Version.ReplicaId = resultStorage.Version.ReplicaId;
-                            //Console.WriteLine(resultStorage.Version.VersionNumber);
-                            //Console.WriteLine(resultStorage.Version.ReplicaId);
                             return new DIDAWorker.DIDARecordReply { Id = resultStorage.Id, Val = resultStorage.Val, Version = { VersionNumber = resultStorage.Version.VersionNumber, ReplicaId = resultStorage.Version.ReplicaId } };
                         }
-                        //Console.WriteLine("prevV:" + _previousMeta.Version.VersionNumber);
-                        //Console.WriteLine("prevID:" + _previousMeta.Version.ReplicaId);
+
                         var resultPrevious = _clients[serverNode].read(new DIDAReadRequest { Id = r.Id, Version = new DIDAVersion { VersionNumber = _previousMeta.Version.VersionNumber, ReplicaId = _previousMeta.Version.ReplicaId } });
                         _newMeta.Version.VersionNumber = resultPrevious.Version.VersionNumber;
                         _newMeta.Version.ReplicaId = resultPrevious.Version.ReplicaId;
-                        //Console.WriteLine("V:" + resultPrevious.Version.VersionNumber);
-                        //Console.WriteLine("ID:" + resultPrevious.Version.ReplicaId);
                         return new DIDAWorker.DIDARecordReply { Id = resultPrevious.Id, Val = resultPrevious.Val, Version = { VersionNumber = resultPrevious.Version.VersionNumber, ReplicaId = resultPrevious.Version.ReplicaId } };
                     }
 
@@ -341,13 +336,9 @@ namespace DIDAWorkerUI
                 {
                     position++;
                     if ((position - initialPosition) != _replicationFactor)
-                    {
                         serverNode = serverIds[position % serverIds.Count];
-                    }
                     else
-                    {
                         replicaNotCrashed = false;
-                    }
                 }
             }
             _applicationTermination = true;
@@ -357,7 +348,6 @@ namespace DIDAWorkerUI
         public virtual DIDAWorker.DIDAVersion write(DIDAWorker.DIDAWriteRequest r)
         {
             int serverNode = chooseReplica(calculateHash(r.Id));
-
             var res = _clients[serverNode].write(new DIDAWriteRequest { Id = r.Id, Val = r.Val });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
         }
@@ -365,53 +355,11 @@ namespace DIDAWorkerUI
         public virtual DIDAWorker.DIDAVersion updateIfValueIs(DIDAWorker.DIDAUpdateIfRequest r)
         {
             int serverNode = chooseReplica(calculateHash(r.Id));
-
             var res = _clients[serverNode].updateIfValueIs(new DIDAUpdateIfRequest { Id = r.Id, Newvalue = r.Newvalue, Oldvalue = r.Oldvalue });
             return new DIDAWorker.DIDAVersion { VersionNumber = res.VersionNumber, ReplicaId = res.ReplicaId };
         }
     }
 
-
-
-    //public class DIDAMetaRecordExtension : DIDAWorker.DIDAMetaRecord
-    //{
-    //    public DIDAVersion _outputVersion;
-    
-    //    public DIDAMetaRecordExtension(int id, DIDAVersion version)
-    //    {
-    //        Id = id;
-    //        _outputVersion = version;
-    //    }
-    //}
-
-    //class WorkerService : DIDAStorageService.DIDAStorageServiceBase
-    //{
-    //    private DIDAMetaRecordExtension _previousMeta;
-
-    //    public WorkerService()
-    //    {
-    //        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-    //    }
-
-    //    public override Task<DIDAPreviousOpReply> previousVersion(DIDAPreviousOpRequest request, ServerCallContext context)
-    //    {
-    //        return Task.FromResult(previousVersionImpl(request));
-    //    }
-
-    //    public DIDAPreviousOpReply previousVersionImpl(DIDAPreviousOpRequest request)
-    //    {
-    //        DIDAVersion version = new DIDAVersion
-    //        {
-    //            VersionNumber = request.Meta.Version.VersionNumber,
-    //            ReplicaId = request.Meta.Version.ReplicaId 
-    //        };
-            
-    //        DIDAMetaRecordExtension meta = new DIDAMetaRecordExtension(request.Meta.Id, version);
-
-    //        _previousMeta = meta;
-    //        return new DIDAPreviousOpReply { Ack = _previousMeta };
-    //    }
-    //}
     class Program
     {
         static void Main(string[] args)
@@ -430,19 +378,12 @@ namespace DIDAWorkerUI
 
             Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new SchedulerService())/*, DIDAStorageService.BindService(new WorkerService())*/ },
+                Services = { DIDASchedulerService.BindService(new SchedulerService()) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
             server.Start();
             Console.ReadLine();
             server.ShutdownAsync().Wait();
-
-            //CODE OF SEND TO OTHER WORKER (TODO GRPC, CHANNEL...)
-            //request.chain[next].operator.ProcessRecord(DIDAMetaRecord, inputString,
-            //previousOperatorOutput);
-            //request.next = request.next + 1;
-            //if (request.next < request.chainSize)
-            //    forward request to(request.chain[next].host, request.chain[next].port);
         }
     }
 }

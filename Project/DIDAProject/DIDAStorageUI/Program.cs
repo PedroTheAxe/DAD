@@ -28,7 +28,7 @@ namespace DIDAStorageUI
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             t.Elapsed += new ElapsedEventHandler(ExecuteReplication);
-            t.Interval = 10000;//miliseconds
+            t.Interval = 10000; //miliseconds
             t.AutoReset = true;
             t.Start();
         }
@@ -86,13 +86,8 @@ namespace DIDAStorageUI
             request.UpdateLog.Clear();
             updateLog.Clear();
 
-            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("-------------------------DEBUG-------------------------------");
         }
-        //TODO Replication Function -> add to Storage.proto + Consistency algorithm
-        // Replication factor -> DONE
-        // Log de updates e writes -> DONE
-        // Function de replication + impl -> TODO (Push)
-        // Periodicamente fazer a replication -> TODO
 
         public override Task<DIDANotifyCrashStorageReply> notifyCrashStorage(DIDANotifyCrashStorageRequest request, ServerCallContext context)
         {
@@ -138,14 +133,15 @@ namespace DIDAStorageUI
                     {
                         writeQueue.Add(write);
                         request.WriteLog.Remove(write);
-                    }
-                        
+                    }      
                 }
+
                 writeQueue = writeQueue.OrderBy(wr => wr.Record.Version.VersionNumber).ToList();
                 foreach(var w in writeQueue)
                 {
                     WriteAndDelete(w.Request);
                 }
+
                 writeQueue.Clear();
                 UpdateAndDelete(update.Request);
             }
@@ -157,22 +153,6 @@ namespace DIDAStorageUI
 
             return new DIDAReplicationReply { Ack = "ack" };
         }
-        //public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
-        //{
-        //TODO: consistency and updating logs (and recordsList?)
-
-        // Consistency:
-        //
-        //              look at updateLog
-        //                      if updateLog.sameDIDARecord.DIDAVersion.VersionNumber > writeLog.sameDIDARecord.DIDAVersion.VersionNumber (loop)
-        //                              do WriteRequest(s) then
-        //                              do UpdateRequest
-        //
-        //              before executing request
-        //                      if writeLog.DIDARecord.id (or updateLog.DIDARecord.id) == recordsList.DIDARecord.id and  writeLog.DIDARecord.DIDAVersion.VersionNumber (or updateLog.DIDARecord.id) == recordsList.DIDARecord.DIDAVersion.VersionNumber
-        //                              update Log and recordsList(?) with Record of highest replicaId (to discuss)
-        //
-        //}
 
         public override Task<DIDAUpdateServerIdReply> updateServerId(DIDAUpdateServerIdRequest request, ServerCallContext context)
         {
@@ -182,7 +162,7 @@ namespace DIDAStorageUI
         public DIDAUpdateServerIdReply UpdateServerIdImpl(DIDAUpdateServerIdRequest request)
         {
             _serverId = request.ServerId;
-            t.Interval = Int32.Parse(request.GossipDelay) * 1000;//miliseconds
+            t.Interval = Int32.Parse(request.GossipDelay) * 1000; //miliseconds
             for (int i = 0; i < request.StorageNodes.Count - 1; i++)
             {
                 Console.WriteLine(request.StorageNodes[i]);
@@ -258,7 +238,6 @@ namespace DIDAStorageUI
 
         private DIDAVersion UpdateImpl(DIDAUpdateIfRequest request) {
             Console.WriteLine("update");
-            //TODO: all previous conditional updates and writes must have been applied
             DIDARecord record = recordsList.Find(r => r.val.Equals(request.Oldvalue));
             if (!record.Equals(null)) //assumption from the internet
             {
@@ -281,7 +260,7 @@ namespace DIDAStorageUI
                 DIDAVersion version = new DIDAVersion
                 {
                     VersionNumber = -1,
-                    ReplicaId = -1, //no clue what i should use here
+                    ReplicaId = -1,
                 };
                 DIDARecordInfo recordInfo = new DIDARecordInfo
                 {
@@ -291,30 +270,6 @@ namespace DIDAStorageUI
                 updateLog.Add(recordInfo, request);
                 return version;
             }
-        }
-
-        public DIDAVersion WriteAndDelete(DIDAWriteRequest request)
-        {
-            DIDAVersion version = WriteImpl(request);
-            DIDARecordInfo recordInfo = new DIDARecordInfo
-            {
-                Id = request.Id,
-                Version = version
-            };
-            writeLog.Remove(recordInfo);
-            return version;
-        }
-
-        public DIDAVersion UpdateAndDelete(DIDAUpdateIfRequest request)
-        {
-            DIDAVersion version = UpdateImpl(request);
-            DIDARecordInfo recordInfo = new DIDARecordInfo
-            {
-                Id = request.Id,
-                Version = version
-            };
-            updateLog.Remove(recordInfo);
-            return version;
         }
 
         public override Task<DIDAVersion> write(DIDAWriteRequest request, ServerCallContext context) {
@@ -368,6 +323,30 @@ namespace DIDAStorageUI
             };
             writeLog.Add(recordInfo, request);
             return v;
+        }
+
+        public DIDAVersion WriteAndDelete(DIDAWriteRequest request)
+        {
+            DIDAVersion version = WriteImpl(request);
+            DIDARecordInfo recordInfo = new DIDARecordInfo
+            {
+                Id = request.Id,
+                Version = version
+            };
+            writeLog.Remove(recordInfo);
+            return version;
+        }
+
+        public DIDAVersion UpdateAndDelete(DIDAUpdateIfRequest request)
+        {
+            DIDAVersion version = UpdateImpl(request);
+            DIDARecordInfo recordInfo = new DIDARecordInfo
+            {
+                Id = request.Id,
+                Version = version
+            };
+            updateLog.Remove(recordInfo);
+            return version;
         }
 
         public override Task<DIDAListServerReply> listServer(DIDAListServerRequest request, ServerCallContext context)
@@ -436,7 +415,9 @@ namespace DIDAStorageUI
             {
                 key = keys[(position + i) % keys.Count];
                 url = storageNodesMap[key];
+                
                 if (storageClientsMap.ContainsKey(key)) continue;
+                
                 GrpcChannel channel = GrpcChannel.ForAddress(url);
                 DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
                 storageClientsMap.Add(key, client);

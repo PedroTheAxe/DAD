@@ -38,13 +38,10 @@ namespace PuppetMasterUI
         private bool isInit(string command)
         {
             // removed wait and debug - check if ok!
-            if (command.Equals("scheduler") || command.Equals("worker") || command.Equals("storage")) {
+            if (command.Equals("scheduler") || command.Equals("worker") || command.Equals("storage"))
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -79,9 +76,7 @@ namespace PuppetMasterUI
             {
                 string[] tempSplit = _commands[0].Split(" ");
                 if (isInit(_previousCommand) && !isInit(tempSplit[0]))
-                {
                     _sentInits = true;
-                }
 
                 if (_sentInits)
                 {
@@ -108,7 +103,6 @@ namespace PuppetMasterUI
             switch (instance[0])
             {
                 case "scheduler":
-                    //Console.WriteLine("entered scheduler\r\n");
                     //instance[1] -- é o server_id
                     arguments = instance[2];
                     string[] handleConnection = arguments.Split(":");
@@ -121,7 +115,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "storage":
-                    //Console.WriteLine("entered storage\r\n");
                     arguments = instance[1] + " " + instance[2] + " " + instance[3];
                     _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
@@ -129,7 +122,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "worker":
-                    //Console.WriteLine("entered worker\r\n");
                     arguments = instance[1] + " " + instance[2] + " " + instance[3];
                     _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
@@ -137,13 +129,11 @@ namespace PuppetMasterUI
                     break;
 
                 case "populate":
-                    //Console.WriteLine("entered populate\r\n");
                     _populateData = openFile("populate", instance[1]);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
                     break;
 
                 case "client":
-                    //Console.WriteLine("entered client\r\n");
                     _operators = openFile("client", instance[2]);
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] });
                     break;
@@ -153,7 +143,6 @@ namespace PuppetMasterUI
                     break;
                 
                 case "listServer":
-                    //Console.WriteLine("entered list server\r\n");
                     string server = instance[1].Split("\r")[0];
                     if (_storageNodesMap.ContainsKey(server))
                         _client.sendPostInit(new DIDAPostInitRequest { Data = server, Type = "listServer" });  
@@ -162,7 +151,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "listGlobal\r":
-                    //Console.WriteLine("entered list global\r\n");
                     _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
                     break;
 
@@ -171,7 +159,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "crash":
-                    //Console.WriteLine("entered crash\r\n");
                     string serverId = instance[1].Split("\r")[0];
                     var reply = _storageNodesMap[serverId].crashServer(new DIDACrashRequest { ServerId = serverId });
                     if (reply.Ack.Equals("ack"))
@@ -180,7 +167,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "wait":
-                    //Console.WriteLine("entered wait\r\n");
                     int timeToSleep = Int32.Parse(instance[1].Split("\r")[0]);
                     MessageBox.Show(timeToSleep.ToString());
                     System.Threading.Thread.Sleep(timeToSleep);
@@ -190,11 +176,8 @@ namespace PuppetMasterUI
 
         private void processCreationService(string fileName, string args, string type)
         {
-            //TODO
-            //  parse of https://...
-            //  create dict with host + client associated
             //  verify if already exists -> not -> create new client add to dict
-            //  send fileName and args to pcs
+            //  send fileName and args to PCS
             string[] toParse = args.Split(" ");
             string host = "";
             if (type.Equals("scheduler"))
@@ -223,19 +206,11 @@ namespace PuppetMasterUI
             {
                 GrpcChannel channel = GrpcChannel.ForAddress("http://" + host + ":" + 10000);
                 _processClient = new DIDAProcessCreationService.DIDAProcessCreationServiceClient(channel);
-                _usedClientsMap.Add(host, _processClient);
-                //if (type.Equals("storage"))
-                //{
-                //    MessageBox.Show(toParse[0]);
-                //    _storageNodesMap.Add(toParse[0], _processClient);
-                //}
-                    
+                _usedClientsMap.Add(host, _processClient);                    
             }
 
             if (type.Equals("storage"))
-            {
                 _storageNodesMap.Add(toParse[0], _processClient);
-            }
 
             _usedClientsMap[host].sendProcess(new DIDAProcessSendRequest { FileName = fileName, Args = args });
         }
@@ -272,14 +247,6 @@ namespace PuppetMasterUI
                     ops += handleOps[0] + " " + handleOps[1] + ";";
                 }
             }
-            //if (type.Equals("client"))
-            //{
-            //    AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-            //    GrpcChannel channel = GrpcChannel.ForAddress("http://" + _schedulerHost + ":" + _schedulerPort);
-            //    DIDAPuppetMasterService.DIDAPuppetMasterServiceClient client = new DIDAPuppetMasterService.DIDAPuppetMasterServiceClient(channel);
-
-            //    var reply = client.sendFileAsync(new DIDAFileSendRequest { Workers = _workers, Operators = _operators, StorageNodes = _storageNodes, PopulateData = _populateData });
-            //}
 
             return ops;
         }
@@ -289,9 +256,7 @@ namespace PuppetMasterUI
             {
                 string[] tempSplit = s.Split(" ");
                 if (isInit(_previousCommand) && !isInit(tempSplit[0]))
-                {
                     _sentInits = true;
-                }
 
                 if (_sentInits)
                 {

@@ -60,6 +60,7 @@ namespace ProcessCreationServiceUI
         {
             var p = Process.GetProcessById(_storageProcessMap[request.ServerId]);
             p.Kill();
+            
             _storageProcessMap.Remove(request.ServerId);
 
             return new DIDACrashReply { Ack = "ack" };

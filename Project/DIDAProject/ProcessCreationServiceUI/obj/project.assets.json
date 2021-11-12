@@ -395,19 +395,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\francisco_rosa\\.nuget\\packages\\": {}
+    "C:\\Users\\joaop\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\ProcessCreationServiceUI.csproj",
+      "projectUniqueName": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\ProcessCreationServiceUI.csproj",
       "projectName": "ProcessCreationServiceUI",
-      "projectPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\ProcessCreationServiceUI.csproj",
-      "packagesPath": "C:\\Users\\francisco_rosa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\francisco_rosa\\Desktop\\METI\\DAD\\Project\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\obj\\",
+      "projectPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\ProcessCreationServiceUI.csproj",
+      "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joaop\\Documents\\DAD\\Project\\DIDAProject\\ProcessCreationServiceUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\francisco_rosa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -467,7 +467,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

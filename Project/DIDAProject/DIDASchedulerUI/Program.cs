@@ -78,14 +78,10 @@ namespace DIDASchedulerUI {
             }
 
             if (request.Type.Equals("listServer"))
-            {
                 requestList(request.Data);
-            }
 
             if (request.Type.Equals("listGlobal"))
             {
-                Console.WriteLine("entered listGlobal");
-
                 foreach (string id in storageClientsMap.Keys)
                 {
                     lock (this)
@@ -118,7 +114,7 @@ namespace DIDASchedulerUI {
 
             Console.WriteLine(request);
             string[] workers = request.Workers.Split(';');
-            for (int i = 0; i < workers.Length-1; i++) //hardcoded pq comentario anterior -- pq como dividi por ; , o ulitmo vai estar vazio
+            for (int i = 0; i < workers.Length-1; i++)
             {
                 Console.WriteLine(workers[i]);
                 string[] parameters = workers[i].Split(' ');
@@ -138,7 +134,7 @@ namespace DIDASchedulerUI {
             }
 
             string[] storageNodes = request.StorageNodes.Split(';');
-            for (int i = 0; i < storageNodes.Length - 1; i++) //hardcoded pq comentario anterior -- pq como dividi por ; , o ulitmo vai estar vazio
+            for (int i = 0; i < storageNodes.Length - 1; i++)
             {
                 Console.WriteLine(storageNodes[i]);
                 string[] parameters = storageNodes[i].Split(' ');
@@ -216,13 +212,8 @@ namespace DIDASchedulerUI {
 
         public void sendToWorker(string clientNumber)
         {
-
-            Console.WriteLine("entrei cornoooooo");
-
             //GrpcChannel channel = GrpcChannel.ForAddress(lowestWorkerPort());
             firstWorker = workerClientsMap[lowestWorkerPort()];
-
-            Console.WriteLine("yes siiiiiiiirririri");
             
             List<DIDAOperatorID> operatorsIDs = buildOperatorsIDs();
             DIDAAssignment[] assignments = buildAssignments(operatorsIDs);
@@ -232,19 +223,13 @@ namespace DIDASchedulerUI {
             DIDASendRequest sendRequest = new DIDASendRequest();
             sendRequest.Request = request;
             sendRequest.StorageNodes.Add(nodes);
-            var reply = firstWorker.send(sendRequest);
-            Console.WriteLine(reply);
-            //while (!reply.Ack.Equals("ack"))
-            //{
-            //    reply = client.send(new DIDASendRequest { Request = request });
-            //}
-            //var reply = client.send(new DIDASendRequest { Request = buildRequest(buildAssignments(buildOperatorsIDs())) });
+            
+            firstWorker.send(sendRequest);
         }
 
         public void requestList(string serverId)
         {
-            Console.WriteLine("entered list");
-            var reply = storageClientsMap[serverId].listServer(new DIDAListServerRequest { Request = "list" });
+            storageClientsMap[serverId].listServer(new DIDAListServerRequest { Request = "list" });
         }
 
         public DIDAStorageNode[] buildStorageNodes()
@@ -302,26 +287,7 @@ namespace DIDASchedulerUI {
                 };
                 assignments[i] = assignment;
             }
-            //foreach (var item in workersMap)
-            //{
-            //    Console.WriteLine(item);
-            //    string[] decomposedArgs = item.Value.Split(":");
-
-            //    decomposedArgs[1] = decomposedArgs[1][2..];
-            //    string host = decomposedArgs[1];
-
-            //    int port = Int32.Parse(decomposedArgs[2]);
-
-            //    DIDAAssignment assignment = new DIDAAssignment
-            //    {
-            //        Op = operatorsIDs.Find(op => op.Order == i),
-            //        Host = host,
-            //        Port = port,
-            //        Output = null
-            //    };
-            //    assignments[i] = assignment;
-            //    i++;
-            //}
+            
             return assignments;
         }
 
@@ -388,19 +354,6 @@ namespace DIDASchedulerUI {
             server.Start();
             Console.ReadKey();
             server.ShutdownAsync().Wait();
-
-            //TODO
-
-            /* 
-                - gRPC client connect to port 10001 (PuppetMaster)
-                - create new Server
-                - creates new DIDAFileSendRequest 
-                - executes sendFile method
-                - receives 2 strings with file contents
-                - construct DIDARequest
-
-             */
-
         }
     }
 }
