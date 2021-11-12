@@ -158,47 +158,26 @@ namespace DIDASchedulerUI {
 
         public void sendCrashNotification(string id)
         {
-            DIDANotifyCrashWorkerRequest requestWorker = new DIDANotifyCrashWorkerRequest
-            {
-                ServerId = id
-            };
-            DIDANotifyCrashStorageRequest requestStorage = new DIDANotifyCrashStorageRequest
-            {
-                ServerId = id
-            };
+            DIDANotifyCrashWorkerRequest requestWorker = new DIDANotifyCrashWorkerRequest { ServerId = id };
+            DIDANotifyCrashStorageRequest requestStorage = new DIDANotifyCrashStorageRequest{ ServerId = id };
+            
             foreach (var item in storageClientsMap)
             {
                 if (item.Key.Equals(id)) continue;
-                //GrpcChannel channel = GrpcChannel.ForAddress(url);
-                //DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
-                
-
-                //read lock?
                 item.Value.notifyCrashStorageAsync(requestStorage);
             }
+            
             foreach (var item in workerClientsMap)
             {
                 if (!item.Key.Equals(lowestWorkerPort()))
-                {
-                    Console.WriteLine(item.Value);
-                    //GrpcChannel channel = GrpcChannel.ForAddress(item.Value);
-                    //DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
                     item.Value.notifyCrashWorkerAsync(requestWorker);
-                }
             }
-
-            //if(firstWorker != null)
-            //    firstWorker.notifyCrashWorkerAsync(requestWorker);
         }
 
         public void populateStorage()
         {
             foreach (var item in storageClientsMap)
             {
-                Console.WriteLine("---------------");
-
-                //GrpcChannel channel = GrpcChannel.ForAddress(url);
-                //DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
                 foreach (var identifier in populateDataMap)
                 {
                     Console.WriteLine("id: " + identifier.Key);
@@ -212,7 +191,6 @@ namespace DIDASchedulerUI {
 
         public void sendToWorker(string clientNumber)
         {
-            //GrpcChannel channel = GrpcChannel.ForAddress(lowestWorkerPort());
             firstWorker = workerClientsMap[lowestWorkerPort()];
             
             List<DIDAOperatorID> operatorsIDs = buildOperatorsIDs();

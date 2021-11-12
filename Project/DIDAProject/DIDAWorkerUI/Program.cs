@@ -342,7 +342,7 @@ namespace DIDAWorkerUI
                 }
             }
             _applicationTermination = true;
-            return new DIDAWorker.DIDARecordReply { Id = "-1", Val = "-1", Version = { VersionNumber = -1, ReplicaId = -1 } };
+            return new DIDAWorker.DIDARecordReply { Id = "", Val = "", Version = { VersionNumber = -1, ReplicaId = -1 } };
         }
 
         public virtual DIDAWorker.DIDAVersion write(DIDAWorker.DIDAWriteRequest r)
