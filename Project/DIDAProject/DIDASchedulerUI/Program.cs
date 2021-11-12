@@ -285,12 +285,17 @@ namespace DIDASchedulerUI {
         public DIDAAssignment[] buildAssignments(List<DIDAOperatorID> operatorsIDs)
         {
             DIDAAssignment[] assignments = new DIDAAssignment[operatorsIDs.Count];
-            var keys = new List<string>(workersMap.Keys);
-          
+            var workers = new List<string>();
+            workers.Add(lowestWorkerPort());
+            foreach(var item in workersMap)
+            {
+                if (item.Value.Equals(lowestWorkerPort())) continue;
+                workers.Add(item.Value);      
+            }
+
             for (int i = 0; i < operatorsIDs.Count; i++) //circular vector
             {
-                string key = keys[i % workersMap.Count];
-                string worker = workersMap[key];
+                string worker = workers[i % workers.Count];
 
                 string[] decomposedArgs = worker.Split(":");
                 string host = decomposedArgs[1][2..];
