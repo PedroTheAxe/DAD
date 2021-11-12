@@ -1,2 +1,0 @@
-obj\Debug\netcoreapp3.1\protos/DIDAProcessCreationService.cs \
-obj\Debug\netcoreapp3.1\protos/DIDAProcessCreationServiceGrpc.cs: protos/DIDAProcessCreationService.proto

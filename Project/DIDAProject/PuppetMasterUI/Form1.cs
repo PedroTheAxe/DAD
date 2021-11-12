@@ -200,24 +200,8 @@ namespace PuppetMasterUI
             string[] toParse = args.Split(" ");
             string host = "";
             if (type.Equals("scheduler"))
-            {
                 host = toParse[0].Split(":")[1][2..];
 
-                string directory = System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString();
-                Console.WriteLine(@directory + "\r\n");
-                string applicationPath = Path.GetFullPath(Path.Combine(directory, @"..\..\..\", "ProcessCreationServiceUI", @"bin\Debug\netcoreapp3.1\", "ProcessCreationServiceUI.exe"));
-                Console.WriteLine(applicationPath + "\r\n");
-
-                using (Process process = new Process())
-                {
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.FileName = applicationPath;
-                    process.StartInfo.CreateNoWindow = false;
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                    process.Start();
-                }
-            }
-                
             if (type.Equals("worker") || type.Equals("storage"))
                 host = toParse[1].Split(":")[1][2..];
 
