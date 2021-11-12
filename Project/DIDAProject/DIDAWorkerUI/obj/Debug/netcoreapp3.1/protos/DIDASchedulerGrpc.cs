@@ -56,6 +56,10 @@ public static partial class DIDASchedulerService
   static readonly grpc::Marshaller<global::DIDANotifyCrashWorkerRequest> __Marshaller_DIDANotifyCrashWorkerRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashWorkerRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDANotifyCrashWorkerReply> __Marshaller_DIDANotifyCrashWorkerReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashWorkerReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAWorkerDelayRequest> __Marshaller_DIDAWorkerDelayRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerDelayRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAWorkerDelayReply> __Marshaller_DIDAWorkerDelayReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAWorkerDelayReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDASendRequest, global::DIDASendReply> __Method_send = new grpc::Method<global::DIDASendRequest, global::DIDASendReply>(
@@ -81,6 +85,14 @@ public static partial class DIDASchedulerService
       __Marshaller_DIDANotifyCrashWorkerRequest,
       __Marshaller_DIDANotifyCrashWorkerReply);
 
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAWorkerDelayRequest, global::DIDAWorkerDelayReply> __Method_sendWorkerDelay = new grpc::Method<global::DIDAWorkerDelayRequest, global::DIDAWorkerDelayReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "sendWorkerDelay",
+      __Marshaller_DIDAWorkerDelayRequest,
+      __Marshaller_DIDAWorkerDelayReply);
+
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
   {
@@ -105,6 +117,12 @@ public static partial class DIDASchedulerService
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public virtual global::System.Threading.Tasks.Task<global::DIDANotifyCrashWorkerReply> notifyCrashWorker(global::DIDANotifyCrashWorkerRequest request, grpc::ServerCallContext context)
+    {
+      throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+    }
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::System.Threading.Tasks.Task<global::DIDAWorkerDelayReply> sendWorkerDelay(global::DIDAWorkerDelayRequest request, grpc::ServerCallContext context)
     {
       throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
     }
@@ -198,6 +216,26 @@ public static partial class DIDASchedulerService
     {
       return CallInvoker.AsyncUnaryCall(__Method_notifyCrashWorker, null, options, request);
     }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAWorkerDelayReply sendWorkerDelay(global::DIDAWorkerDelayRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendWorkerDelay(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAWorkerDelayReply sendWorkerDelay(global::DIDAWorkerDelayRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_sendWorkerDelay, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAWorkerDelayReply> sendWorkerDelayAsync(global::DIDAWorkerDelayRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return sendWorkerDelayAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAWorkerDelayReply> sendWorkerDelayAsync(global::DIDAWorkerDelayRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_sendWorkerDelay, null, options, request);
+    }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     protected override DIDASchedulerServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -214,7 +252,8 @@ public static partial class DIDASchedulerService
     return grpc::ServerServiceDefinition.CreateBuilder()
         .AddMethod(__Method_send, serviceImpl.send)
         .AddMethod(__Method_previousVersion, serviceImpl.previousVersion)
-        .AddMethod(__Method_notifyCrashWorker, serviceImpl.notifyCrashWorker).Build();
+        .AddMethod(__Method_notifyCrashWorker, serviceImpl.notifyCrashWorker)
+        .AddMethod(__Method_sendWorkerDelay, serviceImpl.sendWorkerDelay).Build();
   }
 
   /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -227,6 +266,7 @@ public static partial class DIDASchedulerService
     serviceBinder.AddMethod(__Method_send, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDASendRequest, global::DIDASendReply>(serviceImpl.send));
     serviceBinder.AddMethod(__Method_previousVersion, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAPreviousOpRequest, global::DIDAPreviousOpReply>(serviceImpl.previousVersion));
     serviceBinder.AddMethod(__Method_notifyCrashWorker, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDANotifyCrashWorkerRequest, global::DIDANotifyCrashWorkerReply>(serviceImpl.notifyCrashWorker));
+    serviceBinder.AddMethod(__Method_sendWorkerDelay, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::DIDAWorkerDelayRequest, global::DIDAWorkerDelayReply>(serviceImpl.sendWorkerDelay));
   }
 
 }

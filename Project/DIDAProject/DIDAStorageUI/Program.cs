@@ -106,6 +106,7 @@ namespace DIDAStorageUI
                 storageNodesMap.Remove(calculateHash(request.ServerId));
                 storageClientsMap.Remove(calculateHash(request.ServerId));
             }
+            createConnection();
             Console.WriteLine("removed " + request.ServerId);
             return new DIDANotifyCrashStorageReply { Ack = "ack" };
         }
@@ -354,7 +355,7 @@ namespace DIDAStorageUI
             recordsList.Add(record);
 
 
-            if (recordsList.FindAll(r => r.id.Equals(record.id)).Count == MaxVersions)
+            if (recordsList.FindAll(r => r.id.Equals(record.id)).Count == MaxVersions + 1)
             {
                 Console.WriteLine("removed Record for MaxVersions");
                 recordsList.Remove(findLowestVersionNumber(record.id));
@@ -426,15 +427,16 @@ namespace DIDAStorageUI
             int position = 0;
             int key = 0;
             string url = "";
-            foreach(var i in keys)
+            foreach (var i in keys)
             {
                 if (calculateHash(_serverId) == i) break;
                 position++; //finds where the storage is in the ring (position)
             }
-            for(int i = 1; i < replicationFactor; i++)
+            for (int i = 1; i < replicationFactor; i++)
             {
                 key = keys[(position + i) % keys.Count];
                 url = storageNodesMap[key];
+                if (storageClientsMap.ContainsKey(key)) continue;
                 GrpcChannel channel = GrpcChannel.ForAddress(url);
                 DIDAStorageService.DIDAStorageServiceClient client = new DIDAStorageService.DIDAStorageServiceClient(channel);
                 storageClientsMap.Add(key, client);

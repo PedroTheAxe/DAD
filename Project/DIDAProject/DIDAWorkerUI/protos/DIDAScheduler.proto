@@ -6,6 +6,7 @@ service DIDASchedulerService {
     rpc send(DIDASendRequest) returns (DIDASendReply); 
     rpc previousVersion(DIDAPreviousOpRequest) returns (DIDAPreviousOpReply);
     rpc notifyCrashWorker(DIDANotifyCrashWorkerRequest) returns (DIDANotifyCrashWorkerReply);
+    rpc sendWorkerDelay(DIDAWorkerDelayRequest) returns (DIDAWorkerDelayReply);
 } 
 
 message DIDASendRequest {
@@ -65,5 +66,13 @@ message DIDANotifyCrashWorkerRequest {
 }
 
 message DIDANotifyCrashWorkerReply {
+    string ack = 1;
+}
+
+message DIDAWorkerDelayRequest {
+    string delay = 1;
+}
+
+message DIDAWorkerDelayReply {
     string ack = 1;
 }

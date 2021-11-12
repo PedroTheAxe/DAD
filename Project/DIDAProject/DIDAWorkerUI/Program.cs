@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DIDAWorkerUI
@@ -19,6 +20,7 @@ namespace DIDAWorkerUI
         //private List<DIDAStorageNode> _storageNodes;
         private DIDAMetaRecordExtension _meta = new DIDAMetaRecordExtension();
         private StorageProxy _storageProxy;
+        private int _workerDelay = 0;
 
         public SchedulerService()
         {
@@ -31,6 +33,19 @@ namespace DIDAWorkerUI
             };
             _meta.Version = version;
         }
+
+        public override Task<DIDAWorkerDelayReply> sendWorkerDelay(DIDAWorkerDelayRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(sendWorkerDelayImpl(request));
+        }
+
+        public DIDAWorkerDelayReply sendWorkerDelayImpl(DIDAWorkerDelayRequest request)
+        {
+
+            _workerDelay = Int32.Parse(request.Delay) * 1000;
+            return new DIDAWorkerDelayReply { Ack = "ack" };
+        }
+
 
         public override Task<DIDANotifyCrashWorkerReply> notifyCrashWorker(DIDANotifyCrashWorkerRequest request, ServerCallContext context)
         {
@@ -124,6 +139,7 @@ namespace DIDAWorkerUI
             DIDASendRequest sendRequest = new DIDASendRequest();
             sendRequest.Request = request.Request;
             sendRequest.StorageNodes.Add(request.StorageNodes);
+            Thread.Sleep(_workerDelay);
             var reply = client.sendAsync(sendRequest);
         }
 

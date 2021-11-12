@@ -39,12 +39,15 @@ public static partial class DIDASchedulerReflection {
           "EgoKAmlkGAEgASgFEh0KB3ZlcnNpb24YAiABKAsyDC5ESURBVmVyc2lvbiIi",
           "ChNESURBUHJldmlvdXNPcFJlcGx5EgsKA2FjaxgBIAEoCSIwChxESURBTm90",
           "aWZ5Q3Jhc2hXb3JrZXJSZXF1ZXN0EhAKCHNlcnZlcklkGAEgASgJIikKGkRJ",
-          "REFOb3RpZnlDcmFzaFdvcmtlclJlcGx5EgsKA2FjaxgBIAEoCTLSAQoURElE",
-          "QVNjaGVkdWxlclNlcnZpY2USKAoEc2VuZBIQLkRJREFTZW5kUmVxdWVzdBoO",
-          "LkRJREFTZW5kUmVwbHkSPwoPcHJldmlvdXNWZXJzaW9uEhYuRElEQVByZXZp",
-          "b3VzT3BSZXF1ZXN0GhQuRElEQVByZXZpb3VzT3BSZXBseRJPChFub3RpZnlD",
-          "cmFzaFdvcmtlchIdLkRJREFOb3RpZnlDcmFzaFdvcmtlclJlcXVlc3QaGy5E",
-          "SURBTm90aWZ5Q3Jhc2hXb3JrZXJSZXBseWIGcHJvdG8z"));
+          "REFOb3RpZnlDcmFzaFdvcmtlclJlcGx5EgsKA2FjaxgBIAEoCSInChZESURB",
+          "V29ya2VyRGVsYXlSZXF1ZXN0Eg0KBWRlbGF5GAEgASgJIiMKFERJREFXb3Jr",
+          "ZXJEZWxheVJlcGx5EgsKA2FjaxgBIAEoCTKVAgoURElEQVNjaGVkdWxlclNl",
+          "cnZpY2USKAoEc2VuZBIQLkRJREFTZW5kUmVxdWVzdBoOLkRJREFTZW5kUmVw",
+          "bHkSPwoPcHJldmlvdXNWZXJzaW9uEhYuRElEQVByZXZpb3VzT3BSZXF1ZXN0",
+          "GhQuRElEQVByZXZpb3VzT3BSZXBseRJPChFub3RpZnlDcmFzaFdvcmtlchId",
+          "LkRJREFOb3RpZnlDcmFzaFdvcmtlclJlcXVlc3QaGy5ESURBTm90aWZ5Q3Jh",
+          "c2hXb3JrZXJSZXBseRJBCg9zZW5kV29ya2VyRGVsYXkSFy5ESURBV29ya2Vy",
+          "RGVsYXlSZXF1ZXN0GhUuRElEQVdvcmtlckRlbGF5UmVwbHliBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { global::DIDAStorageReflection.Descriptor, },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -59,7 +62,9 @@ public static partial class DIDASchedulerReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAMetaRecordExtension), global::DIDAMetaRecordExtension.Parser, new[]{ "Id", "Version" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDAPreviousOpReply), global::DIDAPreviousOpReply.Parser, new[]{ "Ack" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::DIDANotifyCrashWorkerRequest), global::DIDANotifyCrashWorkerRequest.Parser, new[]{ "ServerId" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::DIDANotifyCrashWorkerReply), global::DIDANotifyCrashWorkerReply.Parser, new[]{ "Ack" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDANotifyCrashWorkerReply), global::DIDANotifyCrashWorkerReply.Parser, new[]{ "Ack" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAWorkerDelayRequest), global::DIDAWorkerDelayRequest.Parser, new[]{ "Delay" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::DIDAWorkerDelayReply), global::DIDAWorkerDelayReply.Parser, new[]{ "Ack" }, null, null, null, null)
         }));
   }
   #endregion
@@ -2750,6 +2755,384 @@ public sealed partial class DIDANotifyCrashWorkerReply : pb::IMessage<DIDANotify
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public void MergeFrom(DIDANotifyCrashWorkerReply other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Ack.Length != 0) {
+      Ack = other.Ack;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          Ack = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          Ack = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+public sealed partial class DIDAWorkerDelayRequest : pb::IMessage<DIDAWorkerDelayRequest>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<DIDAWorkerDelayRequest> _parser = new pb::MessageParser<DIDAWorkerDelayRequest>(() => new DIDAWorkerDelayRequest());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<DIDAWorkerDelayRequest> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::DIDASchedulerReflection.Descriptor.MessageTypes[12]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayRequest() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayRequest(DIDAWorkerDelayRequest other) : this() {
+    delay_ = other.delay_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayRequest Clone() {
+    return new DIDAWorkerDelayRequest(this);
+  }
+
+  /// <summary>Field number for the "delay" field.</summary>
+  public const int DelayFieldNumber = 1;
+  private string delay_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Delay {
+    get { return delay_; }
+    set {
+      delay_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as DIDAWorkerDelayRequest);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(DIDAWorkerDelayRequest other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Delay != other.Delay) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Delay.Length != 0) hash ^= Delay.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Delay.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Delay);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Delay.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Delay);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Delay.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Delay);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(DIDAWorkerDelayRequest other) {
+    if (other == null) {
+      return;
+    }
+    if (other.Delay.Length != 0) {
+      Delay = other.Delay;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          Delay = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+      switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          Delay = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+public sealed partial class DIDAWorkerDelayReply : pb::IMessage<DIDAWorkerDelayReply>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<DIDAWorkerDelayReply> _parser = new pb::MessageParser<DIDAWorkerDelayReply>(() => new DIDAWorkerDelayReply());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<DIDAWorkerDelayReply> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::DIDASchedulerReflection.Descriptor.MessageTypes[13]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayReply() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayReply(DIDAWorkerDelayReply other) : this() {
+    ack_ = other.ack_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public DIDAWorkerDelayReply Clone() {
+    return new DIDAWorkerDelayReply(this);
+  }
+
+  /// <summary>Field number for the "ack" field.</summary>
+  public const int AckFieldNumber = 1;
+  private string ack_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Ack {
+    get { return ack_; }
+    set {
+      ack_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as DIDAWorkerDelayReply);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(DIDAWorkerDelayReply other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (Ack != other.Ack) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (Ack.Length != 0) hash ^= Ack.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (Ack.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Ack);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (Ack.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(Ack);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (Ack.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Ack);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(DIDAWorkerDelayReply other) {
     if (other == null) {
       return;
     }

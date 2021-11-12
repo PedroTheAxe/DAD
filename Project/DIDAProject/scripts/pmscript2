@@ -5,10 +5,10 @@ storage s2 http://localhost:3002 2
 storage s3 http://localhost:3003 2
 storage s4 http://localhost:3004 7
 storage s5 http://localhost:3005 5
-worker w1 http://localhost:4001 0
-worker w2 http://localhost:4002 0
-worker w3 http://localhost:4003 0
-worker w4 http://localhost:4004 0
+worker w1 http://localhost:4001 3
+worker w2 http://localhost:4002 3
+worker w3 http://localhost:4003 3
+worker w4 http://localhost:4004 3
 populate app2_data
 listGlobal
 client 23 app2
