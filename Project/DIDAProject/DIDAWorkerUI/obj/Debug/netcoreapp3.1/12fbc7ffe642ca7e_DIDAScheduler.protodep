@@ -1,0 +1,3 @@
+obj\Debug\netcoreapp3.1\protos/DIDAScheduler.cs \
+obj\Debug\netcoreapp3.1\protos/DIDASchedulerGrpc.cs: protos/DIDAStorage.proto\
+ protos/DIDAScheduler.proto
