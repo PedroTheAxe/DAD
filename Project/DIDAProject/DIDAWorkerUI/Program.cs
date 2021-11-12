@@ -14,11 +14,14 @@ namespace DIDAWorkerUI
 {
     public class SchedulerService : DIDASchedulerService.DIDASchedulerServiceBase
     {
+        private string _url = "";
+        private string _nextWorker = "";
         private DIDAMetaRecordExtension _previousMeta;
         private string _previousOutput = "";
         private DIDAMetaRecordExtension _meta = new DIDAMetaRecordExtension();
         private StorageProxy _storageProxy;
         private int _workerDelay = 0;
+        private List<string> _executedOperators = new List<string>();
 
         public SchedulerService()
         {
@@ -30,6 +33,32 @@ namespace DIDAWorkerUI
                 ReplicaId = -1
             };
             _meta.Version = version;
+        }
+
+        public override Task<DIDAWorkerStatusReply> getWorkerStatus(DIDAWorkerStatusRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(getWorkerStatusImpl(request));
+        }
+
+        public DIDAWorkerStatusReply getWorkerStatusImpl(DIDAWorkerStatusRequest request)
+        {
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("WORKER URL: " + _url);
+            Console.WriteLine("NEXT WORKER: " + _nextWorker);
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("INFORMATION ABOUT THE KNOWN STORAGE NODES BY THE PROXY");
+            foreach (var item in _storageProxy.getConsistentHashingRing())
+            {
+                Console.WriteLine("Storage server hash id: " + item);
+            }
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("CURRENTLY EXECUTED OPERATORS (SUCCESSFULLY OR NOT)");
+            foreach (var item in _executedOperators)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------------------------------------------------------------");
+            return new DIDAWorkerStatusReply { Ack = "ack" };
         }
 
         public override Task<DIDAWorkerDelayReply> sendWorkerDelay(DIDAWorkerDelayRequest request, ServerCallContext context)
@@ -115,6 +144,7 @@ namespace DIDAWorkerUI
             string host = request.Request.Chain[request.Request.Next].Host;
             string port = request.Request.Chain[request.Request.Next].Port.ToString();
             string url = "http://" + host + ":" + port;
+            _nextWorker = url;
             Console.WriteLine(url);
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
@@ -186,13 +216,18 @@ namespace DIDAWorkerUI
                             _objLoadedByReflection.ConfigureStorage(_storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
                             _storageProxy.setPreviousMeta();
-
+                            _executedOperators.Add(type.Name);
                             return _storageProxy.getPreviousMeta();
                         }
                     }
                 }
             }
             return null;
+        }
+
+        public void setCredentials(string newUrl)
+        {
+            _url = newUrl;
         }
 
     }
@@ -228,6 +263,11 @@ namespace DIDAWorkerUI
             _previousMeta = meta;
             _newMeta.Id = 0;
             _newMeta.Version = version;
+        }
+
+        public List<int> getConsistentHashingRing()
+        {
+            return new List<int>(_clients.Keys);
         }
 
         public void removeFromClients(string id)
@@ -376,11 +416,14 @@ namespace DIDAWorkerUI
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
 
+            SchedulerService worker = new SchedulerService();
+
             Server server = new Server
             {
-                Services = { DIDASchedulerService.BindService(new SchedulerService()) },
+                Services = { DIDASchedulerService.BindService(worker) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
+            worker.setCredentials(args[1]);
             server.Start();
             Console.ReadLine();
             server.ShutdownAsync().Wait();

@@ -10,6 +10,7 @@ worker w2 http://localhost:4002 3
 worker w3 http://localhost:4003 3
 worker w4 http://localhost:4004 3
 populate app2_data
+status
 listGlobal
 client 23 app2
 listServer s1
@@ -17,6 +18,7 @@ listServer s2
 listServer s3
 listServer s4
 crash s4
+status
 listServer s4
 wait 2000
 client 13 app2
@@ -24,4 +26,5 @@ listServer s1
 listServer s2
 listServer s3
 listServer s4
+status
 wait 2000

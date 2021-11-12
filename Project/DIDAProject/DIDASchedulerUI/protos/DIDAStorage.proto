@@ -9,6 +9,7 @@ service DIDAStorageService {
   rpc updateServerId(DIDAUpdateServerIdRequest) returns (DIDAUpdateServerIdReply);
   rpc replicate(DIDAReplicationRequest) returns (DIDAReplicationReply);
   rpc notifyCrashStorage(DIDANotifyCrashStorageRequest) returns (DIDANotifyCrashStorageReply);
+  rpc getStorageStatus(DIDAStorageStatusRequest) returns (DIDAStorageStatusReply);
 }
 
 message DIDAReadRequest {
@@ -85,5 +86,13 @@ message DIDANotifyCrashStorageRequest {
 }
 
 message DIDANotifyCrashStorageReply {
+    string ack = 1;
+}
+
+message DIDAStorageStatusRequest {
+    string request = 1;
+}
+
+message DIDAStorageStatusReply {
     string ack = 1;
 }

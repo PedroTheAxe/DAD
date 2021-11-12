@@ -102,6 +102,12 @@ namespace DIDASchedulerUI {
                 sendCrashNotification(request.Data);
             }
 
+            if (request.Type.Equals("status"))
+            {
+                Console.WriteLine("entreiiiiiiiiiiiii");
+                sendStatusRequest();
+            }
+
             return postInitReply;
         }
 
@@ -156,6 +162,22 @@ namespace DIDASchedulerUI {
             return fileSendReply;
         }
 
+        public void sendStatusRequest()
+        {
+            DIDAWorkerStatusRequest requestWorker = new DIDAWorkerStatusRequest { Request = "status" };
+            DIDAStorageStatusRequest requestStorage = new DIDAStorageStatusRequest { Request = "status" };
+
+            foreach (var item in storageClientsMap)
+            {
+                item.Value.getStorageStatusAsync(requestStorage);
+            }
+
+            foreach (var item in workerClientsMap)
+            {
+                item.Value.getWorkerStatusAsync(requestWorker);
+            }
+        }
+
         public void sendCrashNotification(string id)
         {
             DIDANotifyCrashWorkerRequest requestWorker = new DIDANotifyCrashWorkerRequest { ServerId = id };
@@ -169,8 +191,7 @@ namespace DIDASchedulerUI {
             
             foreach (var item in workerClientsMap)
             {
-                if (!item.Key.Equals(lowestWorkerPort()))
-                    item.Value.notifyCrashWorkerAsync(requestWorker);
+                item.Value.notifyCrashWorkerAsync(requestWorker);
             }
         }
 

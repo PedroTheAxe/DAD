@@ -138,8 +138,8 @@ namespace PuppetMasterUI
                     _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] });
                     break;
 
-                case "status":
-                    //Console.WriteLine("entered status\r\n");
+                case "status\r":
+                    _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "status" });
                     break;
                 
                 case "listServer":
@@ -155,7 +155,6 @@ namespace PuppetMasterUI
                     break;
 
                 case "debug":
-                    //Console.WriteLine("entered debug\r\n");
                     break;
 
                 case "crash":

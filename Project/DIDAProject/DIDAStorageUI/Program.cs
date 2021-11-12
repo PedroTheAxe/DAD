@@ -13,11 +13,14 @@ namespace DIDAStorageUI
 {
 
     class StorageService : DIDAStorageService.DIDAStorageServiceBase {
-        
+
+
+        private string url = "";
         public List<DIDARecord> recordsList = new List<DIDARecord>();
         private string _serverId = "";
         private Dictionary<int, string> storageNodesMap = new Dictionary<int, string>();
         private Dictionary<int, DIDAStorageService.DIDAStorageServiceClient> storageClientsMap = new Dictionary<int, DIDAStorageService.DIDAStorageServiceClient>();
+        private Dictionary<string, bool> storageNodesAliveMap = new Dictionary<string, bool>();
         private int replicationFactor = 2;
         private Dictionary<DIDARecordInfo, DIDAUpdateIfRequest> updateLog = new Dictionary<DIDARecordInfo, DIDAUpdateIfRequest>();
         private Dictionary<DIDARecordInfo, DIDAWriteRequest> writeLog = new Dictionary<DIDARecordInfo, DIDAWriteRequest>();
@@ -86,7 +89,46 @@ namespace DIDAStorageUI
             request.UpdateLog.Clear();
             updateLog.Clear();
 
-            Console.WriteLine("-------------------------DEBUG-------------------------------");
+            //Console.WriteLine("-------------------------DEBUG-------------------------------");
+        }
+
+        public override Task<DIDAStorageStatusReply> getStorageStatus(DIDAStorageStatusRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(getStorageStatusImpl(request));
+        }
+
+        public DIDAStorageStatusReply getStorageStatusImpl(DIDAStorageStatusRequest request)
+        {
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("SERVER ID: " + _serverId);
+            Console.WriteLine("SERVER ID HASH: " + calculateHash(_serverId));
+            Console.WriteLine("SERVER URL: " + url);
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("INFORMATION ABOUT THE RECORD DATABASE: ");
+            foreach (var record in recordsList)
+            {
+                Console.WriteLine("Record id: " + record.id);
+                Console.WriteLine("Record stored value: " + record.val);
+                Console.WriteLine("Record version number: " + record.version.versionNumber);
+                Console.WriteLine("Replica associated to record: id = " + record.version.replicaId);
+                Console.WriteLine("\r\n");
+            }
+
+            Console.WriteLine("-----------------------------------------------------------------");
+            Console.WriteLine("INFORMATION ABOUT OTHER STORAGE NODES: ");
+            foreach (var item in storageNodesAliveMap)
+            {
+                if (item.Value) 
+                {
+                    Console.WriteLine("Storage server " + item.Key + " is alive");
+                }
+                else
+                {
+                    Console.WriteLine("Storage server " + item.Key + " is presumed dead");
+                }
+            }
+            Console.WriteLine("-----------------------------------------------------------------");
+            return new DIDAStorageStatusReply { Ack = "ack" };
         }
 
         public override Task<DIDANotifyCrashStorageReply> notifyCrashStorage(DIDANotifyCrashStorageRequest request, ServerCallContext context)
@@ -100,6 +142,7 @@ namespace DIDAStorageUI
             {
                 storageNodesMap.Remove(calculateHash(request.ServerId));
                 storageClientsMap.Remove(calculateHash(request.ServerId));
+                storageNodesAliveMap[request.ServerId] = false;
             }
             createConnection();
             Console.WriteLine("removed " + request.ServerId);
@@ -114,7 +157,7 @@ namespace DIDAStorageUI
         public DIDAReplicationReply replicateImpl(DIDAReplicationRequest request)
         {
             //Console.WriteLine(request);
-            Console.WriteLine("entrar");
+            //Console.WriteLine("entrar");
             List<DIDAWriteLog> writeQueue = new List<DIDAWriteLog>();
             List<DIDAUpdateLog> updateQueue = new List<DIDAUpdateLog>();
             
@@ -171,6 +214,7 @@ namespace DIDAStorageUI
                 lock (this)
                 {
                     storageNodesMap.Add(calculateHash(parameters[0]), parameters[1]);
+                    storageNodesAliveMap.Add(parameters[0], true);
                 }
             }
             createConnection();
@@ -423,6 +467,12 @@ namespace DIDAStorageUI
                 storageClientsMap.Add(key, client);
             }            
         }
+
+        public void setCredentials(string newUrl)
+        {
+            url = newUrl;
+
+        }
     }
 
     class Program {
@@ -437,11 +487,14 @@ namespace DIDAStorageUI
             int port = Int32.Parse(decomposedArgs[2]);
             Console.WriteLine(port);
 
+            StorageService storage = new StorageService();
+
             Server server = new Server
             {
-                Services = { DIDAStorageService.BindService(new StorageService()) },
+                Services = { DIDAStorageService.BindService(storage) },
                 Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
             };
+            storage.setCredentials(args[1]);
             server.Start();
             Console.ReadKey();
             server.ShutdownAsync().Wait();

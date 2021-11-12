@@ -73,6 +73,10 @@ public static partial class DIDAStorageService
   static readonly grpc::Marshaller<global::DIDANotifyCrashStorageRequest> __Marshaller_DIDANotifyCrashStorageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashStorageRequest.Parser));
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Marshaller<global::DIDANotifyCrashStorageReply> __Marshaller_DIDANotifyCrashStorageReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDANotifyCrashStorageReply.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAStorageStatusRequest> __Marshaller_DIDAStorageStatusRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAStorageStatusRequest.Parser));
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Marshaller<global::DIDAStorageStatusReply> __Marshaller_DIDAStorageStatusReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::DIDAStorageStatusReply.Parser));
 
   [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
   static readonly grpc::Method<global::DIDAReadRequest, global::DIDARecordReply> __Method_read = new grpc::Method<global::DIDAReadRequest, global::DIDARecordReply>(
@@ -129,6 +133,14 @@ public static partial class DIDAStorageService
       "notifyCrashStorage",
       __Marshaller_DIDANotifyCrashStorageRequest,
       __Marshaller_DIDANotifyCrashStorageReply);
+
+  [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+  static readonly grpc::Method<global::DIDAStorageStatusRequest, global::DIDAStorageStatusReply> __Method_getStorageStatus = new grpc::Method<global::DIDAStorageStatusRequest, global::DIDAStorageStatusReply>(
+      grpc::MethodType.Unary,
+      __ServiceName,
+      "getStorageStatus",
+      __Marshaller_DIDAStorageStatusRequest,
+      __Marshaller_DIDAStorageStatusReply);
 
   /// <summary>Service descriptor</summary>
   public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -302,6 +314,26 @@ public static partial class DIDAStorageService
     public virtual grpc::AsyncUnaryCall<global::DIDANotifyCrashStorageReply> notifyCrashStorageAsync(global::DIDANotifyCrashStorageRequest request, grpc::CallOptions options)
     {
       return CallInvoker.AsyncUnaryCall(__Method_notifyCrashStorage, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAStorageStatusReply getStorageStatus(global::DIDAStorageStatusRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getStorageStatus(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual global::DIDAStorageStatusReply getStorageStatus(global::DIDAStorageStatusRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.BlockingUnaryCall(__Method_getStorageStatus, null, options, request);
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAStorageStatusReply> getStorageStatusAsync(global::DIDAStorageStatusRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+    {
+      return getStorageStatusAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+    }
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    public virtual grpc::AsyncUnaryCall<global::DIDAStorageStatusReply> getStorageStatusAsync(global::DIDAStorageStatusRequest request, grpc::CallOptions options)
+    {
+      return CallInvoker.AsyncUnaryCall(__Method_getStorageStatus, null, options, request);
     }
     /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
