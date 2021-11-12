@@ -6,6 +6,10 @@
 		<ApplicationIcon />
 		<StartupObject />
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="protos\DIDADebug.proto" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.18.1" />
@@ -18,6 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Protobuf Include="protos\DIDADebug.proto" GrpcServices="Client" />
 		<Protobuf Include="protos\DIDAStorage.proto" GrpcServices="Both" />
 		<Protobuf Include="protos\DIDAScheduler.proto" GrpcServices="Both" />
 		

@@ -1,0 +1,2 @@
+obj\Debug\netcoreapp3.1\protos/DIDADebug.cs \
+obj\Debug\netcoreapp3.1\protos/DIDADebugGrpc.cs: protos/DIDADebug.proto

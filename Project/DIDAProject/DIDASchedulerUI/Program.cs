@@ -108,7 +108,7 @@ namespace DIDASchedulerUI {
             if (request.Type.Equals("debug"))
             {
                 Console.WriteLine("debuuuuuuug");
-                sendDebugRequest();
+                sendDebugRequest(request.Data);
             }
 
             return postInitReply;
@@ -165,10 +165,10 @@ namespace DIDASchedulerUI {
             return fileSendReply;
         }
 
-        public void sendDebugRequest()
+        public void sendDebugRequest(string data)
         {
-            DIDAWorkerDebugRequest requestWorker = new DIDAWorkerDebugRequest { Debug = "debug" };
-            DIDAStorageDebugRequest requestStorage = new DIDAStorageDebugRequest { Debug = "debug" };
+            DIDAWorkerDebugRequest requestWorker = new DIDAWorkerDebugRequest { Debug = data };
+            DIDAStorageDebugRequest requestStorage = new DIDAStorageDebugRequest { Debug = data };
 
             foreach (var item in storageClientsMap)
             {

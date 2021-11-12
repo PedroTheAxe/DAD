@@ -1,0 +1,13 @@
+﻿syntax = "proto3";  
+
+service DIDADebugService {   
+	rpc sendDebug(DIDASendDebugRequest) returns (DIDASendDebugReply);
+} 
+
+message DIDASendDebugRequest {     
+	string data = 1;
+}  
+
+message DIDASendDebugReply {
+	string ack = 1;
+}

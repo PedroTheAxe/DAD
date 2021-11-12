@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using Grpc.Core;
+using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,10 @@ using System.Windows.Forms;
 
 namespace PuppetMasterUI
 {
+    
     public partial class Form1 : Form
     {
+        private string _urlPM = "";
         private bool _debugMode = false;
         private string _schedulerHost = "";
         private int _schedulerPort;
@@ -29,11 +32,28 @@ namespace PuppetMasterUI
         DIDAProcessCreationService.DIDAProcessCreationServiceClient _processClient = null;
         private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _usedClientsMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
         private Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient> _storageNodesMap = new Dictionary<string, DIDAProcessCreationService.DIDAProcessCreationServiceClient>();
-        
+        private DebugService _debugService = new DebugService();
+
         public Form1()
         {
             InitializeComponent();
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            int port = 10001;
+            string host = "localhost";
+
+            _urlPM = "http://" + host + ":" + port.ToString();
+
+
+            Server server = new Server
+            {
+                Services = { DIDADebugService.BindService(_debugService) },
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) } //need to do ipconfig when testing on lab
+            };
+
+            _debugService.addForm(this);
+            server.Start();
+            server.ShutdownAsync().Wait();
+
         }
 
         private bool isInit(string command)
@@ -63,7 +83,7 @@ namespace PuppetMasterUI
                     }
 
                     textBox1.Text = _commands[0];
-                    _commands.RemoveAt(0);
+                    //_commands.RemoveAt(0);
                 }
                 catch (IOException)
                 {
@@ -101,6 +121,7 @@ namespace PuppetMasterUI
             string[] instance = command.Split(' ');
             string arguments;
             string fileName;
+            //MessageBox.Show(instance[0] + " " + command);
             switch (instance[0])
             {
                 case "scheduler":
@@ -225,7 +246,7 @@ namespace PuppetMasterUI
         {
             _client.sendFile(new DIDAFileSendRequest { Workers = _workers, StorageNodes = _storageNodes});
             if (_debugMode)
-                _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "debug" });
+                _client.sendPostInit(new DIDAPostInitRequest { Data = _urlPM, Type = "debug" });
         }
 
         public string openFile(string type, string fileName)
@@ -270,6 +291,47 @@ namespace PuppetMasterUI
                 commandParser(s);
                 _previousCommand = tempSplit[0];
             }          
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void addtoDebug(string text)
+        {
+            textBox2.AppendText(text + Environment.NewLine);
+        }
+    }
+    public class DebugService : DIDADebugService.DIDADebugServiceBase
+    {
+        private Form1 _form;
+        public DebugService()
+        {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+        }
+
+        public override Task<DIDASendDebugReply> sendDebug(DIDASendDebugRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(sendDebugImpl(request));
+        }
+
+        public DIDASendDebugReply sendDebugImpl(DIDASendDebugRequest request)
+        {
+            MessageBox.Show("UUUUUUUUAAAAAAAAAA");
+            _form.addtoDebug(request.Data);
+            return new DIDASendDebugReply { Ack = "ack" };
+        }
+
+        public void addForm(Form1 form)
+        {
+            _form = form;
         }
     }
 }

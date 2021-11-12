@@ -42,7 +42,6 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetM
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libgrpc_csharp_ext.x64.dylib
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\grpc_csharp_ext.x64.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\grpc_csharp_ext.x86.dll
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.Form1.resources
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.GenerateResource.cache
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.AssemblyInfoInputs.cache
@@ -52,7 +51,6 @@ C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetM
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
-C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.exe
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.deps.json
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\bin\Debug\netcoreapp3.1\PuppetMasterUI.runtimeconfig.json
@@ -81,3 +79,5 @@ C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcor
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.dll
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.pdb
 C:\Users\joaop\Documents\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.genruntimeconfig.cache
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.Form1.resources
+C:\Users\francisco_rosa\Desktop\METI\DAD\Project\DAD\Project\DIDAProject\PuppetMasterUI\obj\Debug\netcoreapp3.1\PuppetMasterUI.csproj.AssemblyReference.cache

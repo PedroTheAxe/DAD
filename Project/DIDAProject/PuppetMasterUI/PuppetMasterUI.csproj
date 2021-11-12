@@ -8,6 +8,10 @@
     <StartupObject />
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="protos\DIDADebug.proto" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Google.Protobuf" Version="3.18.1" />
 		<PackageReference Include="Grpc.Core" Version="2.41.0" />
@@ -19,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Protobuf Include="protos\DIDADebug.proto" GrpcServices="Server" />
 		<Protobuf Include="protos\DIDAPuppetMaster.proto" GrpcServices="Client" />
 	</ItemGroup>
 

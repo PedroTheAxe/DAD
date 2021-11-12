@@ -23,6 +23,7 @@ namespace DIDAWorkerUI
         private int _workerDelay = 0;
         private List<string> _executedOperators = new List<string>();
         private bool _debugMode = false;
+        private DIDADebugService.DIDADebugServiceClient _clientPM = null;
 
         public SchedulerService()
         {
@@ -44,6 +45,8 @@ namespace DIDAWorkerUI
         public DIDAWorkerDebugReply startWorkerDebugImpl(DIDAWorkerDebugRequest request)
         {
             _debugMode = true;
+            GrpcChannel channel = GrpcChannel.ForAddress(request.Debug);
+            _clientPM = new DIDADebugService.DIDADebugServiceClient(channel);
             return new DIDAWorkerDebugReply { Ack = "ack" };
         }
 
@@ -141,9 +144,7 @@ namespace DIDAWorkerUI
 
             if (request.Request.Next < request.Request.ChainSize)
             {
-                Console.WriteLine("-------------------------------");
                 sendToNextWorker(request);
-                Console.WriteLine("-------------------------------");
             }
 
 
@@ -157,7 +158,6 @@ namespace DIDAWorkerUI
             string port = request.Request.Chain[request.Request.Next].Port.ToString();
             string url = "http://" + host + ":" + port;
             _nextWorker = url;
-            Console.WriteLine(url);
 
             GrpcChannel channel = GrpcChannel.ForAddress(url);
             DIDASchedulerService.DIDASchedulerServiceClient client = new DIDASchedulerService.DIDASchedulerServiceClient(channel);
@@ -227,8 +227,18 @@ namespace DIDAWorkerUI
                             _storageProxy = new StorageProxy(storageNodes, meta);
                             _objLoadedByReflection.ConfigureStorage(_storageProxy);
                             _previousOutput = _objLoadedByReflection.ProcessRecord(new DIDAWorker.DIDAMetaRecord { Id = request.Request.Meta.Id }, request.Request.Input, _previousOutput);
-                            if (_debugMode) //should send it to the PM
-                                Console.WriteLine("Output: " + _previousOutput);
+
+                            //There was a bug we could not solve: Grpc was unavailable to the PuppetMaster
+                            //if (_debugMode)
+                            //{
+                            //    //should send it to the PM
+                            //    Console.WriteLine("Output: " + _previousOutput);
+                            //    DIDASendDebugRequest debugInfo = new DIDASendDebugRequest
+                            //    {
+                            //        Data = "Output from worker (" + _url + ") of " + type.Name + ": " + _previousOutput
+                            //    };
+                            //    _clientPM.sendDebug(debugInfo);
+                            //} 
 
                             _storageProxy.setPreviousMeta();
                             _executedOperators.Add(type.Name);
@@ -289,7 +299,6 @@ namespace DIDAWorkerUI
         {
             _clients.Remove(calculateHash(id));
             _channels.Remove(id);
-            Console.WriteLine("removed " + id);
         }
 
         public bool getApplicationTermination()
