@@ -38,16 +38,15 @@ namespace PuppetMasterUI
         {
             InitializeComponent();
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            
             int port = 10001;
             string host = "localhost";
-
             _urlPM = "http://" + host + ":" + port.ToString();
-
 
             Server server = new Server
             {
                 Services = { DIDADebugService.BindService(_debugService) },
-                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) } //need to do ipconfig when testing on lab
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) } //need to do ipconfig when testing on lab -- disabled call
             };
 
             _debugService.addForm(this);
@@ -58,7 +57,6 @@ namespace PuppetMasterUI
 
         private bool isInit(string command)
         {
-            // removed wait and debug - check if ok!
             if (command.Equals("scheduler") || command.Equals("worker") || command.Equals("storage"))
                 return true;
             else
@@ -83,7 +81,6 @@ namespace PuppetMasterUI
                     }
 
                     textBox1.Text = _commands[0];
-                    //_commands.RemoveAt(0);
                 }
                 catch (IOException)
                 {
@@ -121,12 +118,11 @@ namespace PuppetMasterUI
             string[] instance = command.Split(' ');
             string arguments;
             string fileName;
-            //MessageBox.Show(instance[0] + " " + command);
             switch (instance[0])
             {
                 case "scheduler":
                     //instance[1] -- é o server_id
-                    arguments = instance[2];
+                    arguments = instance[2]; //url
                     string[] handleConnection = arguments.Split(":");
                     _schedulerHost = handleConnection[1][2..];
                     _schedulerPort = Int32.Parse(handleConnection[2]);
@@ -137,43 +133,43 @@ namespace PuppetMasterUI
                     break;
 
                 case "storage":
-                    arguments = instance[1] + " " + instance[2] + " " + instance[3];
+                    arguments = instance[1] + " " + instance[2] + " " + instance[3]; //id url delay
                     _storageNodes += arguments + ";";
                     fileName = "DIDAStorageUI";
                     processCreationService(fileName, arguments, "storage");
                     break;
 
                 case "worker":
-                    arguments = instance[1] + " " + instance[2] + " " + instance[3];
+                    arguments = instance[1] + " " + instance[2] + " " + instance[3]; //id url delay
                     _workers += arguments + ";";
                     fileName = "DIDAWorkerUI";
                     processCreationService(fileName, arguments, "worker");
                     break;
 
                 case "populate":
-                    _populateData = openFile("populate", instance[1]);
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
+                    _populateData = openFile("populate", instance[1]); //instance[1] file to open
+                    _client.sendPostInitAsync(new DIDAPostInitRequest { Data = _populateData, Type = "populate" });
                     break;
 
                 case "client":
-                    _operators = openFile("client", instance[2]);
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] });
+                    _operators = openFile("client", instance[2]); //instance[2] file to open
+                    _client.sendPostInitAsync(new DIDAPostInitRequest { Data = _operators, Type = "client" + " " + instance[1] }); //instance[1] client_id
                     break;
 
                 case "status\r":
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "status" });
+                    _client.sendPostInitAsync(new DIDAPostInitRequest { Data = "data", Type = "status" });
                     break;
                 
                 case "listServer":
-                    string server = instance[1].Split("\r")[0];
+                    string server = instance[1].Split("\r")[0]; //server_id
                     if (_storageNodesMap.ContainsKey(server))
-                        _client.sendPostInit(new DIDAPostInitRequest { Data = server, Type = "listServer" });  
+                        _client.sendPostInitAsync(new DIDAPostInitRequest { Data = server, Type = "listServer" });  
                     else
                         MessageBox.Show("Server not alive!");
                     break;
 
                 case "listGlobal\r":
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
+                    _client.sendPostInitAsync(new DIDAPostInitRequest { Data = "data", Type = "listGlobal" });
                     break;
 
                 case "debug\r":
@@ -182,10 +178,11 @@ namespace PuppetMasterUI
 
                 case "crash":
                     string serverId = instance[1].Split("\r")[0];
-                    var reply = _storageNodesMap[serverId].crashServer(new DIDACrashRequest { ServerId = serverId });
-                    if (reply.Ack.Equals("ack"))
-                        _storageNodesMap.Remove(serverId);
-                    _client.sendPostInit(new DIDAPostInitRequest { Data = serverId, Type = "crash" });
+                    //not async to have confirmation for the removal of the node crashed
+                    var reply = _storageNodesMap[serverId].crashServerAsync(new DIDACrashRequest { ServerId = serverId });
+                    //if (reply.Ack.Equals("ack"))
+                    _storageNodesMap.Remove(serverId);
+                    _client.sendPostInitAsync(new DIDAPostInitRequest { Data = serverId, Type = "crash" });
                     break;
 
                 case "wait":
@@ -234,7 +231,7 @@ namespace PuppetMasterUI
             if (type.Equals("storage"))
                 _storageNodesMap.Add(toParse[0], _processClient);
 
-            _usedClientsMap[host].sendProcess(new DIDAProcessSendRequest { FileName = fileName, Args = args });
+            _usedClientsMap[host].sendProcessAsync(new DIDAProcessSendRequest { FileName = fileName, Args = args });
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -324,7 +321,6 @@ namespace PuppetMasterUI
 
         public DIDASendDebugReply sendDebugImpl(DIDASendDebugRequest request)
         {
-            MessageBox.Show("UUUUUUUUAAAAAAAAAA");
             _form.addtoDebug(request.Data);
             return new DIDASendDebugReply { Ack = "ack" };
         }
